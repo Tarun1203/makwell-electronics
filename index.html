@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>MakWell Electronics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <div class="brand-logo"></div>
+        <span class="brand-text">MakWell</span>
+      </a>
+      <nav class="nav">
+        <a href="#">Products</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="toggle-icon">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="carousel" id="carousel">
+      <div class="carousel-track">
+        <article class="slide active">
+          <div class="slide-image slide-1"></div>
+          <div class="slide-caption">
+            <h2>New Arrivals</h2>
+            <p>Discover the freshest electronics from MakWell.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-image slide-2"></div>
+          <div class="slide-caption">
+            <h2>Best Sellers</h2>
+            <p>Shop the community favorites.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-image slide-3"></div>
+          <div class="slide-caption">
+            <h2>Seasonal Deals</h2>
+            <p>Limited-time offers you can't miss.</p>
+          </div>
+        </article>
+      </div>
+      <button class="carousel-btn prev" id="prev-slide">‹</button>
+      <button class="carousel-btn next" id="next-slide">›</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </section>
+
+    <section class="products">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="product-grid" id="product-grid">
+        <!-- Product cards inserted via JS -->
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
