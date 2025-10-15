@@ -231,3 +231,39 @@ body {
   font-size: 0.8rem;
   color: var(--muted);
 }
+/* Additional styles for product tags and filters */
+.remote-overlay {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 35%;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.product-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 999px;
+  padding: 3px 8px;
+  margin: 2px 6px 0 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0 16px;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  border: 1px solid rgba(0,0,0,0.15);
+  background: var(--card);
+  color: var(--fg);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
