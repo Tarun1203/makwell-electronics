@@ -267,3 +267,99 @@ body {
   border-radius: 10px;
 }
 
+
+/* Layout helpers for About and Contact pages */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 800px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+.hero {
+  padding: 24px 0;
+}
+.card {
+  background: var(--card);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 16px;
+}
+.stat {
+  text-align: center;
+}
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.stat-label {
+  opacity: 0.75;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.team-card .avatar {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+form label {
+  display: block;
+  font-weight: 600;
+  margin-top: 8px;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: var(--bg);
+  color: var(--fg);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: var(--accent);
+  color: #fff;
+}
+.btn.outline {
+  background: transparent;
+  color: var(--fg);
+}
+.contact-cards .card h3 {
+  margin-bottom: 4px;
+}
+details {
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+details[open] {
+  background: var(--card);
+}
+summary {
+  cursor: pointer;
+  font-weight: 600;
+}
