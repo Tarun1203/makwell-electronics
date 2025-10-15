@@ -1,0 +1,234 @@
+[
+  {
+    "id": "tv-24n",
+    "title": "24\" LED TV (Normal)",
+    "category": "Televisions",
+    "size": 24,
+    "os": "—",
+    "series": "LED TV",
+    "tags": [
+      "Full HD 1080p",
+      "60cm",
+      "Low Power"
+    ],
+    "specs": [
+      "16.7M Colors"
+    ],
+    "image": "assets/MK24.jpg"
+  },
+  {
+    "id": "tv-32s",
+    "title": "32\" Smart LED TV",
+    "category": "Televisions",
+    "size": 32,
+    "os": "Android 11",
+    "series": "Android",
+    "tags": [
+      "HD Ready",
+      "Low Power"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK32S.jpg"
+  },
+  {
+    "id": "tv-40s",
+    "title": "40\" Smart TV",
+    "category": "Televisions",
+    "size": 40,
+    "os": "Android",
+    "series": "Android",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK40S.jpg"
+  },
+  {
+    "id": "tv-43s",
+    "title": "43\" Smart TV",
+    "category": "Televisions",
+    "size": 43,
+    "os": "Android",
+    "series": "Android",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK43S.jpg"
+  },
+  {
+    "id": "tv-43w",
+    "title": "43\" webOS TV",
+    "category": "Televisions",
+    "size": 43,
+    "os": "webOS",
+    "series": "webOS",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK43Web.jpg"
+  },
+  {
+    "id": "tv-50g",
+    "title": "50\" Google TV",
+    "category": "Televisions",
+    "size": 50,
+    "os": "Google TV",
+    "series": "Google",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK50G.jpg"
+  },
+  {
+    "id": "tv-55web",
+    "title": "55\" WebOS TV",
+    "category": "Televisions",
+    "size": 55,
+    "os": "webOS",
+    "series": "webOS",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK55G.jpg"
+  },
+  {
+    "id": "tv-65web",
+    "title": "65\" WebOS TV",
+    "category": "Televisions",
+    "size": 65,
+    "os": "webOS",
+    "series": "webOS",
+    "tags": [
+      "Full HD",
+      "Voice Keypad"
+    ],
+    "specs": [
+      "1GB RAM",
+      "8GB ROM"
+    ],
+    "image": "assets/MK65G.jpg"
+  },
+  {
+    "id": "wm-7",
+    "title": "Semi Auto Washing Machine – 7.0 kg",
+    "category": "Washing Machines",
+    "size": 7,
+    "series": "SAWM",
+    "specs": [
+      "135W Motor",
+      "2 Programs",
+      "Heavy Pulsator",
+      "Lint Filter",
+      "Diamond Steel Drum",
+      "Buzzer"
+    ],
+    "tags": [
+      "Toughened Glass",
+      "ABS Body"
+    ],
+    "image": "assets/MKSSAWM7.jpg"
+  },
+  {
+    "id": "wm-9",
+    "title": "Semi Auto Washing Machine – 9.0 kg",
+    "category": "Washing Machines",
+    "size": 9,
+    "series": "SAWM",
+    "specs": [
+      "185W Motor",
+      "2 Programs",
+      "Heavy Pulsator",
+      "Lint Filter",
+      "Diamond Steel Drum",
+      "Buzzer"
+    ],
+    "tags": [
+      "Toughened Glass",
+      "ABS Body"
+    ],
+    "image": "assets/MKSSAWM9.jpg"
+  },
+  {
+    "id": "wm-11",
+    "title": "Semi Auto Washing Machine – 11.0 kg",
+    "category": "Washing Machines",
+    "size": 11,
+    "series": "SAWM",
+    "specs": [
+      "200W Motor",
+      "2 Programs",
+      "Heavy Pulsator",
+      "Lint Filter",
+      "Diamond Steel Drum",
+      "Buzzer"
+    ],
+    "tags": [
+      "Toughened Glass",
+      "ABS Body"
+    ],
+    "image": "assets/MKSSAWM11.jpg"
+  },
+  {
+    "id": "stab-fridge",
+    "title": "Refrigerator Stabilizer (up to 365L)",
+    "category": "Stabilizers",
+    "size": 365,
+    "series": "Stabilizer",
+    "tags": [
+      "500 VA",
+      "5 Year Warranty"
+    ],
+    "image": "assets/MKSTBZREF.jpg"
+  },
+  {
+    "id": "stab-led-plus",
+    "title": "Smart Plus Stabilizer (up to 75 Inch LED TV)",
+    "category": "Stabilizers",
+    "size": 75,
+    "series": "Stabilizer",
+    "tags": [
+      "LED TV",
+      "5 Year Warranty"
+    ],
+    "image": "assets/MKSTBZSMT.jpg"
+  },
+  {
+    "id": "stab-led-mini",
+    "title": "MINI Stabilizer (up to 43 Inch LED TV)",
+    "category": "Stabilizers",
+    "size": 43,
+    "series": "Stabilizer",
+    "tags": [
+      "LED TV",
+      "5 Year Warranty"
+    ],
+    "image": "assets/MKSTBZMINI.jpg"
+  }
+]
