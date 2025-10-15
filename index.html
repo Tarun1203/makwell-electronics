@@ -9,14 +9,14 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#">
+      <a class="brand" href="index.html">
         <div class="brand-logo"></div>
         <span class="brand-text">MakWell</span>
       </a>
       <nav class="nav">
-        <a href="#">Products</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="index.html#product-grid">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
         <span class="toggle-icon">☾</span>
@@ -25,6 +25,7 @@
   </header>
 
   <main>
+    <!-- Carousel section -->
     <section class="carousel" id="carousel">
       <div class="carousel-track">
         <article class="slide active">
@@ -38,31 +39,34 @@
           <div class="slide-image slide-2"></div>
           <div class="slide-caption">
             <h2>Best Sellers</h2>
-            <p>Shop the community favorites.</p>
+            <p>Shop the community favourites.</p>
           </div>
         </article>
         <article class="slide">
           <div class="slide-image slide-3"></div>
           <div class="slide-caption">
             <h2>Seasonal Deals</h2>
-            <p>Limited-time offers you can't miss.</p>
+            <p>Don’t miss out on limited offers.</p>
           </div>
         </article>
       </div>
-      <button class="carousel-btn prev" id="prev-slide">‹</button>
-      <button class="carousel-btn next" id="next-slide">›</button>
-      <div class="carousel-dots" id="carousel-dots"></div>
+      <button id="prev-slide" class="carousel-btn prev" aria-label="Previous slide">‹</button>
+      <button id="next-slide" class="carousel-btn next" aria-label="Next slide">›</button>
+      <div id="carousel-dots" class="carousel-dots"></div>
     </section>
 
-    <section class="products">
+    <!-- Products section -->
+    <section class="products container">
       <h2 class="section-title">Featured Products</h2>
-      <div class="product-grid" id="product-grid">
-        <!-- Product cards inserted via JS -->
+      <div class="filters">
+        <select id="filter-category"><option value="">All Categories</option></select>
+        <select id="filter-os"><option value="">All OS</option></select>
       </div>
+      <div id="product-grid" class="product-grid"></div>
     </section>
   </main>
 
- <script src="script.js"></script>
-<script src="app.js></script>
+  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
-</html>l>
+</html>
