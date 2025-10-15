@@ -1,57 +1,72 @@
-<!-- ✅ Place this at the very top of <body> in index.html -->
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="./index.html">
-      <!-- Update the logo file if your filename differs -->
-      <img src="./images/logo.png" alt="Makwell" class="brand-logo" />
-      <span class="brand-text">Makwell</span>
-    </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>MakWell Electronics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-logo"></div>
+        <span class="brand-text">MakWell</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#product-grid">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="toggle-icon">☾</span>
+      </button>
+    </div>
+  </header>
 
-    <nav class="nav">
-      <a href="./collections.html">Collections</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./contact.html">Contact</a>
-    </nav>
-
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-      <span class="toggle-icon" aria-hidden="true">☾</span>
-    </button>
-  </div>
-</header>
-
-<!-- ✅ Add this where you want the carousel on your homepage -->
-<section class="carousel" aria-roledescription="carousel">
-  <div class="carousel-track" id="carousel-track">
-    <!-- Example slides (replace images/copy as needed) -->
-    <article class="slide is-active">
-      <img src="./images/hero-1.jpg" alt="Latest Makwell arrivals" />
-      <div class="slide-caption">
-        <h2>New Arrivals</h2>
-        <p>Discover the freshest drops from Makwell.</p>
+  <main>
+    <!-- Carousel section -->
+    <section class="carousel" id="carousel">
+      <div class="carousel-track">
+        <article class="slide active">
+          <div class="slide-image slide-1"></div>
+          <div class="slide-caption">
+            <h2>New Arrivals</h2>
+            <p>Discover the freshest electronics from MakWell.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-image slide-2"></div>
+          <div class="slide-caption">
+            <h2>Best Sellers</h2>
+            <p>Shop the community favourites.</p>
+          </div>
+        </article>
+        <article class="slide">
+          <div class="slide-image slide-3"></div>
+          <div class="slide-caption">
+            <h2>Seasonal Deals</h2>
+            <p>Don’t miss out on limited offers.</p>
+          </div>
+        </article>
       </div>
-    </article>
-    <article class="slide">
-      <img src="./images/hero-2.jpg" alt="Makwell best sellers" />
-      <div class="slide-caption">
-        <h2>Best Sellers</h2>
-        <p>Shop the community favorites.</p>
+      <button id="prev-slide" class="carousel-btn prev" aria-label="Previous slide">‹</button>
+      <button id="next-slide" class="carousel-btn next" aria-label="Next slide">›</button>
+      <div id="carousel-dots" class="carousel-dots"></div>
+    </section>
+
+    <!-- Products section -->
+    <section class="products container">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="filters">
+        <select id="filter-category"><option value="">All Categories</option></select>
+        <select id="filter-os"><option value="">All OS</option></select>
       </div>
-    </article>
-    <article class="slide">
-      <img src="./images/hero-3.jpg" alt="Makwell seasonal collection" />
-      <div class="slide-caption">
-        <h2>Seasonal Collection</h2>
-        <p>Limited runs. Don’t miss out.</p>
-      </div>
-    </article>
-  </div>
+      <div id="product-grid" class="product-grid"></div>
+    </section>
+  </main>
 
-  <button class="carousel-btn prev" id="prev-slide" aria-label="Previous slide">‹</button>
-  <button class="carousel-btn next" id="next-slide" aria-label="Next slide">›</button>
-
-  <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Slide dots"></div>
-</section>
-
-<!-- ✅ Move your scripts to the end of <body> -->
-<script src="./app.js" defer></script>
+  <script src="script.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
