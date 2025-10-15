@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About • MakWell</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="MakWell Electronics — Smart TVs, washing machines and stabilizers engineered for Indian homes." />
+</head>
+<body>
+  <header class="container header">
+    <a href="index.html" class="logo">
+      <img src="images/Makwell logo.jpg" alt="MakWell" height="40" />
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a class="active" href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme"><span class="toggle-icon">☾</span></button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 id="about-headline">Electronics built for Indian homes</h1>
+      <p id="about-subcopy">Smart TVs, washing machines, and stabilizers engineered for reliability.</p>
+    </section>
+
+    <section id="values" class="grid-3"></section>
+
+    <section id="stats" class="grid-3" style="margin-top:16px;"></section>
+
+    <section class="story grid-2" style="margin-top:24px;">
+      <div class="card">
+        <h2>Our Story</h2>
+        <p>MakWell was started with a simple idea: dependable electronics designed for India’s power conditions and everyday needs.</p>
+        <p>From compact LED TVs to robust stabilizers and washing machines, we focus on efficiency, serviceability, and fair pricing.</p>
+      </div>
+      <img src="images/Sideprofile.png" alt="MakWell side profile" class="responsive card" />
+    </section>
+
+    <section id="team" style="margin-top:24px;"></section>
+
+    <section class="cta-strip" style="display:flex; gap:12px; margin:24px 0;">
+      <a class="btn" href="index.html#product-grid">Browse Products</a>
+      <a class="btn outline" href="contact.html">Get Support</a>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>© MakWell Electronics</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // hydrate from about.json (edit content in about.json)
+    fetch('about.json', {cache:'no-store'})
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('about-headline').textContent = data.hero.headline;
+        document.getElementById('about-subcopy').textContent = data.hero.subcopy;
+
+        const values = document.getElementById('values');
+        data.values.forEach(v => {
+          const c = document.createElement('div');
+          c.className = 'card';
+          c.innerHTML = `<h3>${v.title}</h3><p>${v.desc}</p>`;
+          values.appendChild(c);
+        });
+
+        const stats = document.getElementById('stats');
+        data.stats.forEach(s => {
+          const k = document.createElement('div');
+          k.className = 'card stat';
+          k.innerHTML = `<div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div>`;
+          stats.appendChild(k);
+        });
+
+        if (data.team?.length) {
+          const teamWrap = document.createElement('section');
+          teamWrap.className = 'team-grid';
+          data.team.forEach(t => {
+            const card = document.createElement('div');
+            card.className = 'card team-card';
+            card.innerHTML = `\n              <img src="${t.photo}" alt="${t.name}" class="avatar"/>\n              <h4>${t.name}</h4>\n              <p class="muted">${t.role}</p>\n              ${t.linkedin ? `<a href="${t.linkedin}" target="_blank" rel="noopener">LinkedIn</a>` : ''}\n            `;
+            teamWrap.appendChild(card);
+          });
+          document.getElementById('team').appendChild(teamWrap);
+        }
+      })
+      .catch(()=>{ /* optional fallback copy here */ });
+  </script>
+</body>
+</html>
