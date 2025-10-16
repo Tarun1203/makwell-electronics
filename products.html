@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MakWell • Products</title>
+  <meta name="description" content="Browse MakWell products — Make it Happen." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛒</text></svg>">
+  <style>
+    .shop { max-width:1200px; margin:0 auto; padding:16px; }
+    .shop-header { position:sticky; top:0; z-index:5; backdrop-filter:saturate(140%) blur(10px);
+                   background: color-mix(in oklab, var(--bg) 88%, transparent);
+                   border-bottom:1px solid var(--border); }
+    .bar { display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center; padding:12px 0; }
+    .brand { display:flex; gap:10px; align-items:center; font-weight:900 }
+    .pill { font-size:12px; background: color-mix(in oklab, var(--accent) 12%, var(--bg));
+            border:1px solid var(--border); color:var(--text); border-radius:999px; padding:4px 8px }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px }
+    @media (max-width:1200px){ .grid{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .grid{grid-template-columns:1fr} }
+    .card{ border-radius:16px; overflow:hidden; display:flex; flex-direction:column }
+    .media{ aspect-ratio:4/3; background: color-mix(in oklab, var(--accent) 8%, var(--bg)); display:grid; place-items:center }
+    .media img{ width:100%; height:100%; object-fit:cover }
+    .body{ padding:12px }
+    .layout { display:grid; grid-template-columns:1fr 330px; gap:18px; }
+    @media (max-width:980px){ .layout{ grid-template-columns:1fr } }
+    .sidebar{ position:sticky; top:86px; height:fit-content; padding:14px }
+    .cart-item{ display:grid; grid-template-columns:48px 1fr auto; gap:10px; align-items:center; margin:10px 0 }
+    .iconbtn{ background: var(--panel); border:1px solid var(--border); border-radius:10px; padding:6px 8px; cursor:pointer }
+    .pagination{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:18px 0 }
+    .pagination button{ background: var(--panel); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:10px }
+    .pagination .active{ border-color: var(--accent) }
+    .empty{ padding:18px; border:1px dashed var(--border); border-radius:12px; background: color-mix(in oklab, var(--bg) 90%, var(--accent) 3%); color: var(--muted); text-align:center }
+    .divider{ height:1px; background:var(--border); margin:12px -14px }
+  </style>
+  <script defer src="theme.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site">
+    <nav>
+      <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
+      <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="shop">
+    <header class="shop-header">
+      <div class="bar">
+        <div class="brand">🛒 <b>Products</b> <span class="pill" id="skuCount">0 items</span></div>
+        <div style="display:flex; gap:10px; align-items:center; flex:1;">
+          <input id="q" class="input" placeholder="Search products (press / to focus)" />
+          <select id="category"></select>
+          <select id="sort">
+            <option value="popular">Sort: Popular</option>
+            <option value="priceAsc">Price: Low → High</option>
+            <option value="priceDesc">Price: High → Low</option>
+            <option value="rating">Rating</option>
+            <option value="name">Name A→Z</option>
+          </select>
+        </div>
+        <button class="btn secondary" id="clearFilters" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main class="layout" style="margin-top:14px">
+      <section>
+        <div id="results" class="grid"></div>
+        <div id="pager" class="pagination"></div>
+      </section>
+
+      <aside class="sidebar card" aria-label="Cart">
+        <h3 style="margin:0 0 8px">Your Cart</h3>
+        <div id="cartList"></div>
+        <div class="divider"></div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <div style="flex:1">
+            <div class="muted">Subtotal</div>
+            <div id="subtotal" class="price">₹0</div>
+          </div>
+          <button id="checkout" class="btn" style="min-width:120px" type="button">Checkout</button>
+          <button id="clearCart" class="btn secondary" type="button">Clear</button>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:6px">Demo checkout only. Replace with your payment link/flow.</p>
+      </aside>
+    </main>
+
+    <footer style="color:var(--muted); text-align:center; padding:30px 10px">
+      Reads from <code>/products.json</code>. Place images under <code>/assets/</code> or <code>/images/</code>.
+    </footer>
+  </div>
+
+  <div class="toast card" id="toast" style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;opacity:0;pointer-events:none;"></div>
+</body>
+</html>
 
