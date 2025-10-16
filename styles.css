@@ -1,185 +1,124 @@
-/* ===== CSS Reset (minimal) ===== */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { height: 100%; }
-body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
-
-/* ===== Theme tokens ===== */
+/* styles.css — MakWell theme (Light: blue/white; Dark: black/white) */
 :root {
+  /* Light theme (default) */
   --bg: #ffffff;
-  --fg: #0f172a;
-  --muted: #64748b;
-  --card: #f8fafc;
-  --brand: #111827;
-  --accent: #0ea5e9;
-  --ring: rgba(14,165,233,0.35);
+  --text: #0b1220;
+  --muted: #6b7280;
+  --panel: #ffffff;
+  --border: #e5e7eb;
+  --accent: #2563eb;      /* Blue */
+  --accent-2: #60a5fa;    /* Lighter blue */
+  --ring: 0 0 0 2px rgba(37, 99, 235, .25);
 
-  --radius: 16px;
-  --shadow: 0 10px 24px rgba(0,0,0,0.08);
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(2, 6, 23, .06);
 }
 
-:root[data-theme="dark"] {
-  --bg: #0b0f19;
-  --fg: #f1f5f9;
-  --muted: #94a3b8;
-  --card: #0f172a;
-  --brand: #e2e8f0;
-  --accent: #38bdf8;
-  --ring: rgba(56,189,248,0.35);
+html[data-theme="dark"] {
+  /* Dark theme */
+  --bg: #0a0a0a;
+  --text: #f8fafc;
+  --muted: #9aa6bd;
+  --panel: #101010;
+  --border: #1f2937;
+  --accent: #60a5fa;
+  --accent-2: #93c5fd;
+  --ring: 0 0 0 2px rgba(96, 165, 250, .30);
+
+  --shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
+* { box-sizing: border-box }
+html, body { height: 100% }
 body {
+  margin: 0;
   background: var(--bg);
-  color: var(--fg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
 }
 
-/* ===== Layout helpers ===== */
-.container {
-  width: min(1120px, 92vw);
-  margin-inline: auto;
-}
+/* General UI */
+a { color: var(--text); text-decoration: none }
+a:hover { text-decoration: underline }
 
-/* ===== Header & logo placement ===== */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--bg);
-  border-bottom: 1px solid color-mix(in oklab, var(--fg) 12%, transparent);
-  backdrop-filter: saturate(1.2) blur(6px);
-}
-
-.header-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 0;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.brand-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.brand-text {
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  color: var(--brand);
-}
-
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-}
-.nav a {
-  color: var(--fg);
-  text-decoration: none;
-  font-weight: 500;
-  opacity: 0.85;
-}
-.nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
-
-.theme-toggle {
-  border: 1px solid color-mix(in oklab, var(--fg) 15%, transparent);
-  background: var(--card);
-  color: var(--fg);
-  border-radius: 999px;
-  padding: 8px 12px;
+.btn {
   cursor: pointer;
-  box-shadow: var(--shadow);
-}
-.theme-toggle:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px var(--ring);
-}
-
-/* ===== Carousel ===== */
-.carousel {
-  position: relative;
-  overflow: clip;
-  margin: 24px auto 40px;
-  width: min(1120px, 92vw);
-  border-radius: var(--radius);
-  background: var(--card);
-  box-shadow: var(--shadow);
-}
-
-.carousel-track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none; /* Firefox */
-}
-.carousel-track::-webkit-scrollbar { display: none; }
-
-.slide {
-  position: relative;
-  height: clamp(260px, 50vw, 480px);
-  scroll-snap-align: start;
-  display: grid;
-}
-.slide > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.slide-caption {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 20px;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.55));
-  color: #fff;
-}
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  translate: 0 -50%;
-  z-index: 2;
-  border: none;
-  background: color-mix(in oklab, var(--bg) 75%, transparent);
-  color: var(--fg);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-.carousel-btn:hover { background: color-mix(in oklab, var(--bg) 90%, transparent); }
-.carousel-btn:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
-.carousel-btn.prev { left: 12px; }
-.carousel-btn.next { right: 12px; }
-
-.carousel-dots {
-  position: absolute;
-  inset: auto 0 10px 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-.carousel-dots button {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #ffffff;
   border: 0;
-  background: color-mix(in oklab, var(--fg) 25%, transparent);
-  opacity: 0.7;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+}
+.btn.secondary {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn:disabled { opacity: .55; cursor: not-allowed }
+
+.input, select, textarea {
+  width: 100%;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+}
+.input:focus, select:focus, textarea:focus { box-shadow: var(--ring) }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+/* Top nav shared */
+header.site {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+nav {
+  display:flex; gap:12px; align-items:center;
+  max-width:1200px; margin:0 auto; padding:12px 16px;
+}
+nav .brand { display:flex; gap:10px; align-items:center; font-weight:900 }
+nav .brand small { color: var(--muted); font-weight:700 }
+nav a { padding:8px 12px; border-radius:10px; text-decoration:none }
+nav a:hover { background: color-mix(in oklab, var(--accent) 14%, var(--bg)); text-decoration:none }
+
+/* Utility */
+.container { max-width:1200px; margin:0 auto; padding:16px }
+.muted { color: var(--muted) }
+.price { font-weight: 900 }
+
+/* Pills, icons */
+.pill {
+  font-size: 12px;
+  background: color-mix(in oklab, var(--accent) 12%, var(--bg));
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+/* Toggle button */
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 12px;
   cursor: pointer;
 }
-.carousel-dots button[aria-selected="true"] {
-  opacity: 1;
-  background: var(--accent);
+.theme-toggle kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  color: var(--muted);
 }
