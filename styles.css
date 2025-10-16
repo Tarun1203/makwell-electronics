@@ -1,6 +1,5 @@
 /* styles.css — MakWell theme (Light: blue/white; Dark: black/white) */
 :root {
-  /* Light theme (default) */
   --bg: #ffffff;
   --text: #0b1220;
   --muted: #6b7280;
@@ -15,7 +14,6 @@
 }
 
 html[data-theme="dark"] {
-  /* Dark theme */
   --bg: #0a0a0a;
   --text: #f8fafc;
   --muted: #9aa6bd;
@@ -24,7 +22,6 @@ html[data-theme="dark"] {
   --accent: #60a5fa;
   --accent-2: #93c5fd;
   --ring: 0 0 0 2px rgba(96, 165, 250, .30);
-
   --shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
@@ -37,7 +34,6 @@ body {
   font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
 }
 
-/* General UI */
 a { color: var(--text); text-decoration: none }
 a:hover { text-decoration: underline }
 
@@ -107,7 +103,7 @@ nav a:hover { background: color-mix(in oklab, var(--accent) 14%, var(--bg)); tex
   padding: 4px 8px;
 }
 
-/* Toggle button */
+/* Theme toggle */
 .theme-toggle {
   display: inline-flex; align-items: center; gap: 8px;
   border: 1px solid var(--border);
