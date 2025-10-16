@@ -1,59 +1,47 @@
-<!-- index.html (MakWell — Make it Happen) -->
+<!-- index.html — MakWell (Blue/White light theme + Dark toggle) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MakWell • Home</title>
-  <meta name="description" content="MakWell — Make it Happen. A simple, fast storefront powered by products.json." />
+  <meta name="description" content="MakWell — Make it Happen. Blue/white theme with dark mode toggle." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛒</text></svg>">
   <style>
-    /* Page-specific touches (keeps global styling in styles.css) */
+    /* Page-specific touches for Home */
     .hero {
       min-height: 70vh;
-      display: grid;
-      place-items: center;
-      text-align: center;
+      display: grid; place-items: center; text-align: center;
       padding: 40px 16px;
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(56,189,248,.20), transparent 60%),
-        radial-gradient(1000px 500px at 120% 0%, rgba(34,197,94,.18), transparent 60%);
-      border-bottom: 1px solid #1f2937;
+        radial-gradient(1200px 600px at 20% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
+        radial-gradient(1000px 500px at 120% 0%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 60%);
+      border-bottom: 1px solid var(--border);
     }
     .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 6px }
-    .tagline { color: var(--muted); font-weight: 700; letter-spacing: 0.3px; margin: 0 0 14px }
+    .tagline { color: var(--muted); font-weight: 700; letter-spacing: .3px; margin: 0 0 14px }
     .hero p { color: var(--muted); margin: 0 auto 20px; max-width: 760px }
     .cta { display:inline-flex; gap:12px; flex-wrap:wrap; justify-content:center }
-    .btn { cursor:pointer; background:linear-gradient(135deg, var(--accent), #22c55e); color:#001018;
-           border:0; border-radius:14px; padding:12px 18px; font-weight:800 }
-    .btn.secondary { background:#0f1524; color:var(--text); border:1px solid #1f2937 }
     .features { max-width:1100px; margin:40px auto; padding:0 16px; display:grid; gap:14px;
                 grid-template-columns:repeat(3, 1fr) }
-    .card { background:var(--panel); border:1px solid #1f2937; border-radius:16px; padding:16px }
+    .card { padding:16px }
     .card h3 { margin:6px 0 8px }
     @media (max-width: 900px){ .features{ grid-template-columns:1fr } }
-    header.site { position: sticky; top: 0; z-index: 10; background: rgba(16,21,34,.80);
-                  backdrop-filter: saturate(140%) blur(10px); border-bottom:1px solid #1f2937 }
-    nav { display:flex; gap:12px; align-items:center; max-width:1200px; margin:0 auto; padding:12px 16px }
-    nav .brand { display:flex; gap:10px; align-items:center; font-weight:900 }
-    nav .brand b { font-weight:900 }
-    nav .brand small { color: var(--muted); font-weight:700 }
-    nav a { text-decoration:none; color:var(--text); padding:8px 12px; border-radius:10px }
-    nav a:hover { background:#0f1524; border:1px solid #1f2937 }
-    footer.site { color:#9aa6bd; text-align:center; padding:30px 10px; border-top:1px solid #1f2937 }
   </style>
+  <script defer src="theme.js"></script>
 </head>
 <body>
   <!-- Top nav -->
   <header class="site">
     <nav>
       <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
-      <div style="margin-left:auto; display:flex; gap:6px;">
+      <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
         <a href="index.html">Home</a>
         <a href="products.html">Products</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
       </div>
     </nav>
   </header>
@@ -87,7 +75,7 @@
     </div>
   </section>
 
-  <footer class="site">
+  <footer class="site" style="text-align:center; padding:30px 10px">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
