@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MakWell Electronics</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -18,36 +18,25 @@
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-        <span class="toggle-icon">☾</span>
-      </button>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"><span class="toggle-icon">☾</span></button>
     </div>
   </header>
 
   <main>
-    <!-- Carousel section -->
+    <!-- Carousel -->
     <section class="carousel" id="carousel">
       <div class="carousel-track">
         <article class="slide active">
           <div class="slide-image slide-1"></div>
-          <div class="slide-caption">
-            <h2>New Arrivals</h2>
-            <p>Discover the freshest electronics from MakWell.</p>
-          </div>
+          <div class="slide-caption"><h2>New Arrivals</h2><p>Discover the freshest electronics from MakWell.</p></div>
         </article>
         <article class="slide">
           <div class="slide-image slide-2"></div>
-          <div class="slide-caption">
-            <h2>Best Sellers</h2>
-            <p>Shop the community favourites.</p>
-          </div>
+          <div class="slide-caption"><h2>Best Sellers</h2><p>Shop the community favourites.</p></div>
         </article>
         <article class="slide">
           <div class="slide-image slide-3"></div>
-          <div class="slide-caption">
-            <h2>Seasonal Deals</h2>
-            <p>Don’t miss out on limited offers.</p>
-          </div>
+          <div class="slide-caption"><h2>Seasonal Deals</h2><p>Don’t miss out on limited offers.</p></div>
         </article>
       </div>
       <button id="prev-slide" class="carousel-btn prev" aria-label="Previous slide">‹</button>
@@ -55,7 +44,7 @@
       <div id="carousel-dots" class="carousel-dots"></div>
     </section>
 
-    <!-- Products section -->
+    <!-- Products -->
     <section class="products container">
       <h2 class="section-title">Featured Products</h2>
       <div class="filters">
@@ -66,6 +55,7 @@
     </section>
   </main>
 
+  <!-- Keep script.js first (theme + carousel), app.js second (products) -->
   <script src="script.js"></script>
   <script src="app.js"></script>
 </body>
