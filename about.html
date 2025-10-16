@@ -1,6 +1,5 @@
-<!-- about.html — MakWell (Blue/White theme with Dark toggle) -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,7 +33,6 @@
   <script defer src="theme.js"></script>
 </head>
 <body>
-  <!-- Top nav -->
   <header class="site">
     <nav>
       <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
@@ -48,7 +46,6 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>About MakWell</h1>
@@ -56,27 +53,20 @@
     </div>
   </section>
 
-  <!-- Mission & Story -->
   <section class="section">
     <div class="grid">
       <article class="card">
         <h3>Our Mission</h3>
-        <p class="muted">
-          <b>Make it Happen.</b> We believe great products should be easy to find,
-          compare, and buy. MakWell is designed to be blazing fast, privacy-respecting,
-          and deployable on GitHub Pages with zero backend.
-        </p>
+        <p class="muted"><b>Make it Happen.</b> Great products should be easy to find, compare, and buy — with a blazing-fast, privacy-respecting site you can host on GitHub Pages.</p>
       </article>
-
       <article class="card">
         <h3>How It Works</h3>
         <ul class="clean">
           <li>All products live in a simple <code>products.json</code>.</li>
           <li>The site renders client-side: search, filters, sorting, and cart.</li>
-          <li>Plug in a checkout provider (Razorpay/Stripe/Cashfree) when you’re ready.</li>
+          <li>Plug in Razorpay/Stripe/Cashfree when you’re ready to accept payments.</li>
         </ul>
       </article>
-
       <article class="card">
         <h3>Why MakWell?</h3>
         <ul class="clean">
@@ -88,7 +78,6 @@
     </div>
   </section>
 
-  <!-- Values -->
   <section class="section">
     <div class="values">
       <article class="card">
@@ -102,22 +91,14 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="section">
     <article class="card">
       <h3>FAQ</h3>
       <dl class="faq">
-        <dt>Where do products come from?</dt>
-        <dd>From <code>products.json</code> at the repo root (or <code>data/products.json</code> as a fallback).</dd>
-
-        <dt>Can I enable payments?</dt>
-        <dd>Yes. The cart already produces a payload. Hook it to Razorpay/Stripe/Cashfree with a small JS snippet.</dd>
-
-        <dt>How does the theme toggle work?</dt>
-        <dd>We store your choice in <code>localStorage</code> and apply an attribute on <code>&lt;html&gt;</code> to switch variables.</dd>
-
-        <dt>Is it mobile friendly?</dt>
-        <dd>Absolutely. The layout is responsive and touch-friendly.</dd>
+        <dt>Where do products come from?</dt><dd>From <code>products.json</code> at the repo root (or <code>data/products.json</code>).</dd>
+        <dt>Can I enable payments?</dt><dd>Yes. The cart already produces a payload; wire to your provider with a small JS snippet.</dd>
+        <dt>How does the theme toggle work?</dt><dd>We store your choice in <code>localStorage</code> and swap CSS variables.</dd>
+        <dt>Is it mobile friendly?</dt><dd>Absolutely. The layout is responsive and touch-friendly.</dd>
       </dl>
     </article>
   </section>
@@ -126,8 +107,6 @@
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
