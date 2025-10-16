@@ -1,6 +1,5 @@
-<!-- contact.html — MakWell (Blue/White theme with Dark toggle) -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,11 +17,9 @@
     }
     .hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4.5vw, 3rem) }
     .hero p { margin: 0; color: var(--muted); max-width: 800px }
-
     .section { max-width: 1000px; margin: 28px auto; padding: 0 16px }
     .grid { display:grid; gap:18px; grid-template-columns: 1.2fr .8fr }
     @media (max-width: 900px){ .grid{ grid-template-columns:1fr } }
-
     form.card { padding:16px; display:grid; gap:12px }
     label { font-weight: 700 }
     .row { display:grid; gap:12px; grid-template-columns: 1fr 1fr }
@@ -40,7 +37,6 @@
   <script defer src="theme.js"></script>
 </head>
 <body>
-  <!-- Top nav -->
   <header class="site">
     <nav>
       <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
@@ -54,7 +50,6 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>Contact MakWell</h1>
@@ -62,10 +57,8 @@
     </div>
   </section>
 
-  <!-- Contact -->
   <section class="section">
     <div class="grid">
-      <!-- Form -->
       <form class="card" id="contactForm" novalidate>
         <div class="row">
           <div>
@@ -77,28 +70,65 @@
             <input class="input" id="email" name="email" type="email" placeholder="you@example.com" required />
           </div>
         </div>
-
         <div>
           <label for="subject">Subject</label>
           <input class="input" id="subject" name="subject" placeholder="How can we help?" required />
         </div>
-
         <div>
           <label for="message">Message</label>
           <textarea class="input" id="message" name="message" rows="6" placeholder="Tell us a bit more…" required></textarea>
           <div class="help">We’ll reply within 1–2 business days.</div>
         </div>
-
         <div style="display:flex; gap:10px; align-items:center; justify-content:flex-end">
           <button type="reset" class="btn secondary">Clear</button>
           <button type="submit" class="btn">Send</button>
         </div>
-
         <div id="formStatus" style="display:none; margin-top:8px"></div>
       </form>
 
-      <!-- Sidebar -->
       <aside class="contact-card card" aria-label="Contact options">
         <h3>Other ways to reach us</h3>
         <ul class="list">
-          <li><b>Email:</b> <a href="mail
+          <li><b>Email:</b> <a href="mailto:hello@makwell.example">hello@makwell.example</a></li>
+          <li><b>Phone:</b> <a href="tel:+911234567890">+91 12345 67890</a></li>
+          <li><b>Address:</b> MakWell HQ, Bengaluru, India</li>
+        </ul>
+        <h3 style="margin-top:16px">Support hours</h3>
+        <p class="muted">Mon–Fri, 10:00–18:00 IST</p>
+        <h3 style="margin-top:16px">Follow</h3>
+        <ul class="list">
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="site" style="text-align:center; padding:30px 10px">
+    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const form = document.getElementById('contactForm');
+    const statusBox = document.getElementById('formStatus');
+    function showStatus(kind, msg) {
+      statusBox.style.display = 'block';
+      statusBox.className = kind === 'error' ? 'error' : 'success';
+      statusBox.textContent = msg;
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (!data.name || !data.email || !data.subject || !data.message) return showStatus('error','Please fill in all fields.');
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return showStatus('error','Please enter a valid email address.');
+      const subject = encodeURIComponent(`[MakWell] ${data.subject}`);
+      const body = encodeURIComponent(`Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`);
+      window.location.href = `mailto:hello@makwell.example?subject=${subject}&body=${body}`;
+      showStatus('success','Opening your email client… If it doesn’t open, email hello@makwell.example.');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
