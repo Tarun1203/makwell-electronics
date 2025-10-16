@@ -1,1 +1,191 @@
+<!-- about.html — MakWell (Brand story + Certificate PDF + Registered Product stamp) -->
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MakWell • About</title>
+  <meta name="description" content="About MakWell — Make it Happen. Registered brand with a fast, simple storefront." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛒</text></svg>'">
+  <script defer src="theme.js"></script>
+  <style>
+    /* Page visuals */
+    .hero {
+      display:grid; place-items:center; text-align:center; padding:48px 16px;
+      background:
+        radial-gradient(900px 400px at 15% -10%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%),
+        radial-gradient(900px 400px at 110% 0%, color-mix(in oklab, var(--accent-2) 12%, transparent), transparent 60%);
+      border-bottom:1px solid var(--border);
+    }
+    .hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4.5vw, 3rem) }
+    .hero p { margin: 0; color: var(--muted); max-width: 800px }
+    .section { max-width: 1100px; margin: 28px auto; padding: 0 16px }
+    .grid-3 { display:grid; gap:14px; grid-template-columns: repeat(3, 1fr) }
+    .card { padding: 16px }
+    .card h3 { margin: 6px 0 8px }
+    @media (max-width: 900px){ .grid-3{ grid-template-columns:1fr } }
 
+    /* Certificate viewer */
+    .cert-wrap { position: relative; }
+    .cert-card { padding: 0; overflow: hidden }
+    .cert-frame {
+      width: 100%; height: 620px;
+      border: none; display: block; background: var(--panel);
+      border-top-left-radius: 16px; border-top-right-radius: 16px;
+    }
+    .cert-actions {
+      display:flex; gap:8px; justify-content:space-between; align-items:center;
+      padding:12px; border-top:1px solid var(--border);
+      border-bottom-left-radius:16px; border-bottom-right-radius:16px;
+      background: var(--panel);
+    }
+    .cert-note { color: var(--muted); font-size: 12px }
+
+    /* Registered Product stamp (CSS + inline SVG) */
+    .stamp {
+      position: absolute; top: 14px; right: 14px;
+      width: 140px; height: 140px; pointer-events: none; opacity: .94;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.2));
+    }
+    /* Small ribbon in nav */
+    .ribbon {
+      display:inline-flex; align-items:center; gap:6px;
+      background: color-mix(in oklab, var(--accent) 14%, var(--bg));
+      border: 1px solid var(--border);
+      border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--text);
+    }
+    .ribbon b { letter-spacing: .3px }
+
+    /* Brand story blocks */
+    .value-grid { display:grid; gap:14px; grid-template-columns: repeat(2, 1fr) }
+    @media (max-width: 900px){ .value-grid{ grid-template-columns:1fr } }
+    ul.clean { margin: 0; padding-left: 18px }
+  </style>
+</head>
+<body>
+  <!-- Top nav with a small “Registered Brand” ribbon -->
+  <header class="site">
+    <nav>
+      <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
+      <div class="ribbon" title="MakWell is a registered brand">® <b>Registered Brand</b></div>
+      <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <h1>About MakWell</h1>
+      <p>We’re a registered Indian electronics brand focused on televisions, washing machines, and home power solutions — designed to be reliable, efficient, and easy to own.</p>
+    </div>
+  </section>
+
+  <!-- Brand story -->
+  <section class="section">
+    <div class="grid-3">
+      <article class="card">
+        <h3>Our Promise</h3>
+        <p class="muted">
+          <b>Make it Happen.</b> We build products that are simple to use, cost-efficient to run, and easy to service.
+          Every model is tuned for the needs of Indian homes — from low-power TVs to sturdy semi-auto washing machines.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>What We Make</h3>
+        <ul class="clean">
+          <li>Smart & webOS Televisions (24″ to 65″)</li>
+          <li>Semi-Automatic Washing Machines (7–11 kg)</li>
+          <li>Stabilizers for TVs & Refrigerators</li>
+        </ul>
+        <p class="muted">Explore the full line-up on the <a href="products.html">Products</a> page.</p>
+      </article>
+
+      <article class="card">
+        <h3>Why MakWell?</h3>
+        <ul class="clean">
+          <li>🚀 Efficient, low-power operation</li>
+          <li>🛡️ Registered brand & warranty support</li>
+          <li>🧩 Clear specs, honest features</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Brand Registration Certificate + Stamp -->
+  <section class="section">
+    <div class="cert-wrap">
+      <!-- Stamp -->
+      <svg class="stamp" viewBox="0 0 300 300" aria-hidden="true">
+        <defs>
+          <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0.2"/>
+            <feComponentTransfer>
+              <feFuncA type="table" tableValues="0 1"/>
+            </feComponentTransfer>
+          </filter>
+        </defs>
+        <circle cx="150" cy="150" r="140" fill="none" stroke="var(--accent)" stroke-width="8"/>
+        <circle cx="150" cy="150" r="118" fill="none" stroke="var(--accent)" stroke-width="6" stroke-dasharray="10 8"/>
+        <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" fill="var(--accent)">
+          <text x="50%" y="120" text-anchor="middle" font-weight="900" font-size="26" letter-spacing="2">REGISTERED</text>
+          <text x="50%" y="155" text-anchor="middle" font-weight="900" font-size="20">PRODUCT</text>
+          <text x="50%" y="190" text-anchor="middle" font-size="16" opacity=".9">MakWell</text>
+        </g>
+      </svg>
+
+      <!-- Certificate card -->
+      <article class="card cert-card">
+        <!-- Best compatibility: object (with iframe fallback) -->
+        <object class="cert-frame"
+                data="assets/makwell-brand-certificate.pdf#toolbar=0&navpanes=0&scrollbar=1"
+                type="application/pdf">
+          <iframe class="cert-frame"
+                  src="assets/makwell-brand-certificate.pdf#toolbar=0&navpanes=0&scrollbar=1"
+                  title="MakWell Brand Registration Certificate"></iframe>
+        </object>
+
+        <div class="cert-actions">
+          <div class="cert-note">Viewing: <code>assets/makwell-brand-certificate.pdf</code></div>
+          <div style="display:flex; gap:8px;">
+            <a class="btn secondary" target="_blank" rel="noopener"
+               href="assets/makwell-brand-certificate.pdf">Open in new tab</a>
+            <a class="btn" download
+               href="assets/makwell-brand-certificate.pdf">Download PDF</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Values / Support -->
+  <section class="section">
+    <div class="value-grid">
+      <article class="card">
+        <h3>Support & Warranty</h3>
+        <p class="muted">Look for the <em>Registered Product</em> stamp on MakWell pages. For service or warranty claims, keep your invoice and serial number handy.</p>
+      </article>
+      <article class="card">
+        <h3>Contact</h3>
+        <p class="muted">Have questions about authenticity or registration? Reach us via the <a href="contact.html">Contact</a> page.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site" style="text-align:center; padding:30px 10px">
+    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
