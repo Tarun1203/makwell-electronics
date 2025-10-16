@@ -4,10 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | MakWell — Make it Happen</title>
-  <meta name="description" content="Browse MakWell smart electronics: Televisions, Washing Machines, and Stabilizers." />
+  <meta name="description" content="Browse MakWell Televisions, Washing Machines and Stabilizers." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
+  <script>
+    /* tiny theme bootstrap */
+    (function(){const k='mw_theme',h=document.documentElement;function a(t){t==='dark'?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme')}
+    const s=localStorage.getItem(k),p=matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;a(s||(p?'dark':'light'));
+    window.toggleTheme=function(){const n=h.getAttribute('data-theme')==='dark'?'light':'dark';a(n);localStorage.setItem(k,n);
+      const b=document.getElementById('themeToggle'); if(b) b.textContent=n==='dark'?'🌙 Dark':'☀️ Light'};})();
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -15,12 +21,10 @@
     <nav>
       <div class="brand">
         <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-             alt="MakWell — Make it Happen"
-             width="28" height="28"
-             style="border-radius:6px; object-fit:contain"/>
+             alt="MakWell — Make it Happen" width="28" height="28" style="border-radius:6px;object-fit:contain"/>
         <b>MakWell</b> <small>— Make it Happen</small>
       </div>
-      <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
         <a href="index.html">Home</a>
         <a href="products.html" class="active">Products</a>
         <a href="about.html">About</a>
@@ -30,25 +34,66 @@
     </nav>
   </header>
 
-  <!-- Products -->
-  <main class="content">
-    <section class="hero small">
-      <h1>Our Products</h1>
-      <p>Explore MakWell's range of Televisions, Washing Machines, and Stabilizers — where quality meets innovation.</p>
-    </section>
+  <!-- Intro -->
+  <section class="hero small">
+    <div class="container" style="text-align:center">
+      <h1 style="margin:0">Our Products</h1>
+      <p class="muted" style="margin:6px 0 0">Televisions • Washing Machines • Stabilizers</p>
+    </div>
+  </section>
 
-    <section id="products" class="product-grid"></section>
+  <!-- Filters -->
+  <section class="container" style="position:sticky;top:64px;z-index:5;background:color-mix(in oklab,var(--bg) 90%, transparent);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);padding:12px 16px">
+    <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
+      <input id="q" class="input" placeholder="Search products (press / to focus)" />
+      <select id="category" class="input" style="max-width:220px"></select>
+      <select id="sort" class="input" style="max-width:220px">
+        <option value="popular">Sort: Popular</option>
+        <option value="priceAsc">Price: Low → High</option>
+        <option value="priceDesc">Price: High → Low</option>
+        <option value="rating">Rating</option>
+        <option value="name">Name A→Z</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Products grid + Cart -->
+  <main class="container" style="margin-top:14px">
+    <div class="layout">
+      <section>
+        <div id="skuCount" class="muted" style="margin:6px 0 10px">0 items</div>
+        <div id="results" class="grid"></div>
+        <div id="pager" class="pagination"></div>
+      </section>
+
+      <aside class="sidebar card" aria-label="Cart" style="padding:14px">
+        <h3 style="margin:0 0 8px">Your Cart</h3>
+        <div id="cartList"></div>
+        <div class="divider" style="margin:12px 0"></div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="flex:1">
+            <div class="muted">Subtotal</div>
+            <div id="subtotal" class="price">₹0</div>
+          </div>
+          <button id="checkout" class="btn" style="min-width:120px" type="button">Checkout</button>
+          <button id="clearCart" class="btn secondary" type="button">Clear</button>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:6px">Demo checkout only. Replace with your payment link.</p>
+      </aside>
+    </div>
   </main>
 
   <!-- Footer -->
-  <footer class="site">
+  <footer class="site" style="text-align:center;padding:30px 10px">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
-  <!-- Auto-year -->
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
-  <!-- Universal image fallback -->
+  <!-- App logic -->
+  <script src="script.js"></script>
+
+  <!-- Universal image extension fallback for ALL <img> -->
   <script>
   (function () {
     const exts = ['.png', '.jpg', '.jpeg', '.webp', '.svg'];
@@ -56,7 +101,7 @@
       if (img.dataset.fallbackReady) return;
       img.dataset.fallbackReady = '1';
       const m = img.src.match(/^(.*\/images\/[^.?]+)(\.[^/?.]+)?(\?.*)?$/i);
-      if (!m) return;
+      if (!m) return; // only images/* paths
       const base = m[1], q = m[3] || '';
       let i = 0;
       img.addEventListener('error', function onErr() {
@@ -65,15 +110,14 @@
       });
     }
     document.querySelectorAll('img').forEach(attachFallback);
-    const obs = new MutationObserver(ms => {
+    new MutationObserver(ms => {
       for (const m of ms) {
         m.addedNodes && m.addedNodes.forEach(n => {
           if (n.tagName === 'IMG') attachFallback(n);
           else if (n.querySelectorAll) n.querySelectorAll('img').forEach(attachFallback);
         });
       }
-    });
-    obs.observe(document.documentElement, { childList: true, subtree: true });
+    }).observe(document.documentElement, { childList: true, subtree: true });
   })();
   </script>
 </body>
