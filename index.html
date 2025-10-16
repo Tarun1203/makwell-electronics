@@ -4,162 +4,108 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MakWell • Make it Happen</title>
-  <meta name="description" content="MakWell — Make it Happen. Smart, efficient home electronics." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Theme toggle bootstrap -->
+  <style>
+    body, html { margin:0; padding:0; overflow-x: hidden; }
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .hero .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--accent-2);
+      opacity: 0.15;
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero .bg-circle.small { width: 200px; height: 200px; top: 10%; left: 70%; }
+    .hero .bg-circle.large { width: 400px; height: 400px; bottom: 5%; right: 5%; }
+    @keyframes float {
+      0%,100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(20px) translateX(-10px); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeInUp 1s forwards 0.5s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo-wrap { width: 180px; margin: 0 auto; }
+    .logo-wrap img { width: 100%; height: auto; }
+    .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 16px 0; }
+    .hero-content p { color: var(--muted); margin: 0 0 24px; }
+    .hero-content .btn { margin: 0 8px; }
+  </style>
   <script>
-    (function () {
-      const KEY = 'mw_theme';
-      const html = document.documentElement;
-      function apply(t){ t==='dark' ? html.setAttribute('data-theme','dark') : html.removeAttribute('data-theme'); }
+    (function(){
+      const KEY='mw_theme'; const html=document.documentElement;
+      function apply(t){ t==='dark'?html.setAttribute('data-theme','dark'):html.removeAttribute('data-theme'); }
       const stored = localStorage.getItem(KEY);
       const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      apply(stored || (prefers ? 'dark' : 'light'));
+      apply(stored || (prefers ? 'dark':'light'));
       window.toggleTheme = function(){
-        const next = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
-        apply(next); localStorage.setItem(KEY,next);
-        const b = document.getElementById('themeToggle'); if (b) b.textContent = next==='dark' ? '🌙 Dark' : '☀️ Light';
-      };
-      document.addEventListener('DOMContentLoaded', () => {
+        const nxt = html.getAttribute('data-theme')==='dark' ? 'light':'dark';
+        apply(nxt); localStorage.setItem(KEY, nxt);
         const b = document.getElementById('themeToggle');
-        if (b) b.textContent = html.getAttribute('data-theme')==='dark' ? '🌙 Dark' : '☀️ Light';
+        if(b) b.textContent = nxt==='dark' ? '🌙 Dark':'☀️ Light';
+      };
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const b = document.getElementById('themeToggle');
+        if(b) b.textContent = html.getAttribute('data-theme')==='dark' ? '🌙 Dark':'☀️ Light';
       });
     })();
   </script>
-
-  <!-- Page-only styles for a clean landing hero -->
-  <style>
-    .landing {
-      min-height: 88vh;
-      display: grid;
-      place-items: center;
-      padding: 28px 16px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      background:
-        radial-gradient(1400px 800px at 15% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
-        radial-gradient(1200px 600px at 110% 0%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 60%),
-        var(--bg);
-    }
-    .hero-box {
-      max-width: 980px;
-      width: 100%;
-      margin: 0 auto;
-      display: grid;
-      gap: 18px;
-      justify-items: center;
-    }
-    .logo-wrap {
-      display: grid;
-      place-items: center;
-      width: min(64vw, 520px);
-      height: min(64vw, 520px);
-      background: color-mix(in oklab, var(--bg) 88%, var(--accent) 8%);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .logo-wrap img {
-      width: 86%;
-      height: 86%;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,.08));
-    }
-    h1 {
-      font-size: clamp(2rem, 5.8vw, 3.2rem);
-      margin: 0;
-      line-height: 1.06;
-    }
-    .tagline {
-      color: var(--muted);
-      font-weight: 800;
-      letter-spacing: .3px;
-    }
-    .cta { display:inline-flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top: 4px; }
-    footer.site { text-align:center; padding:30px 10px }
-  </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="site">
     <nav>
       <div class="brand">
-        <img
-          src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-          alt="MakWell — Make it Happen"
-          width="28" height="28"
-          style="border-radius:6px; object-fit:contain"
-        />
+        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
+             alt="MakWell — Make it Happen" width="32" height="32" style="border-radius:6px;object-fit:contain"/>
         <b>MakWell</b> <small>— Make it Happen</small>
       </div>
-      <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+      <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
         <a href="index.html">Home</a>
         <a href="products.html">Products</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()"></button>
       </div>
     </nav>
   </header>
 
-  <!-- Landing Hero (logo only, no product details) -->
-  <section class="landing">
-    <div class="hero-box">
+  <section class="hero">
+    <div class="bg-circle small"></div>
+    <div class="bg-circle large"></div>
+
+    <div class="hero-content">
       <div class="logo-wrap">
-        <img
-          src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-          alt="MakWell Logo"
-        />
+        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell Logo">
       </div>
       <h1>Make it Happen</h1>
-      <div class="tagline">Smart, efficient home electronics</div>
+      <p>Innovative electronics for modern homes — reliable, efficient, and elegant.</p>
       <div class="cta">
         <a class="btn" href="products.html">Browse Products</a>
-        <a class="btn secondary" href="about.html">About the Brand</a>
-        <a class="btn secondary" href="contact.html">Contact</a>
+        <a class="btn secondary" href="about.html">Why MakWell?</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="site">
+  <footer class="site" style="text-align:center; padding:30px 10px;">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- Universal image extension fallback (works for PNG/JPG/JPEG/WebP/SVG) -->
-  <script>
-  (function () {
-    const exts = ['.png', '.jpg', '.jpeg', '.webp', '.svg'];
-    function attachFallback(img) {
-      if (img.dataset.fallbackReady) return;
-      img.dataset.fallbackReady = '1';
-      const m = img.src.match(/^(.*\/images\/[^.?]+)(\.[^/?.]+)?(\?.*)?$/i);
-      if (!m) return; // only for our images folder
-      const base = m[1], q = m[3] || '';
-      let i = 0;
-      img.addEventListener('error', function onErr() {
-        if (i >= exts.length) { img.removeEventListener('error', onErr); return; }
-        img.src = base + exts[i++] + q;
-      });
-    }
-    document.querySelectorAll('img').forEach(attachFallback);
-    const obs = new MutationObserver(ms => {
-      for (const m of ms) {
-        m.addedNodes && m.addedNodes.forEach(n => {
-          if (n.tagName === 'IMG') attachFallback(n);
-          else if (n.querySelectorAll) n.querySelectorAll('img').forEach(attachFallback);
-        });
-      }
-    });
-    obs.observe(document.documentElement, { childList: true, subtree: true });
-  })();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
