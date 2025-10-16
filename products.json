@@ -1,234 +1,254 @@
 [
   {
     "id": "tv-24n",
+    "name": "24\" LED TV (Normal)",
     "title": "24\" LED TV (Normal)",
     "category": "Televisions",
     "size": 24,
     "os": "—",
     "series": "LED TV",
-    "tags": [
-      "Full HD 1080p",
-      "60cm",
-      "Low Power"
-    ],
-    "specs": [
-      "16.7M Colors"
-    ],
-    "image": "assets/MK24.jpg"
+    "tags": ["Full HD 1080p", "60cm", "Low Power"],
+    "specs": ["16.7M Colors"],
+    "image": "assets/MK24.jpg",
+    "badges": ["Best Seller"],
+    "brand": "MakWell",
+    "rating": 4.4,
+    "stock": 20,
+    "price": null,
+    "popularity": 96
   },
   {
     "id": "tv-32s",
+    "name": "32\" Smart LED TV",
     "title": "32\" Smart LED TV",
     "category": "Televisions",
     "size": 32,
     "os": "Android 11",
     "series": "Android",
-    "tags": [
-      "HD Ready",
-      "Low Power"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK32S.jpg"
+    "tags": ["HD Ready", "Low Power"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK32S.jpg",
+    "badges": ["Best Seller"],
+    "brand": "MakWell",
+    "rating": 4.6,
+    "stock": 18,
+    "price": null,
+    "popularity": 98
   },
   {
     "id": "tv-40s",
+    "name": "40\" Smart TV",
     "title": "40\" Smart TV",
     "category": "Televisions",
     "size": 40,
     "os": "Android",
     "series": "Android",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK40S.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK40S.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.5,
+    "stock": 15,
+    "price": null,
+    "popularity": 92
   },
   {
     "id": "tv-43s",
+    "name": "43\" Smart TV",
     "title": "43\" Smart TV",
     "category": "Televisions",
     "size": 43,
     "os": "Android",
     "series": "Android",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK43S.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK43S.jpg",
+    "badges": ["Best Seller"],
+    "brand": "MakWell",
+    "rating": 4.6,
+    "stock": 14,
+    "price": null,
+    "popularity": 97
   },
   {
     "id": "tv-43w",
+    "name": "43\" webOS TV",
     "title": "43\" webOS TV",
     "category": "Televisions",
     "size": 43,
     "os": "webOS",
     "series": "webOS",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK43Web.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK43Web.jpg",
+    "badges": ["New"],
+    "brand": "MakWell",
+    "rating": 4.5,
+    "stock": 12,
+    "price": null,
+    "popularity": 94
   },
   {
     "id": "tv-50g",
+    "name": "50\" Google TV",
     "title": "50\" Google TV",
     "category": "Televisions",
     "size": 50,
     "os": "Google TV",
     "series": "Google",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK50G.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK50G.jpg",
+    "badges": ["New"],
+    "brand": "MakWell",
+    "rating": 4.6,
+    "stock": 10,
+    "price": null,
+    "popularity": 95
   },
   {
     "id": "tv-55web",
+    "name": "55\" WebOS TV",
     "title": "55\" WebOS TV",
     "category": "Televisions",
     "size": 55,
     "os": "webOS",
     "series": "webOS",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK55G.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK55G.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.5,
+    "stock": 8,
+    "price": null,
+    "popularity": 90
   },
   {
     "id": "tv-65web",
+    "name": "65\" WebOS TV",
     "title": "65\" WebOS TV",
     "category": "Televisions",
     "size": 65,
     "os": "webOS",
     "series": "webOS",
-    "tags": [
-      "Full HD",
-      "Voice Keypad"
-    ],
-    "specs": [
-      "1GB RAM",
-      "8GB ROM"
-    ],
-    "image": "assets/MK65G.jpg"
+    "tags": ["Full HD", "Voice Keypad"],
+    "specs": ["1GB RAM", "8GB ROM"],
+    "image": "assets/MK65G.jpg",
+    "badges": ["New"],
+    "brand": "MakWell",
+    "rating": 4.6,
+    "stock": 6,
+    "price": null,
+    "popularity": 93
   },
   {
     "id": "wm-7",
+    "name": "Semi Auto Washing Machine – 7.0 kg",
     "title": "Semi Auto Washing Machine – 7.0 kg",
     "category": "Washing Machines",
     "size": 7,
+    "os": "",
     "series": "SAWM",
-    "specs": [
-      "135W Motor",
-      "2 Programs",
-      "Heavy Pulsator",
-      "Lint Filter",
-      "Diamond Steel Drum",
-      "Buzzer"
-    ],
-    "tags": [
-      "Toughened Glass",
-      "ABS Body"
-    ],
-    "image": "assets/MKSSAWM7.jpg"
+    "specs": ["135W Motor", "2 Programs", "Heavy Pulsator", "Lint Filter", "Diamond Steel Drum", "Buzzer"],
+    "tags": ["Toughened Glass", "ABS Body"],
+    "image": "assets/MKSSAWM7.jpg",
+    "badges": ["Best Seller"],
+    "brand": "MakWell",
+    "rating": 4.4,
+    "stock": 22,
+    "price": null,
+    "popularity": 96
   },
   {
     "id": "wm-9",
+    "name": "Semi Auto Washing Machine – 9.0 kg",
     "title": "Semi Auto Washing Machine – 9.0 kg",
     "category": "Washing Machines",
     "size": 9,
+    "os": "",
     "series": "SAWM",
-    "specs": [
-      "185W Motor",
-      "2 Programs",
-      "Heavy Pulsator",
-      "Lint Filter",
-      "Diamond Steel Drum",
-      "Buzzer"
-    ],
-    "tags": [
-      "Toughened Glass",
-      "ABS Body"
-    ],
-    "image": "assets/MKSSAWM9.jpg"
+    "specs": ["185W Motor", "2 Programs", "Heavy Pulsator", "Lint Filter", "Diamond Steel Drum", "Buzzer"],
+    "tags": ["Toughened Glass", "ABS Body"],
+    "image": "assets/MKSSAWM9.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.5,
+    "stock": 16,
+    "price": null,
+    "popularity": 91
   },
   {
     "id": "wm-11",
+    "name": "Semi Auto Washing Machine – 11.0 kg",
     "title": "Semi Auto Washing Machine – 11.0 kg",
     "category": "Washing Machines",
     "size": 11,
+    "os": "",
     "series": "SAWM",
-    "specs": [
-      "200W Motor",
-      "2 Programs",
-      "Heavy Pulsator",
-      "Lint Filter",
-      "Diamond Steel Drum",
-      "Buzzer"
-    ],
-    "tags": [
-      "Toughened Glass",
-      "ABS Body"
-    ],
-    "image": "assets/MKSSAWM11.jpg"
+    "specs": ["200W Motor", "2 Programs", "Heavy Pulsator", "Lint Filter", "Diamond Steel Drum", "Buzzer"],
+    "tags": ["Toughened Glass", "ABS Body"],
+    "image": "assets/MKSSAWM11.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.5,
+    "stock": 10,
+    "price": null,
+    "popularity": 90
   },
   {
     "id": "stab-fridge",
+    "name": "Refrigerator Stabilizer (up to 365L)",
     "title": "Refrigerator Stabilizer (up to 365L)",
     "category": "Stabilizers",
     "size": 365,
+    "os": "",
     "series": "Stabilizer",
-    "tags": [
-      "500 VA",
-      "5 Year Warranty"
-    ],
-    "image": "assets/MKSTBZREF.jpg"
+    "tags": ["500 VA", "5 Year Warranty"],
+    "specs": [],
+    "image": "assets/MKSTBZREF.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.3,
+    "stock": 25,
+    "price": null,
+    "popularity": 88
   },
   {
     "id": "stab-led-plus",
+    "name": "Smart Plus Stabilizer (up to 75 Inch LED TV)",
     "title": "Smart Plus Stabilizer (up to 75 Inch LED TV)",
     "category": "Stabilizers",
     "size": 75,
+    "os": "",
     "series": "Stabilizer",
-    "tags": [
-      "LED TV",
-      "5 Year Warranty"
-    ],
-    "image": "assets/MKSTBZSMT.jpg"
+    "tags": ["LED TV", "5 Year Warranty"],
+    "specs": [],
+    "image": "assets/MKSTBZSMT.jpg",
+    "badges": ["Best Seller"],
+    "brand": "MakWell",
+    "rating": 4.4,
+    "stock": 28,
+    "price": null,
+    "popularity": 92
   },
   {
     "id": "stab-led-mini",
+    "name": "MINI Stabilizer (up to 43 Inch LED TV)",
     "title": "MINI Stabilizer (up to 43 Inch LED TV)",
     "category": "Stabilizers",
     "size": 43,
+    "os": "",
     "series": "Stabilizer",
-    "tags": [
-      "LED TV",
-      "5 Year Warranty"
-    ],
-    "image": "assets/MKSTBZMINI.jpg"
+    "tags": ["LED TV", "5 Year Warranty"],
+    "specs": [],
+    "image": "assets/MKSTBZMINI.jpg",
+    "badges": [],
+    "brand": "MakWell",
+    "rating": 4.3,
+    "stock": 30,
+    "price": null,
+    "popularity": 87
   }
 ]
