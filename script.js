@@ -1,101 +1,167 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // ===== Theme toggle with localStorage persistence =====
-  const root = document.documentElement;
-  const themeKey = 'makwell-theme';
-  const toggleBtn = document.getElementById('theme-toggle');
-  const toggleIcon = toggleBtn?.querySelector('.toggle-icon');
+/* =========================================================
+   MakWell site script.js
+   - Theme toggle with localStorage + prefers-color-scheme
+   - Hero carousel: prev/next, dots sync, autoplay, pause-on-hover
+   - No product rendering here (that's app.js)
+   ========================================================= */
+
+(function () {
+  // -----------------------------
+  // THEME TOGGLE
+  // -----------------------------
+  const THEME_KEY = 'mw-theme';
+
+  function getSystemTheme() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+
+  function getStoredTheme() {
+    try { return localStorage.getItem(THEME_KEY); } catch { return null; }
+  }
+
+  function setStoredTheme(theme) {
+    try { localStorage.setItem(THEME_KEY, theme); } catch {}
+  }
 
   function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    if (toggleIcon) toggleIcon.textContent = theme === 'dark' ? '☀︎' : '☾';
+    const t = theme || getSystemTheme();
+    document.documentElement.setAttribute('data-theme', t);
+    // optional: flip the toggle icon text
+    const btn = document.getElementById('theme-toggle');
+    const icon = btn ? btn.querySelector('.toggle-icon') : null;
+    if (icon) icon.textContent = t === 'dark' ? '☀' : '☾';
   }
 
-  // Initial theme: saved -> system -> light
-  const saved = localStorage.getItem(themeKey);
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+  // init theme ASAP
+  applyTheme(getStoredTheme() || getSystemTheme());
 
-  toggleBtn?.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(themeKey, next);
-    applyTheme(next);
+  // respond to OS changes if user hasn't chosen explicitly
+  if (window.matchMedia) {
+    try {
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      media.addEventListener('change', () => {
+        if (!getStoredTheme()) applyTheme(getSystemTheme());
+      });
+    } catch {}
+  }
+
+  // wire toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
+        const next = current === 'dark' ? 'light' : 'dark';
+        setStoredTheme(next);
+        applyTheme(next);
+      });
+    }
   });
 
-  // ===== Minimal, dependency-free carousel =====
-  const track = document.getElementById('carousel-track');
-  const prev = document.getElementById('prev-slide');
-  const next = document.getElementById('next-slide');
-  const dotsWrap = document.getElementById('carousel-dots');
+  // -----------------------------
+  // CAROUSEL
+  // -----------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    const track = document.querySelector('.carousel-track');
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    const dotsWrap = document.getElementById('carousel-dots');
 
-  if (track) {
-    const slides = Array.from(track.querySelectorAll('.slide'));
-    let index = 0;
-    let autoTimer = null;
-    const AUTO_MS = 6000;
+    if (!carousel || !track) return; // no carousel on this page
 
-    // Build dots
-    slides.forEach((_, i) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', `Go to slide ${i + 1}`);
-      b.addEventListener('click', () => goTo(i, true));
-      dotsWrap?.appendChild(b);
+    const slides = Array.from(track.children).filter(el => el.classList.contains('slide'));
+    if (!slides.length) return;
+
+    let idx = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
+    if (idx < 0) idx = 0;
+
+    // ARIA helpers
+    slides.forEach((s, i) => {
+      s.setAttribute('role', 'group');
+      s.setAttribute('aria-roledescription', 'slide');
+      s.setAttribute('aria-label', `Slide ${i + 1} of ${slides.length}`);
     });
+    if (dotsWrap) dotsWrap.setAttribute('role', 'tablist');
 
-    function setDots(i) {
-      const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
-      dots.forEach((d, di) => d.setAttribute('aria-selected', di === i ? 'true' : 'false'));
+    function show(i) {
+      idx = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => {
+        const active = n === idx;
+        s.classList.toggle('active', active);
+        s.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+      // notify dots if app.js created them
+      if (typeof window.__markDot === 'function') window.__markDot(idx);
     }
 
-    function goTo(i, user = false) {
-      index = (i + slides.length) % slides.length;
-      const offset = index * track.clientWidth;
-      track.scrollTo({ left: offset, behavior: user ? 'smooth' : 'instant' });
-      slides.forEach((s, si) => s.classList.toggle('is-active', si === index));
-      setDots(index);
-      resetAuto();
+    // public hook for dots created in app.js
+    window.__gotoSlide = (i) => show(i);
+
+    // local dots if none provided yet
+    if (dotsWrap && dotsWrap.children.length === 0) {
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'dot' + (i === idx ? ' active' : '');
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+        b.addEventListener('click', () => {
+          show(i);
+          // keep local dots in sync if app.js didn't override
+          updateLocalDots();
+        });
+        dotsWrap.appendChild(b);
+      });
     }
 
-    function nextSlide() { goTo(index + 1, true); }
-    function prevSlide() { goTo(index - 1, true); }
-
-    next?.addEventListener('click', nextSlide);
-    prev?.addEventListener('click', prevSlide);
-
-    // Keyboard support
-    track.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
-    });
-
-    // Resize handler keeps slide in view on viewport changes
-    window.addEventListener('resize', () => goTo(index));
-
-    // Touch/drag swipe (simple)
-    let startX = 0, isDown = false;
-    track.addEventListener('pointerdown', (e) => { isDown = true; startX = e.clientX; track.setPointerCapture(e.pointerId); });
-    track.addEventListener('pointerup',   (e) => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (dx > 50) prevSlide();
-      else if (dx < -50) nextSlide();
-      isDown = false;
-      track.releasePointerCapture(e.pointerId);
-    });
-
-    // Auto-advance (pause on hover/focus)
-    function resetAuto() {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => goTo(index + 1), AUTO_MS);
+    function updateLocalDots() {
+      if (!dotsWrap) return;
+      const dots = dotsWrap.querySelectorAll('.dot');
+      dots.forEach((d, i) => {
+        const on = i === idx;
+        d.classList.toggle('active', on);
+        d.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
     }
-    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    track.addEventListener('mouseleave', resetAuto);
-    track.addEventListener('focusin', () => clearInterval(autoTimer));
-    track.addEventListener('focusout', resetAuto);
 
-    // Init
-    goTo(0);
-    resetAuto();
-  }
-});
+    // controls
+    prevBtn && prevBtn.addEventListener('click', () => { show(idx - 1); updateLocalDots(); });
+    nextBtn && nextBtn.addEventListener('click', () => { show(idx + 1); updateLocalDots(); });
+
+    // autoplay with pause on hover / focus
+    let timer = null;
+    const INTERVAL = 5000;
+
+    function start() {
+      stop();
+      timer = setInterval(() => { show(idx + 1); updateLocalDots(); }, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', start);
+
+    // initial render
+    show(idx);
+    updateLocalDots();
+    start();
+
+    // also expose markDot for app.js-created dots (if app.js runs after)
+    window.__markDot = (i) => {
+      idx = i;
+      updateLocalDots();
+    };
+  });
+
+  // -------------------------------------------------------
+  // (Legacy guard) If any old product-rendering code exists
+  // below in a previous version of this file, bail out here.
+  // -------------------------------------------------------
+  // return; // Uncomment if you still keep legacy product code here.
+})();
