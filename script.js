@@ -1,7 +1,7 @@
 /* script.js — MakWell storefront (remote RAW images + alignment fix) */
 (() => {
   // ---------- Config ----------
-  const RAW_BASE = 'https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/';
+  const RAW_BASE = 'https://github.com/Tarun1203/makwell-electronics/tree/main/images/';
 
   // Transform any filename/path into a RAW GitHub URL.
   // If already absolute (http/https), return as-is.
