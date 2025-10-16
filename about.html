@@ -1,94 +1,133 @@
-<!doctype html>
-<html lang="en" data-theme="light">
+<!-- about.html — MakWell (Blue/White theme with Dark toggle) -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About • MakWell</title>
+  <title>MakWell • About</title>
+  <meta name="description" content="About MakWell — Make it Happen." />
   <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="MakWell Electronics — Smart TVs, washing machines and stabilizers engineered for Indian homes." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛒</text></svg>">
+  <style>
+    .hero {
+      display:grid; place-items:center; text-align:center; padding:48px 16px;
+      background:
+        radial-gradient(900px 400px at 15% -10%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%),
+        radial-gradient(900px 400px at 110% 0%, color-mix(in oklab, var(--accent-2) 12%, transparent), transparent 60%);
+      border-bottom:1px solid var(--border);
+    }
+    .hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4.5vw, 3rem) }
+    .hero p { margin: 0; color: var(--muted); max-width: 800px }
+    .section { max-width: 1100px; margin: 28px auto; padding: 0 16px }
+    .grid { display:grid; gap:14px; grid-template-columns: repeat(3, 1fr) }
+    .card { padding: 16px }
+    .card h3 { margin: 6px 0 8px }
+    .values { display:grid; gap:14px; grid-template-columns: repeat(2, 1fr) }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns:1fr }
+      .values{ grid-template-columns:1fr }
+    }
+    ul.clean { margin: 0; padding-left: 18px }
+    .faq dt { font-weight: 800; margin-top: 12px }
+    .faq dd { margin: 6px 0 0 0; color: var(--muted) }
+  </style>
+  <script defer src="theme.js"></script>
 </head>
 <body>
-  <header class="container header">
-    <a href="index.html" class="logo">
-      <img src="images/Makwell logo.jpg" alt="MakWell" height="40" />
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a class="active" href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+  <!-- Top nav -->
+  <header class="site">
+    <nav>
+      <div class="brand">🛒 <b>MakWell</b> <small>— Make it Happen</small></div>
+      <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
+      </div>
     </nav>
-    <button id="theme-toggle" aria-label="Toggle theme"><span class="toggle-icon">☾</span></button>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1 id="about-headline">Electronics built for Indian homes</h1>
-      <p id="about-subcopy">Smart TVs, washing machines, and stabilizers engineered for reliability.</p>
-    </section>
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <h1>About MakWell</h1>
+      <p>We build a fast, simple shopping experience powered by clean data. Blue/white by day, dark by night — you choose.</p>
+    </div>
+  </section>
 
-    <section id="values" class="grid-3"></section>
+  <!-- Mission & Story -->
+  <section class="section">
+    <div class="grid">
+      <article class="card">
+        <h3>Our Mission</h3>
+        <p class="muted">
+          <b>Make it Happen.</b> We believe great products should be easy to find,
+          compare, and buy. MakWell is designed to be blazing fast, privacy-respecting,
+          and deployable on GitHub Pages with zero backend.
+        </p>
+      </article>
 
-    <section id="stats" class="grid-3" style="margin-top:16px;"></section>
+      <article class="card">
+        <h3>How It Works</h3>
+        <ul class="clean">
+          <li>All products live in a simple <code>products.json</code>.</li>
+          <li>The site renders client-side: search, filters, sorting, and cart.</li>
+          <li>Plug in a checkout provider (Razorpay/Stripe/Cashfree) when you’re ready.</li>
+        </ul>
+      </article>
 
-    <section class="story grid-2" style="margin-top:24px;">
-      <div class="card">
-        <h2>Our Story</h2>
-        <p>MakWell was started with a simple idea: dependable electronics designed for India’s power conditions and everyday needs.</p>
-        <p>From compact LED TVs to robust stabilizers and washing machines, we focus on efficiency, serviceability, and fair pricing.</p>
-      </div>
-      <img src="images/Sideprofile.png" alt="MakWell side profile" class="responsive card" />
-    </section>
+      <article class="card">
+        <h3>Why MakWell?</h3>
+        <ul class="clean">
+          <li>🚀 Static hosting, instant deploys</li>
+          <li>🧩 JSON-driven, easy to maintain</li>
+          <li>🌓 Theme toggle with persistence</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-    <section id="team" style="margin-top:24px;"></section>
+  <!-- Values -->
+  <section class="section">
+    <div class="values">
+      <article class="card">
+        <h3>Customer First</h3>
+        <p class="muted">Clear information, honest pricing, and fast UX — always.</p>
+      </article>
+      <article class="card">
+        <h3>Privacy by Default</h3>
+        <p class="muted">No trackers by default. Your data stays in your browser unless you choose a checkout.</p>
+      </article>
+    </div>
+  </section>
 
-    <section class="cta-strip" style="display:flex; gap:12px; margin:24px 0;">
-      <a class="btn" href="index.html#product-grid">Browse Products</a>
-      <a class="btn outline" href="contact.html">Get Support</a>
-    </section>
-  </main>
+  <!-- FAQ -->
+  <section class="section">
+    <article class="card">
+      <h3>FAQ</h3>
+      <dl class="faq">
+        <dt>Where do products come from?</dt>
+        <dd>From <code>products.json</code> at the repo root (or <code>data/products.json</code> as a fallback).</dd>
 
-  <footer class="container footer">
-    <p>© MakWell Electronics</p>
+        <dt>Can I enable payments?</dt>
+        <dd>Yes. The cart already produces a payload. Hook it to Razorpay/Stripe/Cashfree with a small JS snippet.</dd>
+
+        <dt>How does the theme toggle work?</dt>
+        <dd>We store your choice in <code>localStorage</code> and apply an attribute on <code>&lt;html&gt;</code> to switch variables.</dd>
+
+        <dt>Is it mobile friendly?</dt>
+        <dd>Absolutely. The layout is responsive and touch-friendly.</dd>
+      </dl>
+    </article>
+  </section>
+
+  <footer class="site" style="text-align:center; padding:30px 10px">
+    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
-  <script src="script.js"></script>
   <script>
-    // hydrate from about.json (edit content in about.json)
-    fetch('about.json', {cache:'no-store'})
-      .then(r => r.json())
-      .then(data => {
-        document.getElementById('about-headline').textContent = data.hero.headline;
-        document.getElementById('about-subcopy').textContent = data.hero.subcopy;
-
-        const values = document.getElementById('values');
-        data.values.forEach(v => {
-          const c = document.createElement('div');
-          c.className = 'card';
-          c.innerHTML = `<h3>${v.title}</h3><p>${v.desc}</p>`;
-          values.appendChild(c);
-        });
-
-        const stats = document.getElementById('stats');
-        data.stats.forEach(s => {
-          const k = document.createElement('div');
-          k.className = 'card stat';
-          k.innerHTML = `<div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div>`;
-          stats.appendChild(k);
-        });
-
-        if (data.team?.length) {
-          const teamWrap = document.createElement('section');
-          teamWrap.className = 'team-grid';
-          data.team.forEach(t => {
-            const card = document.createElement('div');
-            card.className = 'card team-card';
-            card.innerHTML = `\n              <img src="${t.photo}" alt="${t.name}" class="avatar"/>\n              <h4>${t.name}</h4>\n              <p class="muted">${t.role}</p>\n              ${t.linkedin ? `<a href="${t.linkedin}" target="_blank" rel="noopener">LinkedIn</a>` : ''}\n            `;
-            teamWrap.appendChild(card);
-          });
-          document.getElementById('team').appendChild(teamWrap);
-        }
-      })
-      .catch(()=>{ /* optional fallback copy here */ });
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
