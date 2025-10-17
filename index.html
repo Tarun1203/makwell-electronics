@@ -4,108 +4,62 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MakWell • Make it Happen</title>
+  <meta name="description" content="MakWell — Smart, efficient home electronics. Make it Happen." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body, html { margin:0; padding:0; overflow-x: hidden; }
-    .hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .hero .bg-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--accent-2);
-      opacity: 0.15;
-      animation: float 8s ease-in-out infinite;
-    }
-    .hero .bg-circle.small { width: 200px; height: 200px; top: 10%; left: 70%; }
-    .hero .bg-circle.large { width: 400px; height: 400px; bottom: 5%; right: 5%; }
-    @keyframes float {
-      0%,100% { transform: translateY(0px) translateX(0px); }
-      50% { transform: translateY(20px) translateX(-10px); }
-    }
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      opacity: 0;
-      animation: fadeInUp 1s forwards 0.5s;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .logo-wrap { width: 180px; margin: 0 auto; }
-    .logo-wrap img { width: 100%; height: auto; }
-    .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 16px 0; }
-    .hero-content p { color: var(--muted); margin: 0 0 24px; }
-    .hero-content .btn { margin: 0 8px; }
-  </style>
   <script>
-    (function(){
-      const KEY='mw_theme'; const html=document.documentElement;
-      function apply(t){ t==='dark'?html.setAttribute('data-theme','dark'):html.removeAttribute('data-theme'); }
-      const stored = localStorage.getItem(KEY);
-      const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      apply(stored || (prefers ? 'dark':'light'));
-      window.toggleTheme = function(){
-        const nxt = html.getAttribute('data-theme')==='dark' ? 'light':'dark';
-        apply(nxt); localStorage.setItem(KEY, nxt);
-        const b = document.getElementById('themeToggle');
-        if(b) b.textContent = nxt==='dark' ? '🌙 Dark':'☀️ Light';
-      };
-      document.addEventListener('DOMContentLoaded', ()=>{
-        const b = document.getElementById('themeToggle');
-        if(b) b.textContent = html.getAttribute('data-theme')==='dark' ? '🌙 Dark':'☀️ Light';
-      });
-    })();
+    (function(){const k='mw_theme',h=document.documentElement;
+      function a(t){t==='dark'?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme')}
+      const s=localStorage.getItem(k),p=matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;
+      a(s||(p?'dark':'light'));
+      window.toggleTheme=function(){const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+        a(n);localStorage.setItem(k,n);
+        const b=document.getElementById('themeToggle'); if(b) b.textContent=n==='dark'?'🌙 Dark':'☀️ Light'};})();
   </script>
+  <style>
+    .landing{min-height:88vh;display:grid;place-items:center;text-align:center;overflow:hidden;background:var(--bg);}
+    .hero-box{position:relative;z-index:1;max-width:900px;width:100%;display:grid;gap:18px;justify-items:center}
+    .logo-wrap{display:grid;place-items:center;width:min(70vw,500px);height:min(70vw,500px);
+      background:color-mix(in oklab,var(--bg) 90%,var(--accent) 8%);border-radius:28px;box-shadow:var(--shadow);}
+    .logo-wrap img{width:86%;height:86%;object-fit:contain;filter:drop-shadow(0 10px 24px rgba(0,0,0,.08))}
+  </style>
 </head>
 <body>
   <header class="site">
     <nav>
       <div class="brand">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-             alt="MakWell — Make it Happen" width="32" height="32" style="border-radius:6px;object-fit:contain"/>
+        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" width="28" height="28"/>
         <b>MakWell</b> <small>— Make it Happen</small>
       </div>
-      <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-        <a href="index.html">Home</a>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+        <a href="index.html" class="active">Home</a>
         <a href="products.html">Products</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()"></button>
+        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
       </div>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="bg-circle small"></div>
-    <div class="bg-circle large"></div>
-
-    <div class="hero-content">
+  <section class="landing">
+    <div class="hero-box">
       <div class="logo-wrap">
         <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell Logo">
       </div>
       <h1>Make it Happen</h1>
-      <p>Innovative electronics for modern homes — reliable, efficient, and elegant.</p>
+      <p class="muted">Smart, efficient home electronics</p>
       <div class="cta">
         <a class="btn" href="products.html">Browse Products</a>
-        <a class="btn secondary" href="about.html">Why MakWell?</a>
+        <a class="btn secondary" href="about.html">About</a>
+        <a class="btn secondary" href="contact.html">Contact</a>
       </div>
     </div>
   </section>
 
-  <footer class="site" style="text-align:center; padding:30px 10px;">
+  <footer class="site">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script src="img-fallback.js"></script>
 </body>
 </html>
