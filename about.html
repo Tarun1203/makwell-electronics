@@ -3,242 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | MakWell — Make it Happen</title>
+  <title>About • MakWell</title>
   <meta name="description" content="MakWell is an Indian brand building reliable Televisions, Washing Machines and Stabilizers — efficient, serviceable, and easy to own." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* ====== Page-local aesthetics (adds 'wow' without touching your global CSS) ====== */
-    .x-hero {
-      position: relative;
-      padding: 88px 16px 64px;
-      text-align: center;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      background:
-        radial-gradient(900px 400px at 15% -10%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 60%),
-        radial-gradient(900px 400px at 110% 0%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 60%),
-        var(--bg);
-    }
-    .x-hero h1 { margin: 10px 0 8px; font-size: clamp(28px, 5vw, 44px); }
-    .x-hero p  { margin: 0 auto; max-width: 820px; }
-    .x-blur {
-      position:absolute; inset:-40% -10% auto -10%; height:360px;
-      background: conic-gradient(from 180deg, color-mix(in oklab, var(--accent) 20%, transparent), transparent 30%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 60%);
-      filter: blur(45px); opacity:.25; pointer-events:none;
-      animation: spin 18s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(1turn); } }
-
-    .x-badges { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:14px }
-    .x-badge  { display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px;
-                border:1px solid var(--border);
-                background: color-mix(in oklab, var(--accent) 10%, var(--bg));
-                font-weight: 700; font-size: 13px; }
-
-    .x-grid-3 { display:grid; gap:14px; grid-template-columns:repeat(3,1fr) }
-    @media (max-width: 900px) { .x-grid-3 { grid-template-columns:1fr } }
-
-    .x-card { background: var(--panel); border:1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding:16px; }
-    .x-card h3 { margin:0 0 6px }
-    .x-icon {
-      width:44px; height:44px; display:grid; place-items:center; border-radius:12px; margin-bottom:6px;
-      border:1px solid var(--border);
-      background: color-mix(in oklab, var(--accent) 12%, var(--bg));
-      font-size:20px;
-    }
-
-    /* Animated stats */
-    .x-stats { margin-top:8px }
-    .x-stat  { display:grid; place-items:center; padding:18px 12px; border:1px solid var(--border); border-radius:16px; background:var(--panel) }
-    .x-stat h2 { margin:0; font-size: clamp(26px, 6vw, 40px) }
-
-    /* Timeline */
-    .x-timeline { position:relative; padding-left:18px; }
-    .x-timeline:before { content:""; position:absolute; left:6px; top:8px; bottom:8px; width:2px; background: color-mix(in oklab, var(--accent) 30%, var(--border)); border-radius:2px; }
-    .x-step { position:relative; margin:14px 0 0 0; }
-    .x-step:before { content:""; position:absolute; left:-12px; top:6px; width:12px; height:12px; border-radius:50%;
-      background:var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent); }
-
-    /* FAQ */
-    details.x-faq { border:1px solid var(--border); border-radius:12px; background:var(--panel); padding:12px 14px }
-    details.x-faq + details.x-faq { margin-top:10px }
-    details.x-faq summary { cursor:pointer; font-weight:800; list-style:none }
-    details.x-faq summary::-webkit-details-marker { display:none }
-
-    /* CTA banner */
-    .x-cta { position:relative; overflow:hidden; text-align:center; padding:28px 16px; border:1px solid var(--border); border-radius:16px; background:var(--panel) }
-    .x-shimmer { position:absolute; inset:-120% -60% auto -60%; height:300px; opacity:.25; pointer-events:none;
-      background: conic-gradient(from 90deg, color-mix(in oklab, var(--accent) 25%, transparent), transparent 20%, color-mix(in oklab, var(--accent-2) 25%, transparent), transparent 60%);
-      filter: blur(40px); animation: spin 24s linear infinite; }
-  </style>
-
-  <script>
-    /* Theme bootstrap (matches your other pages) */
-    (function(){
-      const k='mw_theme', h=document.documentElement;
-      function set(t){ t==='dark' ? h.setAttribute('data-theme','dark') : h.removeAttribute('data-theme'); }
-      const s=localStorage.getItem(k), prefers = matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
-      set(s || (prefers ? 'dark' : 'light'));
-      window.toggleTheme = function(){
-        const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
-        set(n); localStorage.setItem(k,n);
-        const b=document.getElementById('themeToggle'); if(b) b.textContent = n==='dark' ? '🌙 Dark' : '☀️ Light';
-      };
-    })();
-  </script>
 </head>
-
 <body>
-  <!-- Header -->
-  <header class="site">
-    <nav>
-      <div class="brand">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell — Make it Happen" width="28" height="28" style="border-radius:6px;object-fit:contain" />
-        <b>MakWell</b> <small>— Make it Happen</small>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html" class="active">About</a>
-        <a href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section class="x-hero">
-    <div class="x-blur" aria-hidden="true"></div>
-    <div class="container">
-      <h1>Built for India. <span style="color:var(--accent)">Make it Happen.</span></h1>
-      <p class="muted">
-        We craft Televisions, Washing Machines, and Stabilizers that are <b>efficient</b>, <b>serviceable</b>, and <b>reliable</b>.
-        Thoughtful features, honest specs, and responsive support — that’s the MakWell way.
-      </p>
-      <div class="x-badges">
-        <span class="x-badge">🇮🇳 Indian Brand</span>
-        <span class="x-badge">⚡ Energy Efficient</span>
-        <span class="x-badge">🛡️ Warranty Support</span>
-        <span class="x-badge">🔧 Service Network</span>
-      </div>
+<header class="site">
+  <nav class="container">
+    <a class="brand" href="index.html"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt=""><b>MakWell</b> <small class="muted">— Make it Happen</small></a>
+    <div class="navlinks">
+      <a href="index.html">Home</a><a href="products.html">Products</a><a class="active" href="about.html">About</a><a href="contact.html">Contact</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
     </div>
-  </section>
+  </nav>
+</header>
 
-  <!-- PILLARS -->
-  <section class="container" style="margin-top:22px;">
-    <div class="x-grid-3">
-      <article class="x-card">
-        <div class="x-icon" aria-hidden="true">🏭</div>
-        <h3>Production Discipline</h3>
-        <p class="muted">We build with quality gates at every stage — board tests, firmware validation, and burn-in — so your product works flawlessly out of the box.</p>
-      </article>
-      <article class="x-card">
-        <div class="x-icon" aria-hidden="true">📦</div>
-        <h3>Reliable Logistics</h3>
-        <p class="muted">FIFO storage, batch tracking, and tamper-evident packaging ensure safe, predictable deliveries across India.</p>
-      </article>
-      <article class="x-card">
-        <div class="x-icon" aria-hidden="true">🔧</div>
-        <h3>Service That Cares</h3>
-        <p class="muted">Simple warranty flows, genuine spares, and trained technicians — for fixes you can trust.</p>
-      </article>
-    </div>
-  </section>
+<section class="container hero">
+  <h1 style="margin:0;text-align:center">Built for India. <span style="color:var(--accent)">Make it Happen.</span></h1>
+  <p class="muted" style="max-width:820px;margin:8px auto 0;text-align:center">We craft Televisions, Washing Machines, and Stabilizers that are <b>efficient</b>, <b>serviceable</b>, and <b>reliable</b>. Thoughtful features, honest specs, and responsive support — that’s the MakWell way.</p>
+</section>
 
-  <!-- ANIMATED STATS -->
-  <section class="container x-stats" style="margin-top:18px;">
-    <div class="x-grid-3">
-      <article class="x-stat">
-        <h2 data-count="65" data-suffix="″">0</h2>
-        <div class="muted">TV Sizes up to</div>
-      </article>
-      <article class="x-stat">
-        <h2 data-count="11" data-suffix=" kg">0</h2>
-        <div class="muted">Washing Capacity</div>
-      </article>
-      <article class="x-stat">
-        <h2 data-count="5" data-suffix=" yrs">0</h2>
-        <div class="muted">Stabilizer Warranty*</div>
-      </article>
-    </div>
-    <p class="muted" style="text-align:center;margin-top:8px;font-size:12px">*On select models only.</p>
-  </section>
+<section class="container grid cols-3">
+  <article class="card" style="padding:16px">
+    <div class="icon">🏭</div>
+    <h3>Production Discipline</h3>
+    <p class="muted">Quality gates at every stage — board tests, firmware validation, and burn-in — so your product works flawlessly out of the box.</p>
+  </article>
+  <article class="card" style="padding:16px">
+    <div class="icon">📦</div>
+    <h3>Reliable Logistics</h3>
+    <p class="muted">FIFO storage, batch tracking, and tamper-evident packaging ensure safe, predictable deliveries across India.</p>
+  </article>
+  <article class="card" style="padding:16px">
+    <div class="icon">🔧</div>
+    <h3>Service That Cares</h3>
+    <p class="muted">Simple warranty flows, genuine spares, and trained technicians — for fixes you can trust.</p>
+  </article>
+</section>
 
-  <!-- TIMELINE -->
-  <section class="container" style="margin-top:18px;">
-    <article class="x-card">
-      <h3 style="margin:0 0 4px">Our Journey</h3>
-      <div class="x-timeline">
-        <div class="x-step">
-          <h4 style="margin:0 0 4px">Foundation</h4>
-          <p class="muted" style="margin:0">Started with a simple goal: reliable, easy-to-own televisions for Indian homes.</p>
-        </div>
-        <div class="x-step">
-          <h4 style="margin:0 0 4px">Expansion</h4>
-          <p class="muted" style="margin:0">Introduced semi-automatic washing machines and smart stabilizers with clear, honest feature sets.</p>
-        </div>
-        <div class="x-step">
-          <h4 style="margin:0 0 4px">Today</h4>
-          <p class="muted" style="margin:0">Continuing to refine efficiency, durability, and service coverage — so you can <b>Make it Happen</b>.</p>
-        </div>
-      </div>
+<section class="container hero small">
+  <div class="grid cols-3">
+    <article class="card" style="padding:18px;text-align:center">
+      <h2 style="margin:0">65″</h2><div class="muted">TV Sizes up to</div>
     </article>
-  </section>
+    <article class="card" style="padding:18px;text-align:center">
+      <h2 style="margin:0">11 kg</h2><div class="muted">Washing Capacity</div>
+    </article>
+    <article class="card" style="padding:18px;text-align:center">
+      <h2 style="margin:0">5 yrs</h2><div class="muted">Stabilizer Warranty*</div>
+    </article>
+  </div>
+  <p class="muted" style="text-align:center;margin-top:8px;font-size:12px">*On select models only.</p>
+</section>
 
-  <!-- FAQ -->
-  <section class="container" style="margin-top:18px;">
-    <h2 style="text-align:center;margin:0 0 10px">FAQ</h2>
-    <div class="x-grid-3">
-      <details class="x-faq">
-        <summary>Where can I buy MakWell products?</summary>
-        <p class="muted">Contact us via the <a href="contact.html">Contact</a> page for current distributors or to place a direct inquiry.</p>
-      </details>
-      <details class="x-faq">
-        <summary>How do I claim warranty or service?</summary>
-        <p class="muted">Keep your purchase invoice. Share model/serial details on WhatsApp/Email, and we’ll schedule on-site or bench service.</p>
-      </details>
-      <details class="x-faq">
-        <summary>Do your products support regional power fluctuations?</summary>
-        <p class="muted">Yes. Stabilizers are designed for Indian conditions; TVs and washers include safeguards per model specifications.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="container" style="margin:22px 0 34px">
-    <div class="x-cta">
-      <div class="x-shimmer" aria-hidden="true"></div>
-      <h3 style="margin:0 0 6px">Ready to explore?</h3>
-      <p class="muted" style="margin:0 0 12px">Find the right TV, Washing Machine, or Stabilizer for your home.</p>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <a class="btn" href="products.html">Browse Products</a>
-        <a class="btn secondary" href="contact.html">Talk to Support</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site" style="text-align:center;padding:40px 10px;">
-    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Count-up animation for stats
-    const ease = t => 1 - Math.pow(1-t, 4);
-    function animateCount(el){
-      const target = +el.dataset.count || 0, suffix = el.dataset.suffix || '';
-      let t0; function step(t){
-        if(!t0) t0 = t; const p = Math.min(1, (t - t0)/1200);
-        const v = Math.round(target * ease(p));
-        el.textContent = v.toString() + suffix;
-        if(p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    document.querySelectorAll('[data-count]').forEach(animateCount);
-  </script>
+<footer class="site"><div class="container" style="padding:40px 0;text-align:center">© <span id="year"></span> MakWell — Make it Happen.</div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="app.js"></script>
 </body>
 </html>
