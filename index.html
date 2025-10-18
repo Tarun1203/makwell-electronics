@@ -7,9 +7,8 @@
   <meta name="description" content="MakWell — Smart, efficient home electronics. Make it Happen." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-
   <style>
-    /* ===== Page-local: carousel + hero badges ===== */
+    /* ===== Page-local: carousel + hero badges (no cropping) ===== */
     .x-hero{
       position:relative; text-align:center; overflow:hidden;
       border-bottom:1px solid var(--border);
@@ -20,19 +19,25 @@
     }
     .x-hero .container{padding:16px}
 
-    /* Carousel */
-    .slider{ position:relative; width:100%; height:min(64vh, 620px); max-height:620px; overflow:hidden; border-bottom:1px solid var(--border); }
-    .slides{ display:flex; width:100%; height:100%; transition:transform .6s ease; will-change:transform; }
-    .slide{ position:relative; min-width:100%; height:100%; display:grid; place-items:center; background:var(--panel); }
-    .slide img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+    /* Carousel (auto height, no cropping) */
+    .slider{ position:relative; width:100%; height:auto; overflow:hidden; border-bottom:1px solid var(--border); background:var(--panel); }
+    .slides{ display:flex; width:100%; transition:transform .6s ease; will-change:transform; }
+    .slide{ position:relative; min-width:100%; display:grid; place-items:center; background:var(--panel); }
+    .slide-inner{ width:100%; display:grid; place-items:center; }
+    .slide img{
+      width:100%; height:auto; /* natural aspect ratio */
+      object-fit:contain; object-position:center center; display:block;
+      background:var(--panel);
+      /* keep tall banners from bursting the page */
+      max-height: min(70vh, 700px);
+    }
 
     /* Controls */
     .ctrl{ position:absolute; inset:auto 0 12px 0; display:flex; justify-content:center; gap:8px; z-index:5 }
     .dot{ width:10px; height:10px; border-radius:999px; background:color-mix(in oklab, var(--accent) 30%, var(--bg)); border:1px solid var(--border); cursor:pointer }
     .dot.active{ background:var(--accent) }
-
     .arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:6; background:var(--panel); border:1px solid var(--border);
-      width:38px; height:38px; border-radius:10px; display:grid; place-items:center; cursor:pointer; }
+      width:38px; height:38px; border-radius:10px; display:grid; place-items:center; cursor:pointer }
     .arrow:hover{ box-shadow:var(--ring) }
     .arrow.prev{ left:10px } .arrow.next{ right:10px }
 
@@ -45,7 +50,6 @@
     .x-badges{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:12px 0 0 }
     .x-badge{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px;
       border:1px solid var(--border); background: color-mix(in oklab, var(--accent) 10%, var(--bg)); font-weight:800; font-size:13px; }
-
     .cta{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:16px 0 24px }
   </style>
 
@@ -69,7 +73,7 @@
   </script>
 </head>
 <body>
-  <!-- Header (single crisp logo; no duplicates) -->
+  <!-- Header -->
   <header class="site">
     <nav>
       <a class="brand" href="index.html" aria-label="MakWell — Home" style="display:flex;align-items:center;gap:10px;text-decoration:none">
@@ -88,7 +92,7 @@
     </nav>
   </header>
 
-  <!-- Carousel -->
+  <!-- Carousel (no cropping) -->
   <section class="x-hero">
     <div class="slider" id="slider" aria-roledescription="carousel">
       <button class="arrow prev" aria-label="Previous">‹</button>
@@ -96,12 +100,16 @@
 
       <div class="slides">
         <div class="slide" role="group" aria-label="Slide 1">
-          <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Banner.jpg"
-               alt="MakWell Television & Electronics Banner">
+          <div class="slide-inner">
+            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Banner.jpg"
+                 alt="MakWell Television & Electronics Banner" loading="eager" decoding="async">
+          </div>
         </div>
         <div class="slide" role="group" aria-label="Slide 2">
-          <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/WMBanner.jpg"
-               alt="MakWell Washing Machines Banner">
+          <div class="slide-inner">
+            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/WMBanner.jpg"
+                 alt="MakWell Washing Machines Banner" loading="lazy" decoding="async">
+          </div>
         </div>
       </div>
 
@@ -134,13 +142,12 @@
   <footer class="site" style="text-align:center;padding:30px 10px;">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
-
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
-  <!-- (Optional) Your image fallback script -->
+  <!-- Optional image fallback -->
   <script src="img-fallback.js"></script>
 
-  <!-- Carousel logic (autoplay + swipe + dots + pause-on-hover) -->
+  <!-- Carousel logic (autoplay + swipe + dots + pause-on-hover) + auto-height -->
   <script>
     (function(){
       const slider = document.getElementById('slider');
@@ -157,12 +164,13 @@
         i = (n+N) % N;
         track.style.transform = `translateX(${-i*100}%)`;
         Array.from(dotsEl.children).forEach((d,idx) => d.classList.toggle('active', idx===i));
+        fitHeight(); // adjust to current image ratio
       }
       function auto(){
         clearInterval(timer);
         timer = setInterval(()=>{ if(!hover) setIndex(i+1); }, D);
       }
-      // Dots
+      // pagination dots
       dotsEl.innerHTML = slides.map((_,k)=>`<button class="dot${k===0?' active':''}" aria-label="Go to slide ${k+1}"></button>`).join('');
       Array.from(dotsEl.children).forEach((d,idx)=> d.addEventListener('click', ()=>{ setIndex(idx); auto(); }));
 
@@ -180,8 +188,21 @@
         startX=null; dx=0; auto();
       });
 
-      setIndex(0); auto();
-      // Accessibility hint
+      // Auto height: compute from current image ratio (no cropping)
+      function fitHeight(){
+        const img = slides[i].querySelector('img');
+        if (!img) return;
+        const vw = slider.clientWidth;
+        const set = () => {
+          const r = (img.naturalWidth && img.naturalHeight) ? (img.naturalHeight / img.naturalWidth) : (9/21);
+          const h = Math.min(700, Math.max(240, vw * r)); // clamp for sanity
+          slider.style.height = h + 'px';
+        };
+        if (img.complete) set(); else img.addEventListener('load', set, {once:true});
+      }
+      addEventListener('resize', fitHeight);
+
+      setIndex(0); auto(); fitHeight();
       slider.setAttribute('aria-live','polite');
     })();
   </script>
