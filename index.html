@@ -8,218 +8,91 @@
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ===== Page-local: carousel + hero badges (no cropping) ===== */
-    .x-hero{
-      position:relative; text-align:center; overflow:hidden;
-      border-bottom:1px solid var(--border);
-      background:
-        radial-gradient(900px 420px at 15% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
-        radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--accent-2) 16%, transparent), transparent 60%),
-        var(--bg);
-    }
-    .x-hero .container{padding:16px}
-
-    /* Carousel (auto height, no cropping) */
-    .slider{ position:relative; width:100%; height:auto; overflow:hidden; border-bottom:1px solid var(--border); background:var(--panel); }
-    .slides{ display:flex; width:100%; transition:transform .6s ease; will-change:transform; }
-    .slide{ position:relative; min-width:100%; display:grid; place-items:center; background:var(--panel); }
-    .slide-inner{ width:100%; display:grid; place-items:center; }
-    .slide img{
-      width:100%; height:auto; /* natural aspect ratio */
-      object-fit:contain; object-position:center center; display:block;
-      background:var(--panel);
-      /* keep tall banners from bursting the page */
-      max-height: min(70vh, 700px);
-    }
-
-    /* Controls */
-    .ctrl{ position:absolute; inset:auto 0 12px 0; display:flex; justify-content:center; gap:8px; z-index:5 }
-    .dot{ width:10px; height:10px; border-radius:999px; background:color-mix(in oklab, var(--accent) 30%, var(--bg)); border:1px solid var(--border); cursor:pointer }
-    .dot.active{ background:var(--accent) }
-    .arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:6; background:var(--panel); border:1px solid var(--border);
-      width:38px; height:38px; border-radius:10px; display:grid; place-items:center; cursor:pointer }
-    .arrow:hover{ box-shadow:var(--ring) }
-    .arrow.prev{ left:10px } .arrow.next{ right:10px }
-
-    /* Logo tile + badges */
-    .logo-wrap{ display:grid; place-items:center; width:min(72vw,520px); height:min(72vw,520px);
-      border:1px solid var(--border); border-radius:28px; box-shadow:var(--shadow);
-      background: color-mix(in oklab, var(--bg) 90%, var(--accent) 8%); margin:18px auto 10px; }
-    .logo-wrap img{ width:86%; height:86%; object-fit:contain; filter:drop-shadow(0 10px 24px rgba(0,0,0,.08)) }
-
-    .x-badges{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:12px 0 0 }
-    .x-badge{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px;
-      border:1px solid var(--border); background: color-mix(in oklab, var(--accent) 10%, var(--bg)); font-weight:800; font-size:13px; }
-    .cta{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:16px 0 24px }
+    /* Diwali banner (page-local) */
+    .diwali-banner{position:relative;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);
+      background: radial-gradient(600px 180px at 15% 30%, color-mix(in oklab,var(--accent) 22%, transparent), transparent 60%),
+                 radial-gradient(600px 180px at 85% 30%, color-mix(in oklab,var(--accent-2) 22%, transparent), transparent 60%),
+                 color-mix(in oklab, var(--bg) 90%, var(--accent) 8%);}
+    .diwali-banner .msg{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .diya{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#ffd27b 0 35%, #ff9100 36% 60%, transparent 61%);position:relative;box-shadow:0 6px 16px rgba(255,145,0,.25) inset}
+    .diya:after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:36px;height:12px;border-radius:12px;background:linear-gradient(180deg,#6b4f2a,#3c2a14)}
+    .diwali-banner .cta{display:flex;gap:8px;flex-wrap:wrap}
+    .diwali-banner .close{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:6px 10px;cursor:pointer}
+    .sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .sparkles i{position:absolute;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,#fff,#ffd27b 60%,transparent 61%);opacity:.0;animation:twinkle 2.6s infinite ease-in-out}
+    @keyframes twinkle{0%,100%{transform:translateY(0) scale(.6);opacity:0}25%{opacity:.9}50%{transform:translateY(-12px) scale(1.2);opacity:.2}}
+    /* badge row */
+    .x-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0 0}
+    .x-badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:color-mix(in oklab,var(--accent) 10%, var(--bg));font-weight:800;font-size:13px}
   </style>
-
-  <script>
-    /* Theme bootstrap (single, clean) */
-    (function(){
-      const KEY='mw_theme', html=document.documentElement;
-      const set = t => t==='dark' ? html.setAttribute('data-theme','dark') : html.removeAttribute('data-theme');
-      const stored = localStorage.getItem(KEY);
-      const prefers = matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
-      set(stored || (prefers ? 'dark' : 'light'));
-      window.toggleTheme = function(){
-        const n = html.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
-        set(n); localStorage.setItem(KEY, n);
-        const b = document.getElementById('themeToggle'); if(b) b.textContent = n==='dark' ? '🌙 Dark' : '☀️ Light';
-      };
-      addEventListener('DOMContentLoaded', ()=> {
-        const b=document.getElementById('themeToggle'); if(b) b.textContent = html.getAttribute('data-theme')==='dark' ? '🌙 Dark' : '☀️ Light';
-      });
-    })();
-  </script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site">
-    <nav>
-      <a class="brand" href="index.html" aria-label="MakWell — Home" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-        <img class="logo"
-             src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-             alt="MakWell" width="32" height="32" style="border-radius:6px;object-fit:contain" />
-        <b>MakWell</b> <small style="color:var(--muted);font-weight:700">— Make it Happen</small>
-      </a>
-      <div class="navlinks" style="margin-left:auto;display:flex;gap:8px;align-items:center">
-        <a href="index.html" class="active">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Carousel (no cropping) -->
-  <section class="x-hero">
-    <div class="slider" id="slider" aria-roledescription="carousel">
-      <button class="arrow prev" aria-label="Previous">‹</button>
-      <button class="arrow next" aria-label="Next">›</button>
-      <!-- Banner Photo Of Brand logo -->
-      <div class="slides">
-        <div class="slide" role="group" aria-label="Slide 1">
-          <div class="slide-inner">
-            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Banner.jpg"
-                 alt="MakWell Television & Electronics Banner" loading="eager" decoding="async">
-          </div>
-        </div>
-        <!-- Banner Photo Of Washing Machine Banner -->
-        <div class="slide" role="group" aria-label="Slide 2">
-          <div class="slide-inner">
-            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/WMBanner.jpg"
-                 alt="MakWell Washing Machines Banner" loading="lazy" decoding="async">
-          </div>
-        </div>
-      <!-- Banner Photo Of TV Banner -->
-       <div class="slide" role="group" aria-label="Slide 3">
-          <div class="slide-inner">
-            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/TVBanner.png"
-                 alt="MakWell TV Banner" loading="lazy" decoding="async">
-          </div>
-        </div>
-    <!-- Banner Photo Of Product Features for Smart TV -->
-     <div class="slide" role="group" aria-label="Slide 4">
-          <div class="slide-inner">
-            <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Features.png"
-                 alt="MakWell Features" loading="lazy" decoding="async">
-          </div>
-        </div>
-      </div>
-
-      <div class="ctrl" id="dots" aria-label="Carousel pagination"></div>
+<header class="site">
+  <nav class="container">
+    <a class="brand" href="index.html">
+      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell">
+      <b>MakWell</b> <small class="muted">— Make it Happen</small>
+    </a>
+    <div class="navlinks">
+      <a class="active" href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
     </div>
+  </nav>
+</header>
 
-    <!-- Centerpiece logo + badges + CTAs -->
-    <div class="container">
-      <div class="logo-wrap" aria-label="MakWell Logo">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell Logo">
-      </div>
-      <h1 style="margin:10px 0 6px">Make it Happen</h1>
-      <p class="muted" style="max-width:780px;margin:0 auto">Smart, efficient home electronics — Televisions • Washing Machines • Stabilizers</p>
+<!-- Diwali banner (Home only) -->
+<section id="diwaliBanner" class="diwali-banner" hidden>
+  <div class="msg">
+    <span class="diya" aria-hidden="true"></span>
+    <strong>Happy Diwali from MakWell!</strong>
+    <span class="muted">May your home shine brighter — explore festive offers.</span>
+  </div>
+  <div class="cta">
+    <a class="btn" href="products.html">See Products</a>
+    <a class="btn secondary" href="contact.html">Need help?</a>
+    <button class="close" type="button" aria-label="Hide">✕</button>
+  </div>
+  <div class="sparkles" aria-hidden="true"></div>
+</section>
 
-      <div class="x-badges">
-        <span class="x-badge">🇮🇳 Indian Brand</span>
-        <span class="x-badge">⚡ Energy Efficient</span>
-        <span class="x-badge">🛡️ Warranty Support</span>
-        <span class="x-badge">🔧 Service Network</span>
-      </div>
+<!-- Hero Carousel -->
+<section class="slider" id="slider" aria-roledescription="carousel">
+  <button class="arrow prev" aria-label="Previous">‹</button>
+  <button class="arrow next" aria-label="Next">›</button>
+  <div class="slides" id="slides">
+    <div class="slide"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Banner.jpg" alt="MakWell Television & Electronics Banner" loading="eager" decoding="async"></div>
+    <div class="slide"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/WMBanner.jpg" alt="MakWell Washing Machines Banner"></div>
+    <div class="slide"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/TVBanner.png" alt="MakWell TV Size Comparison"></div>
+    <div class="slide"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Features.png" alt="MakWell Features"></div>
+  </div>
+  <div class="ctrl" id="dots"></div>
+</section>
 
-      <div class="cta">
-        <a class="btn" href="products.html">Browse Products</a>
-        <a class="btn secondary" href="about.html">About</a>
-        <a class="btn secondary" href="contact.html">Contact</a>
-      </div>
-    </div>
-  </section>
+<!-- Logo focus + badges -->
+<section class="container hero">
+  <div class="logo-wrap"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell Logo"></div>
+  <h1 style="text-align:center;margin:12px 0 6px">Make it Happen</h1>
+  <p class="muted" style="text-align:center;max-width:760px;margin:0 auto">Smart, efficient home electronics — Televisions • Washing Machines • Stabilizers</p>
+  <div class="x-badges">
+    <span class="x-badge">🇮🇳 Indian Brand</span>
+    <span class="x-badge">⚡ Energy Efficient</span>
+    <span class="x-badge">🛡️ Warranty Support</span>
+    <span class="x-badge">🔧 Service Network</span>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:14px">
+    <a class="btn" href="products.html">Browse Products</a>
+    <a class="btn secondary" href="about.html">About</a>
+    <a class="btn secondary" href="contact.html">Contact</a>
+  </div>
+</section>
 
-  <footer class="site" style="text-align:center;padding:30px 10px;">
-    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
-  </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
-  <!-- Optional image fallback -->
-  <script src="img-fallback.js"></script>
-
-  <!-- Carousel logic (autoplay + swipe + dots + pause-on-hover) + auto-height -->
-  <script>
-    (function(){
-      const slider = document.getElementById('slider');
-      const track  = slider.querySelector('.slides');
-      const slides = Array.from(slider.querySelectorAll('.slide'));
-      const dotsEl = document.getElementById('dots');
-      const prev = slider.querySelector('.arrow.prev');
-      const next = slider.querySelector('.arrow.next');
-
-      let i = 0, timer = null, hover = false, startX=null, dx=0;
-      const N = slides.length, D = 5000; // 5s
-
-      function setIndex(n){
-        i = (n+N) % N;
-        track.style.transform = `translateX(${-i*100}%)`;
-        Array.from(dotsEl.children).forEach((d,idx) => d.classList.toggle('active', idx===i));
-        fitHeight(); // adjust to current image ratio
-      }
-      function auto(){
-        clearInterval(timer);
-        timer = setInterval(()=>{ if(!hover) setIndex(i+1); }, D);
-      }
-      // pagination dots
-      dotsEl.innerHTML = slides.map((_,k)=>`<button class="dot${k===0?' active':''}" aria-label="Go to slide ${k+1}"></button>`).join('');
-      Array.from(dotsEl.children).forEach((d,idx)=> d.addEventListener('click', ()=>{ setIndex(idx); auto(); }));
-
-      prev.addEventListener('click', ()=>{ setIndex(i-1); auto(); });
-      next.addEventListener('click', ()=>{ setIndex(i+1); auto(); });
-
-      slider.addEventListener('mouseenter', ()=> hover=true);
-      slider.addEventListener('mouseleave', ()=> hover=false);
-
-      // Touch swipe
-      slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; dx=0; clearInterval(timer); }, {passive:true});
-      slider.addEventListener('touchmove', e => { if(startX==null) return; dx = e.touches[0].clientX - startX; }, {passive:true});
-      slider.addEventListener('touchend', () => {
-        if (Math.abs(dx) > 40) setIndex(i + (dx<0 ? 1 : -1));
-        startX=null; dx=0; auto();
-      });
-
-      // Auto height: compute from current image ratio (no cropping)
-      function fitHeight(){
-        const img = slides[i].querySelector('img');
-        if (!img) return;
-        const vw = slider.clientWidth;
-        const set = () => {
-          const r = (img.naturalWidth && img.naturalHeight) ? (img.naturalHeight / img.naturalWidth) : (9/21);
-          const h = Math.min(700, Math.max(240, vw * r)); // clamp for sanity
-          slider.style.height = h + 'px';
-        };
-        if (img.complete) set(); else img.addEventListener('load', set, {once:true});
-      }
-      addEventListener('resize', fitHeight);
-
-      setIndex(0); auto(); fitHeight();
-      slider.setAttribute('aria-live','polite');
-    })();
-  </script>
+<footer class="site">
+  <div class="container" style="padding:30px 0;text-align:center">© <span id="year"></span> MakWell — Make it Happen.</div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="app.js"></script>
 </body>
 </html>
