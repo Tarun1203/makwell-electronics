@@ -16,7 +16,7 @@
     "series": "Android",
     "tags": ["HD Ready", "Smart TV", "Voice Remote"],
     "specs": ["1GB RAM", "8GB ROM", "WiFi", "Bluetooth"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK32S",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK32",
     "badges": ["Hot Deal", "Popular"]
   },
   {
@@ -26,7 +26,7 @@
     "series": "webOS",
     "tags": ["Full HD", "Voice Control", "Smart"],
     "specs": ["1GB RAM", "8GB ROM", "Magic Remote"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK43Web",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK43",
     "badges": ["New Arrival"]
   },
   {
@@ -36,7 +36,7 @@
     "series": "Google",
     "tags": ["4K UHD", "Chromecast Built-in"],
     "specs": ["2GB RAM", "16GB ROM", "HDR10", "Dolby Audio"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK50G",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK50",
     "badges": ["Smart Pick"]
   },
   {
@@ -46,7 +46,7 @@
     "series": "webOS",
     "tags": ["4K UHD", "AI Processor", "Voice Keypad"],
     "specs": ["1GB RAM", "8GB ROM", "Wide Viewing Angle"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK55G",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK55",
     "badges": ["Premium"]
   },
   {
@@ -56,7 +56,7 @@
     "series": "webOS",
     "tags": ["Ultra HD 4K", "ThinQ AI", "HDR10+"],
     "specs": ["2GB RAM", "16GB ROM", "Dolby Vision"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK65G",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK65",
     "badges": ["Flagship", "5 Year Warranty"]
   },
   {
