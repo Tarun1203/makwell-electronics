@@ -4,24 +4,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About | MakWell — Make it Happen</title>
-  <meta name="description" content="About MakWell: registered Indian electronics brand. Make it Happen." />
+  <meta name="description" content="About MakWell: Indian electronics brand for Televisions, Washing Machines, and Stabilizers." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
   <script>
     (function(){
-      const k='mw_theme', h=document.documentElement;
-      function a(t){ t==='dark' ? h.setAttribute('data-theme','dark') : h.removeAttribute('data-theme'); }
-      const s=localStorage.getItem(k), p=matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
-      a(s || (p ? 'dark' : 'light'));
+      const K='mw_theme', H=document.documentElement;
+      function set(t){ t==='dark' ? H.setAttribute('data-theme','dark') : H.removeAttribute('data-theme'); }
+      const s=localStorage.getItem(K), prefersDark = matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+      set(s || (prefersDark ? 'dark' : 'light'));
       window.toggleTheme = function(){
-        const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        a(n);
-        localStorage.setItem(k, n);
-        const b = document.getElementById('themeToggle');
-        if (b) b.textContent = n==='dark' ? '🌙 Dark' : '☀️ Light';
+        const n = H.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+        set(n); localStorage.setItem(K,n);
+        const b=document.getElementById('themeToggle'); if(b) b.textContent = n==='dark'?'🌙 Dark':'☀️ Light';
       };
     })();
   </script>
+  <style>
+    /* Page-local helpers (keeps your global styles.css untouched) */
+    .about-hero { text-align:center; padding:70px 16px; }
+    .about-hero h1 { margin:10px 0 8px; }
+    .about-hero p { max-width:820px; margin:0 auto; }
+    .section-title { text-align:center; margin:34px 0 10px; }
+    .op-card { display:flex; gap:14px; align-items:flex-start }
+    .op-icon { flex:0 0 44px; width:44px; height:44px; display:grid; place-items:center; border-radius:12px;
+      background:color-mix(in oklab, var(--accent) 12%, var(--bg)); border:1px solid var(--border); font-size:20px }
+    .timeline { display:grid; gap:10px; }
+    .trow { display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start }
+    .trow .dot { width:12px; height:12px; border-radius:50%; background:var(--accent); margin-top:8px; box-shadow:0 0 0 4px color-mix(in oklab,var(--accent) 18%, transparent) }
+    .stat { display:grid; place-items:center; padding:18px 12px }
+    .stat h2 { margin:0; }
+    .ribbon { display:inline-flex; gap:6px; align-items:center; background: color-mix(in oklab, var(--accent) 14%, var(--bg)); border:1px solid var(--border); border-radius:999px; padding:4px 10px; font-size:12px }
+  </style>
 </head>
 
 <body>
@@ -30,9 +44,7 @@
     <nav>
       <div class="brand">
         <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-             alt="MakWell — Make it Happen"
-             width="32" height="32"
-             style="border-radius:6px;object-fit:contain" />
+             alt="MakWell — Make it Happen" width="28" height="28" style="border-radius:6px;object-fit:contain" />
         <b>MakWell</b> <small>— Make it Happen</small>
       </div>
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
@@ -45,72 +57,139 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" style="text-align:center;padding:80px 20px;">
-    <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-         alt="MakWell Logo"
-         style="max-width:140px;border-radius:10px;margin-bottom:20px;">
-    <h1>About MakWell</h1>
-    <p class="muted" style="max-width:700px;margin:auto;">
-      <b>MakWell — Make it Happen</b> is an Indian brand committed to designing
-      innovative, affordable, and reliable electronics for every home.  
-      From Smart Televisions to Washing Machines and Stabilizers — we bring simplicity,
-      durability, and efficiency to modern living.
-    </p>
+  <!-- Hero -->
+  <section class="hero about-hero">
+    <div class="container">
+      <div class="ribbon">🇮🇳 Indian Brand</div>
+      <h1>About MakWell</h1>
+      <p class="muted">
+        We design smart, reliable home electronics built for India — from Televisions to Washing Machines and Stabilizers.
+        Our promise is simple: <b>Make it Happen</b> with products that are efficient, dependable, and easy to own.
+      </p>
+    </div>
   </section>
 
-  <!-- Mission / Vision / Journey -->
-  <section class="container" style="margin-top:40px;">
+  <!-- Mission / Vision / Values -->
+  <section class="container" style="margin-top:22px;">
     <div class="grid3">
       <article class="card pad">
         <h3>Our Mission</h3>
-        <p class="muted">To provide high-quality, energy-efficient electronics that combine advanced technology with simplicity — ensuring comfort and reliability in every home.</p>
+        <p class="muted">Deliver high-quality, energy-efficient electronics with transparent features and dependable after-sales support.</p>
       </article>
       <article class="card pad">
         <h3>Our Vision</h3>
-        <p class="muted">To become a trusted Indian brand known for affordable innovation, long-lasting performance, and exceptional after-sales service.</p>
+        <p class="muted">Build a trusted Indian brand known for affordable innovation and long-lasting performance across every home.</p>
       </article>
       <article class="card pad">
-        <h3>Our Journey</h3>
-        <p class="muted">Founded with a passion for accessible technology, MakWell has grown from a small local brand to a recognized name in consumer electronics — with expanding product categories and a loyal customer base.</p>
+        <h3>Our Values</h3>
+        <ul class="list">
+          <li>Honest specs & clear communication</li>
+          <li>Serviceability across our product range</li>
+          <li>Continuous improvement & reliability</li>
+        </ul>
       </article>
     </div>
   </section>
 
-  <!-- Team Section -->
-  <section class="container" style="margin-top:60px;text-align:center;">
-    <h2>Meet Our Team</h2>
-    <p class="muted" style="max-width:700px;margin:auto;">
-      Our team of dedicated engineers, designers, and support professionals work together
-      to bring innovation and reliability to your home.
-    </p>
-    <div class="grid3" style="margin-top:30px;">
-      <article class="card pad" style="text-align:center;">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/team1.png" alt="Founder" style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;">
-        <h4>Tarun Sharma</h4>
-        <p class="muted">Founder & CEO</p>
+  <!-- Operations (no images) -->
+  <section class="container" style="margin-top:28px;">
+    <h2 class="section-title">How We Operate</h2>
+    <div class="grid3">
+      <article class="card pad op-card">
+        <div class="op-icon" aria-hidden="true">🏭</div>
+        <div>
+          <h3 style="margin:0 0 6px">Production Unit</h3>
+          <p class="muted">Electronics assembly with quality gates at each stage, focusing on panel integrity, firmware validation, and burn-in testing.</p>
+          <ul class="list">
+            <li>Panel/board QC & functional tests</li>
+            <li>Firmware + UI validation</li>
+            <li>Final calibration & packaging</li>
+          </ul>
+        </div>
       </article>
-      <article class="card pad" style="text-align:center;">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/team2.png" alt="Engineer" style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;">
-        <h4>Priya Patel</h4>
-        <p class="muted">Lead Engineer</p>
+
+      <article class="card pad op-card">
+        <div class="op-icon" aria-hidden="true">📦</div>
+        <div>
+          <h3 style="margin:0 0 6px">Warehouse & Logistics</h3>
+          <p class="muted">Safe storage with FIFO handling, tamper-evident packaging, and tracked dispatches across India.</p>
+          <ul class="list">
+            <li>FIFO inventory & batch tracking</li>
+            <li>Tamper-evident packaging</li>
+            <li>Pan-India dispatch partners</li>
+          </ul>
+        </div>
       </article>
-      <article class="card pad" style="text-align:center;">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/team3.png" alt="Support" style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;">
-        <h4>Ravi Mehta</h4>
-        <p class="muted">Customer Support Head</p>
+
+      <article class="card pad op-card">
+        <div class="op-icon" aria-hidden="true">🔧</div>
+        <div>
+          <h3 style="margin:0 0 6px">Service & Support</h3>
+          <p class="muted">Customer-first service via phone, WhatsApp, and email with structured triage and on-site coverage in priority locations.</p>
+          <ul class="list">
+            <li>Warranty activation & claims</li>
+            <li>On-site/bench repair workflow</li>
+            <li>Spare management & SLAs</li>
+          </ul>
+        </div>
       </article>
     </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="container" style="margin-top:30px;">
+    <h2 class="section-title">Our Journey</h2>
+    <article class="card pad">
+      <div class="timeline">
+        <div class="trow">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4 style="margin:0 0 4px">Foundation</h4>
+            <p class="muted" style="margin:0">MakWell begins with a focus on simple, reliable TVs for Indian homes.</p>
+          </div>
+        </div>
+        <div class="trow">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4 style="margin:0 0 4px">Growth</h4>
+            <p class="muted" style="margin:0">Expanded portfolio to semi-automatic washing machines and smart stabilizers.</p>
+          </div>
+        </div>
+        <div class="trow">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4 style="margin:0 0 4px">Today</h4>
+            <p class="muted" style="margin:0">Continuing to refine usability, efficiency, and service across India — <b>Make it Happen</b>.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Simple stats (optional, no images) -->
+  <section class="container" style="margin-top:28px;">
+    <div class="grid3">
+      <article class="card stat">
+        <h2>24–65″</h2>
+        <div class="muted">TV Range</div>
+      </article>
+      <article class="card stat">
+        <h2>7–11 kg</h2>
+        <div class="muted">Washing Machines</div>
+      </article>
+      <article class="card stat">
+        <h2>5 Years</h2>
+        <div class="muted">Stabilizer Warranty*</div>
+      </article>
+    </div>
+    <p class="muted" style="text-align:center;margin-top:8px;font-size:12px">*On select models only.</p>
   </section>
 
   <!-- Footer -->
-  <footer class="site" style="text-align:center;padding:40px 10px;margin-top:60px;">
+  <footer class="site" style="text-align:center;padding:40px 10px;margin-top:34px;">
     <div>© <span id="year"></span> MakWell — Make it Happen.</div>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-  <script src="img-fallback.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
