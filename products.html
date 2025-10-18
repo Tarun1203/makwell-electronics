@@ -3,122 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Products | MakWell — Make it Happen</title>
+  <title>Products • MakWell</title>
   <meta name="description" content="Browse MakWell Televisions, Washing Machines and Stabilizers." />
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <script>
-    /* tiny theme bootstrap */
-    (function(){const k='mw_theme',h=document.documentElement;function a(t){t==='dark'?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme')}
-    const s=localStorage.getItem(k),p=matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;a(s||(p?'dark':'light'));
-    window.toggleTheme=function(){const n=h.getAttribute('data-theme')==='dark'?'light':'dark';a(n);localStorage.setItem(k,n);
-      const b=document.getElementById('themeToggle'); if(b) b.textContent=n==='dark'?'🌙 Dark':'☀️ Light'};})();
-  </script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site">
-    <nav>
-      <div class="brand">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-             alt="MakWell — Make it Happen" width="28" height="28" style="border-radius:6px;object-fit:contain"/>
-        <b>MakWell</b> <small>— Make it Happen</small>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
-        <a href="index.html">Home</a>
-        <a href="products.html" class="active">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Intro -->
-  <section class="hero small">
-    <div class="container" style="text-align:center">
-      <h1 style="margin:0">Our Products</h1>
-      <p class="muted" style="margin:6px 0 0">Televisions • Washing Machines • Stabilizers</p>
+<header class="site">
+  <nav class="container">
+    <a class="brand" href="index.html"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt=""><b>MakWell</b> <small class="muted">— Make it Happen</small></a>
+    <div class="navlinks">
+      <a href="index.html">Home</a><a class="active" href="products.html">Products</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
     </div>
-  </section>
+  </nav>
+</header>
 
-  <!-- Filters -->
-  <section class="container" style="position:sticky;top:64px;z-index:5;background:color-mix(in oklab,var(--bg) 90%, transparent);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);padding:12px 16px">
-    <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
-      <input id="q" class="input" placeholder="Search products (press / to focus)" />
-      <select id="category" class="input" style="max-width:220px"></select>
-      <select id="sort" class="input" style="max-width:220px">
-        <option value="popular">Sort: Popular</option>
-        <option value="priceAsc">Price: Low → High</option>
-        <option value="priceDesc">Price: High → Low</option>
-        <option value="rating">Rating</option>
-        <option value="name">Name A→Z</option>
-      </select>
-    </div>
-  </section>
+<section class="container hero small">
+  <h1 style="margin:0">Our Products</h1>
+  <p class="muted" style="margin:6px 0 0">Televisions • Washing Machines • Stabilizers</p>
+</section>
 
-  <!-- Products grid + Cart -->
-  <main class="container" style="margin-top:14px">
-    <div class="layout">
-      <section>
-        <div id="skuCount" class="muted" style="margin:6px 0 10px">0 items</div>
-        <div id="results" class="grid"></div>
-        <div id="pager" class="pagination"></div>
-      </section>
+<section class="container" style="position:sticky;top:60px;z-index:5;background:var(--bg);padding:8px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <input id="q" class="input" placeholder="Search products..." />
+    <select id="category" class="input"></select>
+    <div id="skuCount" class="muted" style="margin-left:auto">0 items</div>
+  </div>
+</section>
 
-      <aside class="sidebar card" aria-label="Cart" style="padding:14px">
-        <h3 style="margin:0 0 8px">Your Cart</h3>
-        <div id="cartList"></div>
-        <div class="divider" style="margin:12px 0"></div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <div style="flex:1">
-            <div class="muted">Subtotal</div>
-            <div id="subtotal" class="price">₹0</div>
-          </div>
-          <button id="checkout" class="btn" style="min-width:120px" type="button">Checkout</button>
-          <button id="clearCart" class="btn secondary" type="button">Clear</button>
-        </div>
-        <p class="muted" style="font-size:12px;margin-top:6px">Demo checkout only. Replace with your payment link.</p>
-      </aside>
-    </div>
-  </main>
+<main class="container" style="margin-top:14px">
+  <div id="results" class="shelf"></div>
+</main>
 
-  <!-- Footer -->
-  <footer class="site" style="text-align:center;padding:30px 10px">
-    <div>© <span id="year"></span> MakWell — Make it Happen.</div>
-  </footer>
+<!-- Sticky mini-CTA -->
+<div id="miniCta" class="mini-cta" hidden>
+  <div class="head"><div style="font-weight:900;display:flex;gap:8px;align-items:center"><span style="width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px color-mix(in oklab,var(--accent) 25%, transparent)"></span>Need help choosing?</div><button class="close" type="button">✕</button></div>
+  <p class="muted">Talk to us for pricing, availability, or the right model.</p>
+  <div class="actions">
+    <a class="btn" style="background:#25D366" target="_blank" rel="noopener" href="https://wa.me/919876543210?text=Hi%20MakWell%2C%20I%20need%20help%20choosing.">WhatsApp Us</a>
+    <a class="btn" href="mailto:support@makwell.co?subject=MakWell%20Product%20Inquiry">Request Callback</a>
+    <a class="btn secondary" href="contact.html">More ways to contact</a>
+  </div>
+</div>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
-  <!-- App logic -->
-  <script src="script.js"></script>
-
-  <!-- Universal image extension fallback for ALL <img> -->
-  <script>
-  (function () {
-    const exts = ['.png', '.jpg', '.jpeg', '.webp', '.svg'];
-    function attachFallback(img) {
-      if (img.dataset.fallbackReady) return;
-      img.dataset.fallbackReady = '1';
-      const m = img.src.match(/^(.*\/images\/[^.?]+)(\.[^/?.]+)?(\?.*)?$/i);
-      if (!m) return; // only images/* paths
-      const base = m[1], q = m[3] || '';
-      let i = 0;
-      img.addEventListener('error', function onErr() {
-        if (i >= exts.length) { img.removeEventListener('error', onErr); return; }
-        img.src = base + exts[i++] + q;
-      });
-    }
-    document.querySelectorAll('img').forEach(attachFallback);
-    new MutationObserver(ms => {
-      for (const m of ms) {
-        m.addedNodes && m.addedNodes.forEach(n => {
-          if (n.tagName === 'IMG') attachFallback(n);
-          else if (n.querySelectorAll) n.querySelectorAll('img').forEach(attachFallback);
-        });
-      }
-    }).observe(document.documentElement, { childList: true, subtree: true });
-  })();
-  </script>
+<footer class="site"><div class="container" style="padding:30px 0;text-align:center">© <span id="year"></span> MakWell — Make it Happen.</div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="app.js"></script>
 </body>
 </html>
