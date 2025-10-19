@@ -1,92 +1,77 @@
-/* ===== MakWell Design System (Blue/White + Dark mode) ===== */
+/* MakWell design system — responsive + dark mode */
+
 :root{
-  --bg:#fff; --panel:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb;
-  --accent:#2f6fe8; --accent-2:#6aa8ff;
-  --ring:0 0 0 6px color-mix(in oklab, var(--accent) 24%, transparent);
-  --shadow:0 10px 30px rgba(2,6,23,.08);
-  --radius:18px;
-  font-synthesis-weight:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale; scroll-behavior:smooth;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --bg:#ffffff;
+  --panel:#ffffff;
+  --text:#0b1220;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --accent:#2f6fe8;      /* MakWell blue */
+  --accent-2:#16a3ff;
+  --shadow:0 6px 20px rgba(0,0,0,.08);
+  --ring:0 0 0 4px color-mix(in oklab, var(--accent) 30%, transparent);
+  --radius:16px;
+  --header-h:64px;
+  --font:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
 }
-[data-theme="dark"]{
-  --bg:#0b1220; --panel:#0f1628; --text:#eef2ff; --muted:#9aa6c2; --border:#1c2540;
-  --shadow:0 10px 30px rgba(0,0,0,.45);
+:root[data-theme="dark"]{
+  --bg:#0b0f19;
+  --panel:#0f1422;
+  --text:#e6e9f2;
+  --muted:#9aa3b2;
+  --border:#1f2937;
+  --accent:#4c8dff;
+  --accent-2:#60b7ff;
+  --shadow:0 8px 26px rgba(0,0,0,.35);
 }
+
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text)}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font);line-height:1.55;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
 img{max-width:100%;display:block}
-
-.container{max-width:1180px;margin:0 auto;padding:0 16px}
-.muted{color:var(--muted)}
 a{color:inherit;text-decoration:none}
-.btn{appearance:none;border:none;border-radius:12px;padding:10px 16px;background:var(--accent);color:#fff;font-weight:800;box-shadow:var(--shadow);cursor:pointer}
-.btn:hover{box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 30%, transparent)}
-.btn.secondary{background:color-mix(in oklab, var(--accent) 10%, var(--panel)); color:var(--text); border:1px solid var(--border)}
-.input{border:1px solid var(--border);border-radius:12px;padding:10px 12px;background:var(--panel);color:var(--text)}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
 
-/* ===== Header ===== */
-header.site{position:sticky;top:0;z-index:40;background:var(--panel);border-bottom:1px solid var(--border)}
-nav{display:flex;align-items:center;gap:12px;padding:10px 14px}
+/* Header */
+header.site{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(160%) blur(8px);
+  background:color-mix(in oklab,var(--bg) 88%, transparent);
+  border-bottom:1px solid var(--border);
+}
+header.site nav{
+  display:flex;align-items:center;gap:12px;
+  height:var(--header-h);padding:0 16px;max-width:1100px;margin:0 auto;
+}
 .brand{display:flex;align-items:center;gap:10px}
-.brand img{width:32px;height:32px;border-radius:6px;object-fit:contain}
-nav .navlinks{margin-left:auto;display:flex;gap:8px;align-items:center}
-nav a.active{font-weight:900}
-.theme-toggle{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:8px 10px}
+.brand img{width:28px;height:28px;border-radius:6px;object-fit:contain}
+.navlinks{display:flex;gap:8px;align-items:center;margin-left:auto}
+.navlinks a{padding:8px 10px;border-radius:10px;font-weight:700;color:var(--muted)}
+.navlinks a.active,.navlinks a:hover{color:var(--text);background:color-mix(in oklab,var(--accent) 10%,transparent)}
+.theme-toggle{border:1px solid var(--border);background:var(--panel);padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:800}
 
-/* ===== Sections / Cards ===== */
-.hero{padding:40px 0}
-.hero.small{padding:24px 0}
+/* Mobile nav */
+.menu-btn{display:none;border:1px solid var(--border);background:var(--panel);padding:8px 10px;border-radius:10px}
+@media (max-width:720px){
+  .menu-btn{display:block;margin-left:auto}
+  .navlinks{position:absolute;left:0;right:0;top:var(--header-h);padding:10px 16px;background:var(--panel);
+            border-bottom:1px solid var(--border);display:none}
+  .navlinks.is-open{display:flex;flex-wrap:wrap}
+}
+
+/* Common UI */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;
+  border-radius:12px;border:1px solid var(--border);background:var(--accent);color:#fff;font-weight:800;cursor:pointer}
+.btn.secondary{background:var(--panel);color:var(--text)}
+.input{height:40px;padding:0 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text)}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
 .grid{display:grid;gap:14px}
-.grid.cols-3{grid-template-columns:repeat(3,1fr)}
-.grid.cols-4{grid-template-columns:repeat(4,1fr)}
-@media (max-width:1000px){ .grid.cols-3,.grid.cols-4{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:560px){ .grid.cols-3,.grid.cols-4{grid-template-columns:1fr} }
-
-/* ===== Carousel base (used on Home) ===== */
-.slider{position:relative;width:100%;overflow:hidden;border-bottom:1px solid var(--border);background:var(--panel)}
-.slides{display:flex;transition:transform .6s ease}
-.slide{min-width:100%;display:grid;place-items:center}
-.slide img{width:100%;height:auto;object-fit:contain;background:var(--panel);max-height:min(70vh,700px)}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--panel);border:1px solid var(--border);
-  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;cursor:pointer}
-.arrow.prev{left:10px}.arrow.next{right:10px}
-.ctrl{position:absolute;inset:auto 0 12px 0;display:flex;justify-content:center;gap:8px}
-.dot{width:10px;height:10px;border-radius:999px;border:1px solid var(--border);background:color-mix(in oklab,var(--accent) 30%, var(--bg))}
-.dot.active{background:var(--accent)}
-
-/* ===== Landing logo tile ===== */
-.logo-wrap{display:grid;place-items:center;width:min(72vw,520px);height:min(72vw,520px);
-  border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);
-  background:color-mix(in oklab,var(--bg) 90%, var(--accent) 8%);margin:18px auto 10px}
-.logo-wrap img{width:86%;height:86%;object-fit:contain}
-
-/* ===== Product grid ===== */
-.shelf{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
-@media (max-width:1000px){.shelf{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.shelf{grid-template-columns:1fr}}
-.sku{display:flex;flex-direction:column;gap:10px;padding:14px}
-.sku .imgbox{aspect-ratio:4/3;background:var(--panel);border:1px solid var(--border);border-radius:14px;display:grid;place-items:center;overflow:hidden}
-.sku .imgbox img{width:100%;height:100%;object-fit:contain}
-.badges{display:flex;gap:6px;flex-wrap:wrap}
-.badge{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:color-mix(in oklab,var(--accent) 10%, var(--panel));font-size:12px;font-weight:800}
-.price{font-weight:900}
-
-/* Sticky mini-CTA on Products */
-.mini-cta{position:fixed;inset:auto 12px 12px auto;z-index:44;background:var(--panel);border:1px solid var(--border);
-  border-radius:16px;box-shadow:var(--shadow);padding:12px;width:min(360px,92vw);display:grid;gap:8px}
-.mini-cta .head{display:flex;justify-content:space-between;align-items:center}
-.mini-cta .actions{display:flex;gap:8px;flex-wrap:wrap}
-.mini-cta .close{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:4px 8px;cursor:pointer}
-body.has-cta{padding-bottom:84px}
-
-/* Help grid (Contact) */
-.help-grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr)}
-@media (max-width:1000px){ .help-grid{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:560px){ .help-grid{grid-template-columns:1fr} }
-.card.help{padding:18px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;border-radius:22px}
-.help h3{margin:0 0 6px}.help p{margin:0}
-.icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--border);
-  background:color-mix(in oklab,var(--accent) 12%, var(--bg));font-size:20px}
-.go{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--border);background:var(--panel)}
+.muted{color:var(--muted)}
+.divider{height:1px;background:var(--border)}
+.hero{padding:40px 16px;background:var(--bg)}
+.hero.small{padding:28px 16px;text-align:center;border-bottom:1px solid var(--border)}
+footer.site{border-top:1px solid var(--border);background:color-mix(in oklab,var(--bg) 92%, transparent)}
