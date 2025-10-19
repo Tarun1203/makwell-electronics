@@ -1,51 +1,30 @@
-<!-- /theme.js -->
-<script>
-// MakWell global theme controller
+/* Single dark/light toggle used by ALL pages */
 (function () {
   const KEY = 'mw_theme';
-  const root = document.documentElement;
+  const html = document.documentElement;
 
-  // Apply theme to <html data-theme="dark" | remove attr>
-  function apply(theme) {
-    if (theme === 'dark') root.setAttribute('data-theme', 'dark');
-    else root.removeAttribute('data-theme');
-    syncButtonLabel();
+  function set(t) {
+    t === 'dark' ? html.setAttribute('data-theme', 'dark')
+                 : html.removeAttribute('data-theme');
   }
 
-  // Preferred from OS (used only on first visit when no saved value)
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-
-  // Initialize from storage or OS
   const stored = localStorage.getItem(KEY);
-  apply(stored || (prefersDark && prefersDark.matches ? 'dark' : 'light'));
+  const prefers = window.matchMedia &&
+                  window.matchMedia('(prefers-color-scheme: dark)').matches;
+  set(stored || (prefers ? 'dark' : 'light'));
 
-  // Public toggle (available to inline onclick handlers)
+  function label() {
+    const b = document.getElementById('themeToggle');
+    if (b) b.textContent = html.getAttribute('data-theme') === 'dark'
+      ? '🌙 Dark' : '☀️ Light';
+  }
+
   window.toggleTheme = function () {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    set(next);
     localStorage.setItem(KEY, next);
-    apply(next);
+    label();
   };
 
-  // Keep button label in sync everywhere
-  function syncButtonLabel() {
-    // if you have multiple header instances (mobile menu), update all
-    document.querySelectorAll('#themeToggle').forEach(btn => {
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      btn.textContent = isDark ? '🌙 Dark' : '☀️ Light';
-      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-      btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-    });
-  }
-
-  // If the OS theme changes and the user hasn't chosen manually, follow it
-  try {
-    prefersDark && prefersDark.addEventListener('change', (e) => {
-      const saved = localStorage.getItem(KEY);
-      if (!saved) apply(e.matches ? 'dark' : 'light');
-    });
-  } catch {}
-
-  // On DOM ready, ensure labels are correct
-  document.addEventListener('DOMContentLoaded', syncButtonLabel);
+  document.addEventListener('DOMContentLoaded', label);
 })();
-</script>
