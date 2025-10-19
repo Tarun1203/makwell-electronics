@@ -5,49 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Products | MakWell — Make it Happen</title>
   <meta name="description" content="Browse MakWell Televisions, Washing Machines and Stabilizers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="styles.css" />
   <script defer src="theme.js"></script>
-  <script defer src="script.js"></script>
-  <script>
-    /* tiny theme bootstrap */
-    (function(){
-      const k='mw_theme', h=document.documentElement;
-      function set(t){ t==='dark'?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme'); }
-      const s=localStorage.getItem(k), p=matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
-      set(s || (p ? 'dark' : 'light'));
-      window.toggleTheme=function(){
-        const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
-        set(n); localStorage.setItem(k,n);
-        const b=document.getElementById('themeToggle'); if(b) b.textContent=n==='dark'?'🌙 Dark':'☀️ Light';
-      };
-    })();
-  </script>
   <style>
-    /* Page-local layout hooks so it looks great with your styles.css */
-    .layout{display:grid;grid-template-columns:1fr 320px;gap:14px}
-    @media (max-width:1000px){ .layout{grid-template-columns:1fr} }
-    #results.grid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1000px){ #results.grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:560px){ #results.grid{grid-template-columns:1fr} }
-    .pagination{display:flex;gap:8px;justify-content:center;margin:14px 0}
-    .product-grid{display:none} /* legacy id hidden */
+    .filters{
+      position:sticky;top:var(--header-h);z-index:6;
+      background:color-mix(in oklab,var(--bg) 92%, transparent);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid var(--border);padding:10px 16px;
+    }
+    .filters .row{display:grid;gap:10px;grid-template-columns:1fr auto auto;align-items:center}
+    @media (max-width:800px){.filters .row{grid-template-columns:1fr 1fr}}
+    @media (max-width:520px){.filters .row{grid-template-columns:1fr}}
+
+    .grid{--min:240px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(var(--min),1fr))}
+    .card.product{display:grid;gap:10px;padding:12px;border:1px solid var(--border);border-radius:16px;background:var(--panel);box-shadow:var(--shadow)}
+    .media{position:relative;border-radius:12px;overflow:hidden;background:color-mix(in oklab,var(--bg) 90%, var(--accent) 8%);
+      border:1px solid var(--border);aspect-ratio:16/10;display:grid;place-items:center}
+    .media img{width:100%;height:100%;object-fit:contain}
+    .badges{position:absolute;left:8px;top:8px;display:flex;gap:6px;flex-wrap:wrap}
+    .badge{padding:6px 8px;border:1px solid var(--border);border-radius:999px;font-size:12px;font-weight:800;background:color-mix(in oklab,var(--accent) 12%, var(--bg))}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 6px}
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:var(--bg)}
+    .price-row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .mini-cta{position:fixed;right:16px;bottom:16px;z-index:9;display:flex;gap:8px;align-items:center;background:var(--panel);
+      border:1px solid var(--border);border-radius:999px;padding:8px 12px;box-shadow:var(--shadow)}
+    @media (max-width:520px){.mini-cta{left:16px;right:16px;justify-content:center}}
   </style>
 </head>
 <body>
-
-<!-- Header -->
 <header class="site">
-  <nav class="container">
-    <a class="brand" href="index.html" aria-label="MakWell — Home" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png"
-           alt="MakWell — Make it Happen" width="28" height="28" style="border-radius:6px;object-fit:contain"/>
+  <nav>
+    <a class="brand" href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:10px">
+      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" width="28" height="28" style="border-radius:6px;object-fit:contain" />
       <b>MakWell</b> <small class="muted">— Make it Happen</small>
     </a>
-    <div class="navlinks" style="margin-left:auto;display:flex;gap:8px;align-items:center">
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+    <div class="navlinks" id="navLinks">
       <a href="index.html">Home</a>
-      <a href="products.html" class="active">Products</a>
+      <a class="active" href="products.html">Products</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
       <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
@@ -55,117 +55,47 @@
   </nav>
 </header>
 
-<!-- Intro -->
 <section class="hero small">
-  <div class="container" style="text-align:center">
+  <div class="container">
     <h1 style="margin:0">Our Products</h1>
     <p class="muted" style="margin:6px 0 0">Televisions • Washing Machines • Stabilizers</p>
   </div>
 </section>
 
-<!-- Filters (sticky) -->
-<section class="container" style="position:sticky;top:64px;z-index:5;background:color-mix(in oklab,var(--bg) 90%, transparent);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--border);padding:12px 16px">
-  <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
+<section class="filters">
+  <div class="container row">
     <input id="q" class="input" placeholder="Search products (press / to focus)" />
-    <select id="category" class="input" style="max-width:220px"></select>
+    <select id="category" class="input" style="max-width:240px"></select>
     <select id="sort" class="input" style="max-width:220px">
       <option value="popular">Sort: Popular</option>
-      <option value="priceAsc">Price: Low → High</option>
-      <option value="priceDesc">Price: High → Low</option>
-      <option value="rating">Rating</option>
       <option value="name">Name A→Z</option>
     </select>
   </div>
 </section>
 
-<!-- Products grid + Cart -->
 <main class="container" style="margin-top:14px">
-  <div class="layout">
-    <!-- Grid -->
-    <section>
-      <div id="skuCount" class="muted" style="margin:6px 0 10px">0 items</div>
-      <div id="results" class="grid"></div>
-      <div id="pager" class="pagination"></div>
-    </section>
-
-    <!-- Cart (kept as in your version) -->
-    <aside class="sidebar card" aria-label="Cart" style="padding:14px">
-      <h3 style="margin:0 0 8px">Your Cart</h3>
-      <div id="cartList"></div>
-      <div class="divider" style="margin:12px 0"></div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <div style="flex:1">
-          <div class="muted">Subtotal</div>
-          <div id="subtotal" class="price">₹0</div>
-        </div>
-        <button id="checkout" class="btn" style="min-width:120px" type="button">Checkout</button>
-        <button id="clearCart" class="btn secondary" type="button">Clear</button>
-      </div>
-      <p class="muted" style="font-size:12px;margin-top:6px">Demo checkout only. Replace with your payment link.</p>
-    </aside>
-  </div>
+  <div id="skuCount" class="muted" style="margin:6px 0 10px">0 items</div>
+  <div id="results" class="grid"></div>
+  <div id="pager" class="pagination"></div>
 </main>
 
-<!-- Footer -->
+<div class="mini-cta">
+  <span class="muted" style="font-size:12px">Questions?</span>
+  <a class="btn" target="_blank" rel="noopener" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20have%20a%20product%20query.">WhatsApp</a>
+  <a class="btn secondary" href="contact.html">Contact</a>
+</div>
+
 <footer class="site" style="text-align:center;padding:30px 10px">
-  <div>© <span id="year"></span> MakWell — Make it Happen.</div>
+  © <span id="year"></span> MakWell — Make it Happen.
 </footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 
-<!-- Universal image extension fallback (works with base URLs without extension) -->
+<script defer src="script.js"></script>
 <script>
-(function(){
-  const exts = ['.jpg', '.png', '.jpeg', '.webp', '.JPG', '.PNG', '.JPEG', '.WEBP'];
-  const LOGO = 'https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png';
-
-  function needsFallback(url){
-    // if URL already has a known extension, no need to auto-try
-    return !/\.(png|jpe?g|webp|svg)(\?.*)?$/i.test(url);
-  }
-
-  function attach(img){
-    if (img.dataset.fallbackReady) return;
-    img.dataset.fallbackReady = '1';
-
-    const orig = img.getAttribute('src') || '';
-    if (!orig || !needsFallback(orig)) return; // nothing to do
-
-    // Build candidates by appending extensions
-    const base = orig.replace(/(\?.*)$/,''); // drop query if any for base matching
-    const query = (orig.match(/(\?.*)$/) || [''])[0];
-
-    const candidates = exts.map(e => base + e + query);
-
-    // Rotate through candidates until one loads; else final fallback = logo
-    let idx = 0;
-    img.onerror = function onErr(){
-      if (idx < candidates.length){
-        img.src = candidates[idx++];
-      } else {
-        img.onerror = null;
-        img.src = LOGO;
-      }
-    };
-
-    // kick it off by forcing first error path if the first load fails
-    // (if current src == orig and has no ext, first error will trigger)
-  }
-
-  // initial pass
-  document.querySelectorAll('img').forEach(attach);
-
-  // handle dynamically added images (from script.js render)
-  const mo = new MutationObserver(muts=>{
-    for(const m of muts){
-      m.addedNodes && m.addedNodes.forEach(n=>{
-        if(n.tagName==='IMG') attach(n);
-        else if(n.querySelectorAll) n.querySelectorAll('img').forEach(attach);
-      });
-    }
-  });
-  mo.observe(document.documentElement, {childList:true, subtree:true});
-})();
+  (function(){const b=document.getElementById('menuBtn'), l=document.getElementById('navLinks');
+    b&&b.addEventListener('click',()=>l.classList.toggle('is-open'));
+    l&&l.addEventListener('click',e=>{ if(e.target.tagName==='A') l.classList.remove('is-open'); });
+  })();
 </script>
-
 </body>
 </html>
