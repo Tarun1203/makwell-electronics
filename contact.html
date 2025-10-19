@@ -5,333 +5,188 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact • MakWell Support</title>
   <meta name="description" content="Contact MakWell: product registration, support, repair request, WhatsApp, email and phone." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
   <link rel="stylesheet" href="styles.css" />
-  <!-- If you added a shared theme.js, include it; otherwise the button still works with your inline bootstrap -->
   <script defer src="theme.js"></script>
   <style>
-    /* ===== Page-local (keeps to your DS vars) ===== */
     .top-hero{padding:28px 0;border-bottom:1px solid var(--border)}
-    .anchor-nav{position:sticky; top:64px; z-index:5; background:color-mix(in oklab,var(--bg) 92%, transparent);
+    .anchor-nav{position:sticky; top:var(--header-h); z-index:5; background:color-mix(in oklab,var(--bg) 92%, transparent);
       backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--border)}
     .anchor-nav .wrap{display:flex;gap:8px;flex-wrap:wrap;padding:10px 16px}
     .chip{border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:8px 12px;font-weight:800}
     .chip:hover{box-shadow:var(--ring)}
-
     .help-grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr); margin:16px 0}
     @media (max-width:1000px){ .help-grid{grid-template-columns:repeat(2,1fr)} }
     @media (max-width:560px){ .help-grid{grid-template-columns:1fr} }
-
     .card.help{padding:18px;min-height:190px;border-radius:22px;display:flex;flex-direction:column;justify-content:space-between}
     .icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--border);
       background:color-mix(in oklab,var(--accent) 12%, var(--bg));font-size:20px}
-
     .section{scroll-margin-top:86px; margin:24px 0}
-    .section h2{margin:0 0 8px}
     .two{display:grid;gap:14px;grid-template-columns:1.2fr .8fr}
     @media (max-width:900px){ .two{grid-template-columns:1fr} }
-
-    .kpi{display:grid;gap:10px;grid-template-columns:repeat(3,1fr)}
-    @media (max-width:680px){ .kpi{grid-template-columns:1fr} }
-    .kpi .card{padding:14px;text-align:center}
-
-    .form .row{display:grid;gap:10px;grid-template-columns:1fr 1fr}
-    @media (max-width:680px){ .form .row{grid-template-columns:1fr} }
-    .form .field{display:flex;flex-direction:column;gap:6px}
-    .form label{font-weight:800}
-    .form input,.form textarea,.form select{border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:12px;padding:10px}
-    .form textarea{min-height:120px;resize:vertical}
-
-    .go{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--border);background:var(--panel)}
     .note{font-size:12px;color:var(--muted)}
     .map{aspect-ratio:16/9;border:1px solid var(--border);border-radius:16px;overflow:hidden}
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site">
-    <nav class="container">
-      <a class="brand" href="index.html" aria-label="MakWell — Home" style="text-decoration:none">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" />
-        <b>MakWell</b> <small class="muted">— Make it Happen</small>
-      </a>
-      <div class="navlinks" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="active">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Top intro -->
-  <section class="top-hero">
-    <div class="container">
-      <h1 style="margin:0">Need help?</h1>
-      <p class="muted" style="margin:6px 0 0">We’re here to provide all the help you need.</p>
-    </div>
-  </section>
-
-  <!-- Quick anchor nav like LG -->
-  <nav class="anchor-nav">
-    <div class="container">
-      <div class="wrap">
-        <a class="chip" href="#registration">Product registration</a>
-        <a class="chip" href="#support">Product support</a>
-        <a class="chip" href="#orders">Order support</a>
-        <a class="chip" href="#repair">Repair request</a>
-        <a class="chip" href="#chat">Live chat</a>
-        <a class="chip" href="#whatsapp">WhatsApp</a>
-        <a class="chip" href="#email">Email us</a>
-        <a class="chip" href="#call">Call us</a>
-      </div>
+<header class="site">
+  <nav class="container">
+    <a class="brand" href="index.html" style="text-decoration:none">
+      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" />
+      <b>MakWell</b> <small class="muted">— Make it Happen</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+    <div class="navlinks" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
     </div>
   </nav>
+</header>
 
-  <!-- Card shortcuts (LG-style) -->
-  <section class="container">
-    <div class="help-grid">
-      <article class="card help">
-        <div>
-          <div class="icon">➕</div>
-          <h3>Product registration</h3>
-          <p class="muted">Registering your product helps you get faster support.</p>
-        </div>
-        <a class="go" href="#registration" aria-label="Go">➔</a>
-      </article>
+<section class="top-hero"><div class="container">
+  <h1 style="margin:0">Need help?</h1><p class="muted" style="margin:6px 0 0">We’re here to provide all the help you need.</p>
+</div></section>
 
-      <article class="card help">
-        <div>
-          <div class="icon">📦</div>
-          <h3>Product support</h3>
-          <p class="muted">Find manuals, troubleshooting, and warranty info.</p>
-        </div>
-        <a class="go" href="#support" aria-label="Go">➔</a>
-      </article>
+<nav class="anchor-nav"><div class="container"><div class="wrap">
+  <a class="chip" href="#registration">Product registration</a>
+  <a class="chip" href="#support">Product support</a>
+  <a class="chip" href="#repair">Repair request</a>
+  <a class="chip" href="#orders">Order support</a>
+  <a class="chip" href="#whatsapp">WhatsApp</a>
+  <a class="chip" href="#call">Call us</a>
+  <a class="chip" href="#email">Email us</a>
+</div></div></nav>
 
-      <article class="card help">
-        <div>
-          <div class="icon">🧾</div>
-          <h3>Order support</h3>
-          <p class="muted">Track your order or check FAQs.</p>
-        </div>
-        <a class="go" href="#orders" aria-label="Go">➔</a>
-      </article>
+<section class="container">
+  <div class="help-grid">
+    <article class="card help"><div><div class="icon">➕</div><h3>Product registration</h3><p class="muted">Registering helps you get faster support.</p></div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20want%20to%20register%20my%20product.">➔</a></article>
 
-      <article class="card help">
-        <div>
-          <div class="icon">🔧</div>
-          <h3>Repair request</h3>
-          <p class="muted">Request service under warranty or out-of-warranty.</p>
-        </div>
-        <a class="go" href="#repair" aria-label="Go">➔</a>
-      </article>
+    <article class="card help"><div><div class="icon">📦</div><h3>Product support</h3><p class="muted">Manuals, troubleshooting, warranty.</p></div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20Product%20Support.">➔</a></article>
 
-      <article class="card help">
-        <div>
-          <div class="icon">💬</div>
-          <h3>Live chat</h3>
-          <p class="muted">Chat with MakWell product experts in real time.</p>
-        </div>
-        <a class="go" href="#chat" aria-label="Go">➔</a>
-      </article>
+    <article class="card help"><div><div class="icon">🔧</div><h3>Repair request</h3><p class="muted">Warranty & out-of-warranty service.</p></div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20a%20Repair%20Request.">➔</a></article>
 
-      <article class="card help">
-        <div>
-          <div class="icon">🟢</div>
-          <h3>WhatsApp</h3>
-          <p class="muted">Fastest way to reach our service team.</p>
-        </div>
-        <a class="go" href="#whatsapp" aria-label="Go">➔</a>
-      </article>
+    <article class="card help"><div><div class="icon">🧾</div><h3>Order support</h3><p class="muted">Status, delivery, invoice queries.</p></div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20need%20Order%20Support.">➔</a></article>
 
-      <article class="card help">
-        <div>
-          <div class="icon">✉️</div>
-          <h3>Email us</h3>
-          <p class="muted">Send details and attachments; we’ll get back soon.</p>
-        </div>
-        <a class="go" href="#email" aria-label="Go">➔</a>
-      </article>
+    <article class="card help"><div><div class="icon">💬</div><h3>Live chat</h3><p class="muted">Chat with MakWell support now.</p></div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20want%20to%20chat%20with%20support.">➔</a></article>
 
-      <article class="card help">
-        <div>
-          <div class="icon">📞</div>
-          <h3>Call us</h3>
-          <p class="muted">For consumers: 9:30 AM – 6:30 PM (Mon–Sat).</p>
-        </div>
-        <a class="go" href="#call" aria-label="Go">➔</a>
-      </article>
-    </div>
-  </section>
+    <article class="card help"><div><div class="icon">🟢</div><h3>WhatsApp</h3><p class="muted">Fastest way to reach us.</p></div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20need%20support.">➔</a></article>
 
-  <!-- Deep sections -->
-  <section id="registration" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Product registration</h2>
-        <p class="muted">Register your MakWell product for faster support and warranty assistance.</p>
-        <form class="form" action="mailto:support@makwell.co" method="post" enctype="text/plain">
-          <div class="row">
-            <div class="field"><label for="reg-name">Full name</label><input id="reg-name" name="name" required></div>
-            <div class="field"><label for="reg-email">Email</label><input id="reg-email" type="email" name="email" required></div>
-          </div>
-          <div class="row">
-            <div class="field"><label for="reg-model">Model</label><input id="reg-model" name="model" placeholder="e.g., MK43"></div>
-            <div class="field"><label for="reg-serial">Serial No.</label><input id="reg-serial" name="serial"></div>
-          </div>
-          <div class="field"><label for="reg-invoice">Invoice No. / Date</label><input id="reg-invoice" name="invoice"></div>
-          <div class="field"><label for="reg-notes">Notes</label><textarea id="reg-notes" name="notes" placeholder="Optional"></textarea></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-            <button class="btn" type="submit">Register</button>
-            <a class="btn secondary" href="mailto:support@makwell.co?subject=Product%20Registration&body=Please%20attach%20invoice%20and%20model%20details.">Email instead</a>
-          </div>
-          <p class="note">Tip: You can attach your invoice when emailing.</p>
-        </form>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">Why register?</h3>
-        <ul class="muted" style="margin:6px 0 0 18px">
-          <li>Quicker warranty lookup</li>
-          <li>Service & recall notifications</li>
-          <li>Priority support</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
+    <article class="card help"><div><div class="icon">📞</div><h3>Call us</h3><p class="muted">9:30 AM – 6:30 PM (Mon–Sat)</p></div>
+      <a class="go" href="tel:+919980000515">➔</a></article>
 
-  <section id="support" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Product support</h2>
-        <p class="muted">Manuals, troubleshooting, and warranty information by category.</p>
-        <div class="kpi">
-          <div class="card"><h3 style="margin:0">Televisions</h3><p class="muted">Android / Google TV / webOS</p><a class="btn" href="products.html">Open</a></div>
-          <div class="card"><h3 style="margin:0">Washing Machines</h3><p class="muted">7 / 9 / 11 kg SAWM</p><a class="btn" href="products.html">Open</a></div>
-          <div class="card"><h3 style="margin:0">Stabilizers</h3><p class="muted">LED / Ref / Smart+</p><a class="btn" href="products.html">Open</a></div>
-        </div>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">Warranty guide</h3>
-        <p class="muted" style="margin:0">Keep your invoice. Share model/serial and issue details for quick assistance.</p>
-      </aside>
-    </div>
-  </section>
+    <article class="card help"><div><div class="icon">✉️</div><h3>Email us</h3><p class="muted">Ticket confirmations go to our inbox.</p></div>
+      <a class="go" href="mailto:makwellindia456@gmail.com?subject=Support%20Request">➔</a></article>
+  </div>
+</section>
 
-  <section id="orders" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Order support</h2>
-        <p class="muted">Check status, cancellations, delivery issues and basic FAQs.</p>
-        <a class="btn" href="mailto:support@makwell.co?subject=Order%20Support">Email Order Support</a>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">Need quick help?</h3>
-        <p class="muted" style="margin:0">Ping us on WhatsApp for faster responses on delivery queries.</p>
-      </aside>
-    </div>
-  </section>
-
-  <section id="repair" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Repair request</h2>
-        <p class="muted">Request service under warranty or out-of-warranty.</p>
-        <form class="form" action="mailto:service@makwell.co" method="post" enctype="text/plain">
-          <div class="row">
-            <div class="field"><label for="rp-name">Full name</label><input id="rp-name" name="name" required></div>
-            <div class="field"><label for="rp-phone">Phone</label><input id="rp-phone" name="phone" required></div>
-          </div>
-          <div class="row">
-            <div class="field"><label for="rp-model">Model</label><input id="rp-model" name="model" required></div>
-            <div class="field"><label for="rp-serial">Serial No.</label><input id="rp-serial" name="serial"></div>
-          </div>
-          <div class="row">
-            <div class="field"><label for="rp-city">City</label><input id="rp-city" name="city" required></div>
-            <div class="field"><label for="rp-purchase">Purchase Date</label><input id="rp-purchase" type="date" name="purchase"></div>
-          </div>
-          <div class="field"><label for="rp-issue">Issue</label><textarea id="rp-issue" name="issue" required></textarea></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-            <button class="btn" type="submit">Submit request</button>
-            <a class="btn secondary" href="mailto:service@makwell.co?subject=Repair%20Request&body=Model%3A%0ASerial%3A%0AIssue%3A%0ACity%3A">Email instead</a>
-          </div>
-          <p class="note">Response within business hours. Attach photos/videos when possible.</p>
-        </form>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">What to keep handy</h3>
-        <ul class="muted" style="margin:6px 0 0 18px">
-          <li>Invoice copy</li>
-          <li>Model & serial number</li>
-          <li>Short description of the issue</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
-
-  <section id="chat" class="container section">
+<section id="registration" class="container section">
+  <div class="two">
     <article class="card" style="padding:16px">
-      <h2>Live chat</h2>
-      <p class="muted">Chat with MakWell experts for quick answers on features and compatibility.</p>
-      <a class="btn" target="_blank" rel="noopener" href="https://wa.me/919876543210?text=Hi%20MakWell%2C%20I%20need%20support.">Start Chat</a>
-      <p class="note">Business hours: 9:30 AM – 6:30 PM (Mon–Sat)</p>
+      <h2>Product registration</h2>
+      <p class="muted">Register your MakWell product for faster support and warranty assistance.</p>
+      <a class="btn" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20want%20to%20register%20my%20product.">WhatsApp — 9482844677</a>
+      <p class="note" style="margin-top:10px">You’ll receive a confirmation message.</p>
     </article>
-  </section>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Why register?</h3>
+      <ul class="muted" style="margin:6px 0 0 18px"><li>Quicker warranty lookup</li><li>Recall notifications</li><li>Priority support</li></ul>
+    </aside>
+  </div>
+</section>
 
-  <section id="whatsapp" class="container section">
+<section id="support" class="container section">
+  <div class="two">
     <article class="card" style="padding:16px">
-      <h2>WhatsApp</h2>
-      <p class="muted">Fastest way to reach our service team.</p>
-      <a class="btn" style="background:#25D366" target="_blank" rel="noopener" href="https://wa.me/919876543210?text=Hi%20MakWell%2C%20I%20need%20support.">WhatsApp Us</a>
+      <h2>Product support</h2>
+      <p class="muted">Manuals, troubleshooting, warranty information by category.</p>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card" style="padding:14px"><h3 style="margin:0">Televisions</h3><p class="muted">Android / Google TV / webOS</p><a class="btn" href="products.html">Open</a></div>
+        <div class="card" style="padding:14px"><h3 style="margin:0">Washing Machines</h3><p class="muted">7 / 9 / 11 kg SAWM</p><a class="btn" href="products.html">Open</a></div>
+        <div class="card" style="padding:14px"><h3 style="margin:0">Stabilizers</h3><p class="muted">LED / Ref / Smart+</p><a class="btn" href="products.html">Open</a></div>
+      </div>
     </article>
-  </section>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Warranty guide</h3>
+      <p class="muted" style="margin:0">Keep your invoice. Share model/serial and issue details for quick assistance.</p>
+    </aside>
+  </div>
+</section>
 
-  <section id="email" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Email us</h2>
-        <p class="muted">Send details and attachments; we’ll get back soon.</p>
-        <div style="display:grid;gap:8px">
-          <a class="btn" href="mailto:support@makwell.co?subject=Support%20Request">support@makwell.co</a>
-          <a class="btn secondary" href="mailto:service@makwell.co?subject=Repair%20Request">service@makwell.co</a>
-        </div>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">Response times</h3>
-        <p class="muted" style="margin:0">Most emails are answered within one business day.</p>
-      </aside>
-    </div>
-  </section>
+<section id="repair" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Repair request</h2>
+      <p class="muted">Request service under warranty or out-of-warranty.</p>
+      <a class="btn" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20a%20Repair%20Request.">WhatsApp — 9482844677</a>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">What to keep handy</h3>
+      <ul class="muted" style="margin:6px 0 0 18px"><li>Invoice copy</li><li>Model & serial number</li><li>Short issue description</li></ul>
+    </aside>
+  </div>
+</section>
 
-  <section id="call" class="container section">
-    <div class="two">
-      <article class="card" style="padding:16px">
-        <h2>Call us</h2>
-        <p class="muted">For any consumer assistance: 9:30 AM – 6:30 PM (Mon–Sat)</p>
-        <a class="btn" href="tel:+918069379999">Call 08069379999</a>
-      </article>
-      <aside class="card" style="padding:16px">
-        <h3 style="margin:0 0 6px">Address</h3>
-        <p class="muted" style="margin:0">Hubli, Karnataka, India</p>
-      </aside>
-    </div>
-  </section>
+<section id="whatsapp" class="container section">
+  <article class="card" style="padding:16px">
+    <h2>WhatsApp</h2>
+    <p class="muted">Fastest way to reach our service team.</p>
+    <a class="btn" style="background:#25D366" target="_blank" rel="noopener" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20need%20support.">WhatsApp Us</a>
+  </article>
+</section>
 
-  <section class="container section">
-    <div class="map">
-      <!-- You can swap the URL to your Google Maps embed when ready -->
-      <iframe title="MakWell Location" width="100%" height="100%" style="border:0"
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=75.05%2C15.30%2C75.20%2C15.45&layer=mapnik">
-      </iframe>
-    </div>
-  </section>
+<section id="call" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Call us</h2>
+      <p class="muted">For consumer assistance: 9:30 AM – 6:30 PM (Mon–Sat)</p>
+      <a class="btn" href="tel:+919980000515">Call 9980000515</a>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Address</h3>
+      <p class="muted" style="margin:0">Hubli, Karnataka, India</p>
+    </aside>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="site">
-    <div class="container" style="padding:40px 0;text-align:center">© <span id="year"></span> MakWell — Make it Happen.</div>
-  </footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<section id="email" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Email us</h2>
+      <p class="muted">Ticket confirmations go to our inbox.</p>
+      <a class="btn" href="mailto:makwellindia456@gmail.com?subject=Support%20Request">makwellindia456@gmail.com</a>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Response times</h3>
+      <p class="muted" style="margin:0">Most emails are answered within one business day.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="container section"><div class="map">
+  <iframe title="MakWell Location" width="100%" height="100%" style="border:0" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.openstreetmap.org/export/embed.html?bbox=75.05%2C15.30%2C75.20%2C15.45&layer=mapnik"></iframe>
+</div></section>
+
+<footer class="site"><div class="container" style="padding:40px 0;text-align:center">© <span id="year"></span> MakWell — Make it Happen.</div></footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+(function(){ const b=document.getElementById('menuBtn'), l=document.getElementById('navLinks');
+  b&&b.addEventListener('click',()=>l.classList.toggle('is-open'));
+  l&&l.addEventListener('click',e=>{ if(e.target.tagName==='A') l.classList.remove('is-open'); });
+})();
+</script>
 </body>
 </html>
