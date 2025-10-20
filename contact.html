@@ -393,38 +393,45 @@
       return `${yearYY()}/MK-${p}-${String(c[p]).padStart(3,"0")}`;
     }
 
-    function waUrl(to, obj){
-      const line = (k,v)=>`${k}: ${v}`;
-      const txt = [
-        line("Call ID", obj.callId),
-        line("Type", obj.type),
-        line("Name", obj.customer),
-        line("Phone", `+91 ${obj.phone}`),
-        line("Category", obj.category || "-"),
-        line("Model", obj.model || "-"),
-        line("Issue", obj.issue || "-"),
-        line("City/State", `${obj.city || "-"} / ${obj.state || "-"}`)
-      ].join("\n");
-      return `https://wa.me/${to}?text=${encodeURIComponent(txt)}`;
-    }
-    function mailtoUrl(obj){
-      const subject = `New ${prefixFor(obj.type)} Ticket ${obj.callId}`;
-      const body = [
-        `Call ID: ${obj.callId}`,
-        `Type: ${obj.type}`,
-        `Name: ${obj.customer}`,
-        `Phone: +91 ${obj.phone}`,
-        `Email: ${obj.email || "-"}`,
-        `Category: ${obj.category || "-"}`,
-        `Model: ${obj.model || "-"}`,
-        `Serial: ${obj.serial || "-"}`,
-        `Under Warranty: ${obj.warranty || "-"}`,
-        `Issue Type: ${obj.issueType || "-"}`,
-        `Issue: ${obj.issue || "-"}`,
-        `City/State: ${obj.city || "-"} / ${obj.state || "-"}`
-      ].join("\n");
-      return `mailto:makwellindia456@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
+function waUrl(to, obj) {
+  // Ensure phone number digits only
+  const phone = String(to || "").replace(/\D/g, "");
+
+  const line = (k, v) => `${k}: ${v || "-"}`;
+  const txt = [
+    line("Call ID", obj.callId),
+    line("Type", obj.type),
+    line("Name", obj.customer),
+    line("Phone", `+91 ${obj.phone}`),
+    line("Category", obj.category),
+    line("Model", obj.model),
+    line("Issue", obj.issue),
+    line("City/State", `${obj.city} / ${obj.state}`)
+  ].join("\n");
+
+  // Use api.whatsapp.com for broader compatibility
+  return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(txt)}`;
+}
+
+function mailtoUrl(obj) {
+  const subject = `New ${prefixFor(obj.type)} Ticket ${obj.callId}`;
+  const body = [
+    `Call ID: ${obj.callId}`,
+    `Type: ${obj.type}`,
+    `Name: ${obj.customer}`,
+    `Phone: +91 ${obj.phone}`,
+    `Email: ${obj.email || "-"}`,
+    `Category: ${obj.category || "-"}`,
+    `Model: ${obj.model || "-"}`,
+    `Serial: ${obj.serial || "-"}`,
+    `Under Warranty: ${obj.warranty || "-"}`,
+    `Issue Type: ${obj.issueType || "-"}`,
+    `Issue: ${obj.issue || "-"}`,
+    `City/State: ${obj.city || "-"} / ${obj.state || "-"}`
+  ].join("\n");
+
+  return `mailto:makwellindia456@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
     document.addEventListener('DOMContentLoaded', function(){
       const form = document.getElementById('supportForm');
