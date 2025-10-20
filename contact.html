@@ -1,9 +1,233 @@
-<!-- Ticket: Product Registration / Support / Repair -->
-<section class="container section" id="new-ticket">
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact • MakWell Support</title>
+  <meta name="description" content="Contact MakWell: product registration, product support, repair request, WhatsApp, email and phone." />
+  <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="theme.js"></script>
+
+  <style>
+    /* Page-local enhancements */
+    .top-hero{padding:28px 0;border-bottom:1px solid var(--border)}
+    .anchor-nav{position:sticky; top:var(--header-h); z-index:5;
+      background:color-mix(in oklab,var(--bg) 92%, transparent);
+      backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--border)}
+    .anchor-nav .wrap{display:flex;gap:8px;flex-wrap:wrap;padding:10px 16px}
+    .chip{border:1px solid var(--border);background:var(--panel);border-radius:999px;padding:8px 12px;font-weight:800}
+    .chip:hover{box-shadow:var(--ring)}
+    .help-grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr); margin:16px 0}
+    @media (max-width:1000px){ .help-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){ .help-grid{grid-template-columns:1fr} }
+    .card.help{padding:18px;min-height:190px;border-radius:22px;display:flex;flex-direction:column;justify-content:space-between}
+    .icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--border);
+      background:color-mix(in oklab,var(--accent) 12%, var(--bg));font-size:20px}
+    .section{scroll-margin-top:86px; margin:24px 0}
+    .two{display:grid;gap:14px;grid-template-columns:1.2fr .8fr}
+    @media (max-width:900px){ .two{grid-template-columns:1fr} }
+    .note{font-size:12px;color:var(--muted)}
+    .map{aspect-ratio:16/9;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    /* Mobile nav helper (works with styles.css nav) */
+    .menu-btn{display:none}
+    @media (max-width:860px){
+      .menu-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--panel);
+        padding:8px 12px;border-radius:10px;margin-left:auto}
+      .navlinks{display:none}
+      .navlinks.is-open{display:flex;flex-direction:column;gap:8px;position:absolute;right:16px;top:calc(var(--header-h) + 8px);
+        background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:10px}
+    }
+    /* Inputs */
+    form .input, form textarea, form select{width:100%}
+  </style>
+</head>
+<body>
+<header class="site">
+  <nav class="container">
+    <a class="brand" href="index.html" style="text-decoration:none">
+      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" />
+      <b>MakWell</b> <small class="muted">— Make it Happen</small>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+    <div class="navlinks" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+      <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()"></button>
+    </div>
+  </nav>
+</header>
+
+<section class="top-hero"><div class="container">
+  <h1 style="margin:0">Need help?</h1>
+  <p class="muted" style="margin:6px 0 0">We’re here to provide all the help you need.</p>
+</div></section>
+
+<nav class="anchor-nav"><div class="container"><div class="wrap">
+  <a class="chip" href="#registration">Product registration</a>
+  <a class="chip" href="#support">Product support</a>
+  <a class="chip" href="#repair">Repair request</a>
+  <a class="chip" href="#orders">Order support</a>
+  <a class="chip" href="#whatsapp">WhatsApp</a>
+  <a class="chip" href="#call">Call us</a>
+  <a class="chip" href="#email">Email us</a>
+</div></div></nav>
+
+<!-- Quick actions grid -->
+<section class="container">
+  <div class="help-grid">
+    <article class="card help">
+      <div>
+        <div class="icon">➕</div>
+        <h3>Product registration</h3>
+        <p class="muted">Registering helps you get faster support.</p>
+      </div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20want%20to%20register%20my%20product.">➔</a>
+    </article>
+
+    <article class="card help">
+      <div>
+        <div class="icon">📦</div>
+        <h3>Product support</h3>
+        <p class="muted">Manuals, troubleshooting, warranty.</p>
+      </div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20Product%20Support.">➔</a>
+    </article>
+
+    <article class="card help">
+      <div>
+        <div class="icon">🔧</div>
+        <h3>Repair request</h3>
+        <p class="muted">Warranty & out-of-warranty service.</p>
+      </div>
+      <a class="go" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20a%20Repair%20Request.">➔</a>
+    </article>
+
+    <article class="card help" id="orders">
+      <div>
+        <div class="icon">🧾</div>
+        <h3>Order support</h3>
+        <p class="muted">Status, delivery, invoice queries.</p>
+      </div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20need%20Order%20Support.">➔</a>
+    </article>
+
+    <article class="card help">
+      <div>
+        <div class="icon">💬</div>
+        <h3>Live chat</h3>
+        <p class="muted">Chat with MakWell support now.</p>
+      </div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20want%20to%20chat%20with%20support.">➔</a>
+    </article>
+
+    <article class="card help" id="whatsapp">
+      <div>
+        <div class="icon">🟢</div>
+        <h3>WhatsApp</h3>
+        <p class="muted">Fastest way to reach us.</p>
+      </div>
+      <a class="go" href="https://wa.me/919980000515?text=Hi%20MakWell%2C%20I%20need%20support.">➔</a>
+    </article>
+
+    <article class="card help" id="call">
+      <div>
+        <div class="icon">📞</div>
+        <h3>Call us</h3>
+        <p class="muted">9:30 AM – 6:30 PM (Mon–Sat)</p>
+      </div>
+      <a class="go" href="tel:+919980000515">➔</a>
+    </article>
+
+    <article class="card help" id="email">
+      <div>
+        <div class="icon">✉️</div>
+        <h3>Email us</h3>
+        <p class="muted">Ticket confirmations go to our inbox.</p>
+      </div>
+      <a class="go" href="mailto:makwellindia456@gmail.com?subject=Support%20Request">➔</a>
+    </article>
+  </div>
+</section>
+
+<!-- Product Registration -->
+<section id="registration" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Product registration</h2>
+      <p class="muted">Register your MakWell product for faster support and warranty assistance.</p>
+      <a class="btn" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20want%20to%20register%20my%20product.">WhatsApp — 9482844677</a>
+      <p class="note" style="margin-top:10px">You’ll receive a confirmation message.</p>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Why register?</h3>
+      <ul class="muted" style="margin:6px 0 0 18px">
+        <li>Quicker warranty lookup</li>
+        <li>Recall notifications</li>
+        <li>Priority support</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- Product Support -->
+<section id="support" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Product support</h2>
+      <p class="muted">Manuals, troubleshooting, warranty information by category.</p>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0">Televisions</h3>
+          <p class="muted">Android / Google TV / webOS</p>
+          <a class="btn" href="products.html">Open</a>
+        </div>
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0">Washing Machines</h3>
+          <p class="muted">7 / 9 / 11 kg SAWM</p>
+          <a class="btn" href="products.html">Open</a>
+        </div>
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0">Stabilizers</h3>
+          <p class="muted">LED / Ref / Smart+</p>
+          <a class="btn" href="products.html">Open</a>
+        </div>
+      </div>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">Warranty guide</h3>
+      <p class="muted" style="margin:0">Keep your invoice. Share model/serial and issue details for quick assistance.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- Repair Request -->
+<section id="repair" class="container section">
+  <div class="two">
+    <article class="card" style="padding:16px">
+      <h2>Repair request</h2>
+      <p class="muted">Request service under warranty or out-of-warranty.</p>
+      <a class="btn" href="https://wa.me/919482844677?text=Hi%20MakWell%2C%20I%20need%20a%20Repair%20Request.">WhatsApp — 9482844677</a>
+    </article>
+    <aside class="card" style="padding:16px">
+      <h3 style="margin:0 0 6px">What to keep handy</h3>
+      <ul class="muted" style="margin:6px 0 0 18px">
+        <li>Invoice copy</li>
+        <li>Model & serial number</li>
+        <li>Short issue description</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- NEW: Ticket creation form (with routing logic) -->
+<section id="new-ticket" class="container section">
   <article class="card" style="padding:16px">
-    <h2 style="margin:0 0 10px">Create a support ticket</h2>
+    <h2 style="margin:0 0 8px">Create a support ticket</h2>
     <p class="muted" style="margin:0 0 14px">
-      Product Support is available only if <b>Under Warranty = Yes</b>. Otherwise your request will be logged as <b>Repair Request</b>.
+      <b>Note:</b> Product Support is applicable only when <b>Under Warranty = Yes</b>. Otherwise, your request will be logged as <b>Repair Request</b>.
     </p>
 
     <form id="supportForm" class="grid" style="--min:260px; grid-template-columns:repeat(auto-fit,minmax(var(--min),1fr)); gap:12px">
@@ -55,7 +279,7 @@
       </div>
       <div>
         <label>Model</label>
-        <input class="input" name="model" placeholder="e.g., 43&quot; webOS" required>
+        <input class="input" name="model" placeholder='e.g., 43" webOS' required>
       </div>
       <div>
         <label>Serial number (optional)</label>
@@ -117,5 +341,160 @@
   </article>
 </section>
 
-<!-- Wire the form controller -->
-<script defer src="contact-form.js"></script>
+<!-- Map -->
+<section class="container section">
+  <div class="map">
+    <iframe title="MakWell Location" width="100%" height="100%" style="border:0" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=75.05%2C15.30%2C75.20%2C15.45&layer=mapnik"></iframe>
+  </div>
+</section>
+
+<footer class="site"><div class="container" style="padding:40px 0;text-align:center">
+  © <span id="year"></span> MakWell — Make it Happen.
+</div></footer>
+
+<script>
+  // Auto-year + mobile menu
+  document.getElementById('year').textContent=new Date().getFullYear();
+  (function(){ const b=document.getElementById('menuBtn'), l=document.getElementById('navLinks');
+    b&&b.addEventListener('click',()=>l.classList.toggle('is-open'));
+    l&&l.addEventListener('click',e=>{ if(e.target.tagName==='A') l.classList.remove('is-open'); });
+  })();
+
+  /* MakWell contact form logic
+     - Support only if Warranty = Yes (else → Repair)
+     - Provisional Call ID: YY/MK-PR|PS|RR-###
+     - WhatsApp (PR/PS/RR): 9482844677
+     - Orders/live chat remain on 9980000515 (outside this form)
+     - OPTIONAL: Hook to your Google Apps Script endpoint later
+  */
+  (function(){
+    // OPTIONAL: paste your deployed Web App URL to save into Google Sheets (can be empty)
+    const GAS_ENDPOINT = ""; // e.g., "https://script.google.com/macros/s/AKfycb.../exec"
+
+    // Numbers per spec
+    const OPS_WHATSAPP = "919482844677";    // PR/PS/RR
+
+    // Local counters for provisional Call IDs
+    const COUNTER_KEY = "mw_ticket_counter"; // { PR:n, PS:n, RR:n }
+    function getCounters(){ try { return JSON.parse(localStorage.getItem(COUNTER_KEY)) || {PR:0, PS:0, RR:0}; } catch { return {PR:0, PS:0, RR:0}; } }
+    function setCounters(c){ localStorage.setItem(COUNTER_KEY, JSON.stringify(c)); }
+    function yearYY(){ return new Date().toLocaleDateString('en-GB', { year:'2-digit', timeZone:'Asia/Kolkata' }); }
+
+    function computeType(initialType, warranty){
+      if(initialType === "Product Support" && warranty !== "Yes") return "Repair Request";
+      return initialType;
+    }
+    function prefixFor(type){ return type === "Product Registration" ? "PR" : (type === "Product Support" ? "PS" : "RR"); }
+    function makeCallId(type){
+      const c = getCounters(); const p = prefixFor(type);
+      c[p] = (c[p]||0) + 1; setCounters(c);
+      return `${yearYY()}/MK-${p}-${String(c[p]).padStart(3,"0")}`;
+    }
+
+    function waUrl(to, obj){
+      const line = (k,v)=>`${k}: ${v}`;
+      const txt = [
+        line("Call ID", obj.callId),
+        line("Type", obj.type),
+        line("Name", obj.customer),
+        line("Phone", `+91 ${obj.phone}`),
+        line("Category", obj.category || "-"),
+        line("Model", obj.model || "-"),
+        line("Issue", obj.issue || "-"),
+        line("City/State", `${obj.city || "-"} / ${obj.state || "-"}`)
+      ].join("\n");
+      return `https://wa.me/${to}?text=${encodeURIComponent(txt)}`;
+    }
+    function mailtoUrl(obj){
+      const subject = `New ${prefixFor(obj.type)} Ticket ${obj.callId}`;
+      const body = [
+        `Call ID: ${obj.callId}`,
+        `Type: ${obj.type}`,
+        `Name: ${obj.customer}`,
+        `Phone: +91 ${obj.phone}`,
+        `Email: ${obj.email || "-"}`,
+        `Category: ${obj.category || "-"}`,
+        `Model: ${obj.model || "-"}`,
+        `Serial: ${obj.serial || "-"}`,
+        `Under Warranty: ${obj.warranty || "-"}`,
+        `Issue Type: ${obj.issueType || "-"}`,
+        `Issue: ${obj.issue || "-"}`,
+        `City/State: ${obj.city || "-"} / ${obj.state || "-"}`
+      ].join("\n");
+      return `mailto:makwellindia456@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      const form = document.getElementById('supportForm');
+      if(!form) return;
+
+      const note = document.getElementById('formNote');
+      const warrantyEl = form.querySelector('[name="warranty"]');
+      const typeEls = Array.from(form.querySelectorAll('input[name="type"]'));
+      const computedTypeEl = document.getElementById('computedType');
+      const callIdEl = document.getElementById('callId');
+
+      const ticketResult = document.getElementById('ticketResult');
+      const ticketHeadline = document.getElementById('ticketHeadline');
+      const ticketDetails = document.getElementById('ticketDetails');
+      const waBtn = document.getElementById('waBtn');
+      const mailBtn = document.getElementById('mailBtn');
+
+      function currentType(){ const sel = typeEls.find(x=>x.checked); return sel ? sel.value : "Product Registration"; }
+      function maybeWarn(){
+        const w = warrantyEl.value; const t = currentType();
+        if(t === "Product Support" && w && w !== "Yes"){
+          note.textContent = "Under Warranty is 'No' — this ticket will be logged as Repair Request.";
+        } else note.textContent = "";
+      }
+      typeEls.forEach(r => r.addEventListener('change', maybeWarn));
+      warrantyEl.addEventListener('change', maybeWarn);
+
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+
+        // Collect
+        const data = Object.fromEntries(new FormData(form).entries());
+        const initialType = currentType();
+        const finalType = computeType(initialType, data.warranty);
+        data.type = finalType;
+
+        // Provisional Call ID
+        data.callId = makeCallId(finalType);
+        computedTypeEl.value = finalType;
+        callIdEl.value = data.callId;
+
+        // Actions
+        const wa = waUrl(OPS_WHATSAPP, data);
+        const mail = mailtoUrl(data);
+
+        // Try saving to Google Sheets (optional)
+        let serverId = null, ok = false;
+        if (GAS_ENDPOINT) {
+          try{
+            const res = await fetch(GAS_ENDPOINT, {
+              method:'POST',
+              headers:{'Content-Type':'application/json'},
+              body: JSON.stringify(data),
+            });
+            if(res.ok){
+              const j = await res.json().catch(()=> ({}));
+              serverId = j.callId || null; ok = true;
+            }
+          }catch(err){ console.warn("GAS save failed:", err); }
+        }
+
+        // Show result
+        ticketResult.style.display = 'block';
+        ticketHeadline.textContent = ok ? 'Ticket created (saved)' : 'Ticket created (local)';
+        ticketDetails.textContent = `ID: ${serverId || data.callId} • ${finalType}`;
+        waBtn.href = wa;
+        mailBtn.href = mail;
+      });
+    });
+  })();
+</script>
+</body>
+</html>
