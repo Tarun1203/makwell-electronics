@@ -1,327 +1,528 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact • MakWell Support</title>
-  <meta name="description" content="MakWell — product registration, support, repair requests, WhatsApp and email support." />
-  <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="theme.js"></script>
-
   <style>
-    /* Local page styles (keeps consistent with site theme) */
-    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; margin:0; color:var(--text); background:var(--bg); }
-    .container { max-width:1100px; margin:0 auto; padding:16px; }
-    header.site { border-bottom:1px solid var(--border); background:var(--panel); }
-    nav.container { display:flex; align-items:center; justify-content:space-between; padding:12px 0; gap:12px; }
-    .brand { display:flex; gap:10px; align-items:center; text-decoration:none; color:inherit; }
-    .brand img{ width:40px; height:40px; object-fit:contain; border-radius:6px; }
-    .navlinks { display:flex; gap:10px; align-items:center; }
-    main { padding:18px 0; }
-    .hero { text-align:center; }
-    .two { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; }
-    @media (max-width:900px){ .two{ grid-template-columns:1fr } }
-    .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; box-shadow:var(--shadow); }
-    label { display:block; font-weight:600; margin-top:8px; margin-bottom:6px; }
-    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:transparent; color:inherit; font:inherit; }
-    textarea{ min-height:90px; resize:vertical }
-    .btn{ background:var(--accent); color:#fff; padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:700; }
-    .btn.secondary{ background:transparent; color:inherit; border:1px solid var(--border); }
-    .note{ font-size:13px; color:var(--muted); }
-    .result{ margin-top:12px; padding:12px; border-radius:10px; border:1px solid var(--border); background: color-mix(in oklab,var(--accent) 6%, var(--bg)); }
-    footer.site{ text-align:center; padding:26px 12px; border-top:1px solid var(--border); margin-top:24px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background:#f8f9fa; color:#1a1a1a; line-height:1.6; }
+    .container { max-width:1200px; margin:0 auto; padding:16px; }
+    
+    header { background:white; border-bottom:1px solid #dee2e6; padding:16px 0; margin-bottom:32px; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+    .header-content { display:flex; align-items:center; gap:12px; max-width:1200px; margin:0 auto; padding:0 16px; }
+    .logo { width:40px; height:40px; border-radius:6px; }
+    .brand-text { flex:1; }
+    .brand-text h1 { font-size:18px; margin:0; }
+    .brand-text p { font-size:13px; color:#6c757d; margin:0; }
+    
+    .hero { text-align:center; margin-bottom:32px; }
+    .hero h2 { font-size:28px; margin-bottom:8px; }
+    .hero p { color:#6c757d; }
+    
+    .grid { display:grid; grid-template-columns:1.3fr 0.7fr; gap:24px; }
+    @media (max-width:1000px) { .grid { grid-template-columns:1fr; } }
+    
+    .card { background:white; border:1px solid #dee2e6; border-radius:12px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+    .card h3 { margin:0 0 16px; font-size:20px; color:#1a1a1a; }
+    
+    .section-title { font-size:15px; font-weight:700; color:#4285f4; margin:20px 0 12px; padding-bottom:8px; border-bottom:2px solid #4285f4; }
+    .section-title:first-of-type { margin-top:0; }
+    
+    label { display:block; font-weight:600; margin:12px 0 6px; font-size:14px; color:#1a1a1a; }
+    label:first-of-type { margin-top:0; }
+    input, select, textarea { width:100%; padding:10px 12px; border:1px solid #dee2e6; border-radius:8px; font:inherit; background:white; transition:all 0.2s; }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:#4285f4; box-shadow:0 0 0 3px rgba(66,133,244,0.1); }
+    textarea { min-height:100px; resize:vertical; font-family:inherit; }
+    
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    .grid-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; }
+    @media (max-width:768px) { .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; } }
+    
+    .field-group { margin-top:12px; }
+    .field-group:first-of-type { margin-top:0; }
+    
+    .btn { background:#4285f4; color:white; border:none; padding:12px 24px; border-radius:8px; font-weight:600; cursor:pointer; transition:all 0.2s; font-size:15px; }
+    .btn:hover { background:#3367d6; transform:translateY(-1px); box-shadow:0 4px 8px rgba(0,0,0,0.15); }
+    .btn:active { transform:translateY(0); }
+    .btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    .btn.secondary { background:white; color:#1a1a1a; border:1px solid #dee2e6; }
+    .btn.secondary:hover { background:#f8f9fa; }
+    
+    .required { color:#dc3545; }
+    .note { font-size:13px; color:#6c757d; margin-top:6px; line-height:1.4; }
+    .warranty-badge { display:inline-block; padding:6px 12px; border-radius:6px; font-size:13px; font-weight:600; margin-top:6px; }
+    .warranty-badge.active { background:#d4edda; color:#155724; }
+    
+    .result { margin-top:16px; padding:16px; border-radius:8px; background:#e7f3ff; border:1px solid #4285f4; animation:slideIn 0.3s ease; }
+    @keyframes slideIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    .success { color:#28a745; font-weight:600; font-size:16px; }
+    .error { color:#dc3545; font-weight:600; }
+    
+    .contact-item { margin-bottom:12px; padding:12px; background:#f8f9fa; border-radius:8px; transition:background 0.2s; }
+    .contact-item:hover { background:#e9ecef; }
+    .contact-item strong { display:block; margin-bottom:4px; font-size:14px; }
+    .contact-item a { color:#4285f4; text-decoration:none; font-weight:500; }
+    .contact-item a:hover { text-decoration:underline; }
+    
+    .info-box { background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:12px; margin:16px 0; font-size:14px; }
+    .info-box strong { display:block; margin-bottom:4px; color:#856404; }
+    
+    footer { text-align:center; padding:24px; color:#6c757d; font-size:14px; margin-top:48px; }
   </style>
 </head>
 <body>
-  <header class="site">
-    <nav class="container" aria-label="Main navigation">
-      <a class="brand" href="index.html" aria-label="MakWell home">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell logo">
-        <div><div style="font-weight:800">MakWell</div><div style="font-size:12px;color:var(--muted)">— Make it Happen</div></div>
-      </a>
-
-      <div class="navlinks" role="navigation">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="active">Contact</a>
-        <button id="themeToggle" onclick="toggleTheme()">🌓</button>
+  <header>
+    <div class="header-content">
+      <img class="logo" src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell">
+      <div class="brand-text">
+        <h1>MakWell Support</h1>
+        <p>Make it Happen</p>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Need help? Submit a request</h1>
-      <p class="note" style="max-width:760px;margin:6px auto 0">
-        Product registration, product support, and repair requests — use the form below. Product Support applies only when under warranty.
-      </p>
-    </section>
+  <div class="container">
+    <div class="hero">
+      <h2>Customer Support Portal</h2>
+      <p>Product registration, service requests, and repair support</p>
+    </div>
 
-    <section style="margin-top:18px">
-      <div class="two">
-        <!-- Form -->
-        <form id="supportForm" class="card" autocomplete="on" novalidate>
-          <h2 style="margin:0 0 8px">Create ticket</h2>
+    <div class="grid">
+      <!-- MAIN FORM -->
+      <form id="supportForm" class="card">
+        <h3>Create Support Ticket</h3>
 
-          <label for="type">Request Type</label>
-          <select id="type" required>
-            <option value="">Select request type</option>
-            <option>Product Registration</option>
-            <option>Product Support</option>
-            <option>Repair Request</option>
-          </select>
+        <!-- REQUEST TYPE -->
+        <label>Request Type <span class="required">*</span></label>
+        <select id="type" required>
+          <option value="">Select type</option>
+          <option value="Product Registration">Product Registration</option>
+          <option value="Product Support">Product Support</option>
+          <option value="Repair Request">Repair Request</option>
+        </select>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div>
-              <label for="customer">Customer name</label>
-              <input id="customer" type="text" placeholder="Full name" required>
-            </div>
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" type="tel" placeholder="10-digit mobile" pattern="[0-9]{10}" required>
-            </div>
+        <!-- CUSTOMER INFO -->
+        <div class="section-title">Customer Information</div>
+        
+        <div class="grid-2 field-group">
+          <div>
+            <label>Customer Name <span class="required">*</span></label>
+            <input id="customer" type="text" placeholder="Full name" required>
           </div>
+          <div>
+            <label>Phone <span class="required">*</span></label>
+            <input id="phone" type="tel" pattern="[0-9]{10}" placeholder="10-digit mobile" required>
+          </div>
+        </div>
 
-          <label for="email">Email (optional)</label>
+        <div class="field-group">
+          <label>Email</label>
           <input id="email" type="email" placeholder="name@example.com">
+        </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <!-- TICKET DETAILS -->
+        <div class="section-title">Ticket Details</div>
+
+        <div class="grid-3 field-group">
+          <div>
+            <label>Issue Type <span class="required">*</span></label>
+            <select id="issueTypes" required>
+              <option value="">Select issue</option>
+              <option>Installation</option>
+              <option>Usage Help</option>
+              <option>Connectivity</option>
+              <option>No Power</option>
+              <option>Physical Damage</option>
+              <option>Noise/Vibration</option>
+              <option>Display Issue</option>
+              <option>Motor</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <div>
+            <label>Priority <span class="required">*</span></label>
+            <select id="priority" required>
+              <option value="">Select priority</option>
+              <option>Low</option>
+              <option selected>Normal</option>
+              <option>High</option>
+              <option>Urgent</option>
+            </select>
+          </div>
+          <div>
+            <label>Channel <span class="required">*</span></label>
+            <select id="channels" required>
+              <option value="">Select channel</option>
+              <option>Phone</option>
+              <option>WhatsApp</option>
+              <option>Email</option>
+              <option selected>Web Form</option>
+              <option>Retailer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Installation Required? <span class="required">*</span></label>
+          <select id="installationRequired" required>
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option selected>No</option>
+          </select>
+        </div>
+
+        <!-- PRODUCT CATEGORY -->
+        <div class="section-title">Product Information</div>
+
+        <div class="field-group">
+          <label>Product Category <span class="required">*</span></label>
+          <select id="categories" required>
+            <option value="">Select category</option>
+            <option value="Televisions">Televisions</option>
+            <option value="Washing Machines">Washing Machines</option>
+            <option value="Stabilizers">Stabilizers</option>
+            <option value="Refrigerators">Refrigerators</option>
+            <option value="Air Conditioners">Air Conditioners</option>
+            <option value="Microwave Ovens">Microwave Ovens</option>
+            <option value="Water Purifiers">Water Purifiers</option>
+            <option value="Other">Other</option>
+          </select>
+          <div id="warrantyInfo" class="warranty-badge active" style="display:none">
+            <span id="warrantyText"></span>
+          </div>
+        </div>
+
+        <!-- TV FIELDS -->
+        <div id="tvFields" class="field-group" style="display:none">
+          <div class="grid-2">
             <div>
-              <label for="category">Product category</label>
-              <select id="category" required>
-                <option value="">Select category</option>
-                <option>Televisions</option>
-                <option>Washing Machines</option>
-                <option>Stabilizers</option>
+              <label>TV Model</label>
+              <select id="tvModel">
+                <option value="">Select TV model</option>
+                <option>Makwell - 24 Normal</option>
+                <option>Makwell - 24 Smart</option>
+                <option>Makwell - 32 Normal</option>
+                <option>Makwell - 32 Smart</option>
+                <option>Makwell - 43 Smart</option>
+                <option>Makwell - 43 Webos</option>
+                <option>Makwell - 50 Google</option>
+                <option>Makwell - 50 Webos</option>
+                <option>Makwell - 55 Google</option>
+                <option>Makwell - 55 Webos</option>
+                <option>Makwell - 65 Webos</option>
               </select>
             </div>
             <div>
-              <label for="model">Model</label>
-              <input id="model" type="text" placeholder='e.g., 43" webOS' required>
+              <label>TV Warranty (Years)</label>
+              <input id="warrantyTV" type="number" min="0" max="10" value="1" placeholder="Years">
             </div>
           </div>
+        </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <!-- WASHING MACHINE FIELDS -->
+        <div id="wmFields" class="field-group" style="display:none">
+          <div class="grid-2">
             <div>
-              <label for="serial">Serial no. (optional)</label>
-              <input id="serial" type="text" placeholder="Serial number">
-            </div>
-            <div>
-              <label for="purchaseDate">Purchase date (optional)</label>
-              <input id="purchaseDate" type="date">
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div>
-              <label for="warranty">Under warranty</label>
-              <select id="warranty" required>
-                <option value="">Select</option>
-                <option>Yes</option>
-                <option>No</option>
+              <label>Washing Machine Model</label>
+              <select id="washingMachineModel">
+                <option value="">Select model</option>
+                <option>SAWM7KG</option>
+                <option>SAWM9KG</option>
+                <option>SAWM9KGSCD</option>
+                <option>SAWM11KGSCD</option>
               </select>
             </div>
             <div>
-              <label for="issueType">Issue type (optional)</label>
-              <select id="issueType">
-                <option value="">—</option>
-                <option>Installation</option>
-                <option>Usage Help</option>
-                <option>Connectivity</option>
-                <option>No Power</option>
-                <option>Physical Damage</option>
-                <option>Noise/Vibration</option>
-                <option>Other</option>
+              <label>WM Warranty</label>
+              <input id="warrantyWM" type="text" value="1+2+5" placeholder="1+2+5" readonly>
+              <div class="note">1 Year Full + 2Y Dryer + 5Y Spin Motor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STABILIZER FIELDS -->
+        <div id="stabFields" class="field-group" style="display:none">
+          <div class="grid-2">
+            <div>
+              <label>Stabilizer Model</label>
+              <select id="stabilizerModel">
+                <option value="">Select model</option>
+                <option>Makwell Mini</option>
+                <option>Makwell Ref</option>
+                <option>Makwell Smart</option>
               </select>
             </div>
-          </div>
-
-          <label for="issue">Issue description (optional)</label>
-          <textarea id="issue" placeholder="Short description of the issue"></textarea>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div>
-              <label for="city">City</label>
-              <input id="city" type="text" placeholder="City">
-            </div>
-            <div>
-              <label for="state">State</label>
-              <input id="state" type="text" placeholder="State">
+              <label>Stabilizer Warranty (Years)</label>
+              <input id="warrantyStabilizer" type="number" value="5" placeholder="Years" readonly>
             </div>
           </div>
+        </div>
 
-          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <button id="submitBtn" class="btn" type="submit">Create ticket</button>
-            <button type="reset" class="btn secondary">Clear</button>
-            <div id="formNote" class="note" aria-live="polite"></div>
+        <!-- PURCHASE INFO -->
+        <div class="grid-3 field-group">
+          <div>
+            <label>Serial Number</label>
+            <input id="serial" type="text" placeholder="Product serial">
+          </div>
+          <div>
+            <label>Purchase Date</label>
+            <input id="purchaseDate" type="date">
+          </div>
+          <div>
+            <label>Service Type <span class="required">*</span></label>
+            <select id="serviceType" required>
+              <option value="">Select</option>
+              <option>Under Warranty</option>
+              <option>Out Of Warranty</option>
+              <option>Technician Confirm</option>
+              <option>Charged</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DEALER INFO -->
+        <div class="section-title">Dealer Information</div>
+
+        <div class="grid-3 field-group">
+          <div>
+            <label>Dealer Name</label>
+            <input id="dealerName" type="text" placeholder="Dealer/Shop name">
+          </div>
+          <div>
+            <label>Dealer Place</label>
+            <input id="dealerPlace" type="text" placeholder="Location">
+          </div>
+          <div>
+            <label>Invoice Number</label>
+            <input id="invoice" type="text" placeholder="Invoice/Bill no.">
+          </div>
+        </div>
+
+        <!-- ISSUE DESCRIPTION -->
+        <div class="section-title">Issue Details</div>
+
+        <div class="field-group">
+          <label>Issue Description</label>
+          <textarea id="issue" placeholder="Describe the issue in detail..."></textarea>
+        </div>
+
+        <div class="grid-2 field-group">
+          <div>
+            <label>City</label>
+            <input id="city" type="text" placeholder="City">
+          </div>
+          <div>
+            <label>State</label>
+            <input id="state" type="text" placeholder="State">
+          </div>
+        </div>
+
+        <div id="formMsg" class="note" style="margin-top:16px;min-height:20px;font-weight:600"></div>
+
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <button type="submit" class="btn">🎫 Create Ticket</button>
+          <button type="reset" class="btn secondary">🔄 Clear Form</button>
+        </div>
+
+        <div id="ticketResult" class="result" style="display:none">
+          <div id="ticketInfo"></div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a id="whatsappLink" class="btn" target="_blank">📱 WhatsApp</a>
+            <a id="emailLink" class="btn secondary" target="_blank">✉️ Email</a>
+          </div>
+        </div>
+      </form>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="card">
+          <h3>Quick Contacts</h3>
+          
+          <div class="contact-item">
+            <strong>📦 Orders / Live Chat</strong>
+            <a href="https://api.whatsapp.com/send?phone=919980000515">+91 99800 00515</a>
+          </div>
+          
+          <div class="contact-item">
+            <strong>🔧 Service / Repair</strong>
+            <a href="https://api.whatsapp.com/send?phone=919482844677">+91 94828 44677</a>
+          </div>
+          
+          <div class="contact-item">
+            <strong>✉️ Email Support</strong>
+            <a href="mailto:makwellindia456@gmail.com">makwellindia456@gmail.com</a>
           </div>
 
-          <div id="ticketResult" class="result" style="display:none" aria-live="polite">
-            <div><strong id="ticketHeadline"></strong></div>
-            <div id="ticketInfo" class="note" style="margin-top:8px"></div>
-            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-              <a id="openWhatsApp" class="btn" target="_blank" rel="noopener">Open WhatsApp</a>
-              <a id="openEmail" class="btn secondary" target="_blank" rel="noopener">Open Email</a>
-              <button id="copyCallId" class="btn secondary">Copy Call ID</button>
-            </div>
+          <div class="info-box">
+            <strong>⏰ Support Hours</strong>
+            Monday – Saturday<br>
+            9:30 AM – 6:30 PM IST
           </div>
-        </form>
+        </div>
 
-        <!-- Quick contacts -->
-        <aside class="card">
-          <h3 style="margin:0 0 8px">Quick contacts</h3>
-          <p class="note" style="margin:0 0 10px">For orders / live chat / general support use:</p>
-          <p style="margin:0 0 8px"><strong>Orders / Live Chat / WhatsApp:</strong><br><a href="https://api.whatsapp.com/send?phone=919980000515" target="_blank">+91 99800 00515</a></p>
-          <p style="margin:0 0 8px"><strong>Service / Repair / Registration:</strong><br><a href="https://api.whatsapp.com/send?phone=919482844677" target="_blank">+91 94828 44677</a></p>
-          <p style="margin:0 0 8px"><strong>Email:</strong><br><a href="mailto:makwellindia456@gmail.com">makwellindia456@gmail.com</a></p>
-          <hr style="margin:12px 0">
-          <p class="note">Support hours: Mon–Sat, 9:30 AM – 6:30 PM</p>
-        </aside>
-      </div>
-    </section>
-  </main>
+        <div class="card" style="margin-top:16px">
+          <h3>Warranty Information</h3>
+          <div style="font-size:14px;line-height:1.8">
+            <strong>📺 Televisions:</strong> 1 Year<br>
+            <strong>🌀 Washing Machines:</strong> 1+2+5<br>
+            <span class="note">1Y Full + 2Y Dryer + 5Y Spin Motor</span><br>
+            <strong>⚡ Stabilizers:</strong> 5 Years<br>
+            <strong>❄️ Refrigerators:</strong> 1Y + 5Y Comp.<br>
+            <strong>🌬️ Air Conditioners:</strong> 1Y + 5Y Comp.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
 
-  <footer class="site">
-    <div class="container note">© <span id="year"></span> MakWell — Make it Happen.</div>
+  <footer>
+    <div class="container">
+      © 2025 MakWell — Make it Happen
+    </div>
   </footer>
 
   <script>
-    // CONFIG
-    const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyPsg7-re-YDPTyPUuxIHnwW1HBrssztbLOca3JvguyIBlCOK5EhwNohYdGsqkcK-Gy/exec";
-    const WEB_SECRET = "u9s7Y-mw-prod-2025-8f3b2cA9"; // ← keep this secret; rotate if compromised
-    const OPS_WHATSAPP = "919482844677";
-    const ORDERS_WHATSAPP = "919980000515";
+    const API_URL = 'PASTE_YOUR_WEB_APP_URL_HERE'; // <<-- REPLACE THIS
+    const SECRET = 'MakWell2024SecureKey';
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const warrantyInfo = {
+      'Televisions': '1 Year Full Product Warranty',
+      'Washing Machines': '1 Year Full + 2 Years Dryer Motor + 5 Years Spin Motor',
+      'Stabilizers': '5 Years Full Product Warranty',
+      'Other': '1 Year Standard Warranty'
+    };
 
-    function pad3(n){ return String(n).padStart(3,'0'); }
-    function twoDigitYear(){ return new Date().getFullYear().toString().slice(-2); }
+    // Set max date
+    document.getElementById('purchaseDate').max = new Date().toISOString().split('T')[0];
 
-    function buildWhatsAppLink(phone, obj){
-      const p = String(phone||"").replace(/\D/g,'');
-      const lines = [
-        `Call ID: ${obj.callId}`,
-        `Type: ${obj.type}`,
-        `Name: ${obj.customer}`,
-        `Phone: +91 ${obj.phone}`,
-        `Category: ${obj.category || '-'}`,
-        `Model: ${obj.model || '-'}`,
-        `Serial: ${obj.serial || '-'}`,
-        `Under Warranty: ${obj.warranty || '-'}`,
-        `Issue: ${obj.issue || '-'}`,
-        `City/State: ${obj.city || '-'} / ${obj.state || '-'}`
-      ];
-      return `https://api.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(lines.join("\n"))}`;
-    }
-
-    function buildMailTo(obj){
-      const sub = `New ${obj.type} Ticket ${obj.callId}`;
-      const body = [
-        `Call ID: ${obj.callId}`,
-        `Type: ${obj.type}`,
-        `Name: ${obj.customer}`,
-        `Phone: +91 ${obj.phone}`,
-        `Email: ${obj.email || '-'}`,
-        `Category: ${obj.category || '-'}`,
-        `Model: ${obj.model || '-'}`,
-        `Serial: ${obj.serial || '-'}`,
-        `Under Warranty: ${obj.warranty || '-'}`,
-        `Issue: ${obj.issue || '-'}`,
-        `City/State: ${obj.city || '-'} / ${obj.state || '-'}`
-      ].join("\n");
-      return `mailto:makwellindia456@gmail.com?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
-    }
-
-    (function(){
-      const form = document.getElementById('supportForm');
-      const formNote = document.getElementById('formNote');
-      const ticketResult = document.getElementById('ticketResult');
-      const ticketHeadline = document.getElementById('ticketHeadline');
-      const ticketInfo = document.getElementById('ticketInfo');
-      const openWhatsApp = document.getElementById('openWhatsApp');
-      const openEmail = document.getElementById('openEmail');
-      const copyCallId = document.getElementById('copyCallId');
-
-      const typeEl = document.getElementById('type');
-      const warrantyEl = document.getElementById('warranty');
-      function maybeWarn(){
-        const t = typeEl.value, w = warrantyEl.value;
-        if(t === 'Product Support' && w && w !== 'Yes'){
-          formNote.textContent = "Product Support requires warranty = Yes — this will be logged as Repair Request.";
-        } else formNote.textContent = "";
+    // Category change handler
+    document.getElementById('categories').addEventListener('change', function() {
+      const category = this.value;
+      
+      // Hide all product-specific fields
+      document.getElementById('tvFields').style.display = 'none';
+      document.getElementById('wmFields').style.display = 'none';
+      document.getElementById('stabFields').style.display = 'none';
+      
+      // Show relevant fields
+      if(category === 'Televisions') {
+        document.getElementById('tvFields').style.display = 'block';
+      } else if(category === 'Washing Machines') {
+        document.getElementById('wmFields').style.display = 'block';
+      } else if(category === 'Stabilizers') {
+        document.getElementById('stabFields').style.display = 'block';
       }
-      typeEl.addEventListener('change', maybeWarn);
-      warrantyEl.addEventListener('change', maybeWarn);
+      
+      // Show warranty info
+      const warrantyDiv = document.getElementById('warrantyInfo');
+      const warrantyText = document.getElementById('warrantyText');
+      
+      if(category && warrantyInfo[category]) {
+        warrantyText.textContent = '🛡️ ' + warrantyInfo[category];
+        warrantyDiv.style.display = 'inline-block';
+      } else {
+        warrantyDiv.style.display = 'none';
+      }
+    });
 
-      form.addEventListener('submit', async function(e){
-        e.preventDefault();
-        ticketResult.style.display = 'none';
-        formNote.textContent = "Submitting…";
+    // Form submission
+    document.getElementById('supportForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const btn = e.target.querySelector('button[type="submit"]');
+      const msg = document.getElementById('formMsg');
+      const result = document.getElementById('ticketResult');
+      const ticketInfo = document.getElementById('ticketInfo');
+      
+      try {
+        msg.innerHTML = '<span style="color:#ff6b00">⏳ Creating ticket...</span>';
+        btn.disabled = true;
+        result.style.display = 'none';
 
         const data = {
-          type: (document.getElementById('type').value || '').trim(),
-          customer: (document.getElementById('customer').value || '').trim(),
-          phone: (document.getElementById('phone').value || '').trim(),
-          email: (document.getElementById('email').value || '').trim(),
-          category: (document.getElementById('category').value || '').trim(),
-          model: (document.getElementById('model').value || '').trim(),
-          serial: (document.getElementById('serial').value || '').trim(),
-          purchaseDate: (document.getElementById('purchaseDate').value || '').trim(),
-          warranty: (document.getElementById('warranty').value || '').trim(),
-          issueType: (document.getElementById('issueType').value || '').trim(),
-          issue: (document.getElementById('issue').value || '').trim(),
-          city: (document.getElementById('city').value || '').trim(),
-          state: (document.getElementById('state').value || '').trim(),
-          source: 'Web Form',
-          secret: WEB_SECRET
+          secret: SECRET,
+          type: document.getElementById('type').value,
+          customer: document.getElementById('customer').value,
+          phone: document.getElementById('phone').value,
+          email: document.getElementById('email').value,
+          categories: document.getElementById('categories').value,
+          issueTypes: document.getElementById('issueTypes').value,
+          status: 'New',
+          priority: document.getElementById('priority').value,
+          channels: document.getElementById('channels').value,
+          installationRequired: document.getElementById('installationRequired').value,
+          tvModel: document.getElementById('tvModel').value,
+          warrantyTV: document.getElementById('warrantyTV').value,
+          washingMachineModel: document.getElementById('washingMachineModel').value,
+          warrantyWM: document.getElementById('warrantyWM').value,
+          stabilizerModel: document.getElementById('stabilizerModel').value,
+          warrantyStabilizer: document.getElementById('warrantyStabilizer').value,
+          serviceType: document.getElementById('serviceType').value,
+          serial: document.getElementById('serial').value,
+          purchaseDate: document.getElementById('purchaseDate').value,
+          issue: document.getElementById('issue').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          dealerName: document.getElementById('dealerName').value,
+          dealerPlace: document.getElementById('dealerPlace').value,
+          invoice: document.getElementById('invoice').value
         };
 
-        if(data.type === 'Product Support' && data.warranty !== 'Yes') {
-          data.type = 'Repair Request';
+        console.log('Submitting:', data);
+
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+
+        if(!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const res = await response.json();
+        console.log('Response:', res);
+        
+        if(res.ok) {
+          msg.textContent = '';
+          ticketInfo.innerHTML = `
+            <div class="success">✅ Ticket Created Successfully!</div>
+            <div style="margin-top:12px;font-size:14px">
+              <strong style="font-size:16px;color:#4285f4">Ticket ID: ${res.callId}</strong><br>
+              <strong>Type:</strong> ${data.type}<br>
+              <strong>Customer:</strong> ${data.customer}<br>
+              <strong>Priority:</strong> ${data.priority}<br>
+              <span style="color:#6c757d;font-size:13px;margin-top:8px;display:block">
+                Our team will contact you within 24 hours.
+              </span>
+            </div>
+          `;
+          result.style.display = 'block';
+          
+          // Set contact links
+          const waMsg = `Ticket ID: ${res.callId}\nType: ${data.type}\nCustomer: ${data.customer}\nPhone: ${data.phone}\nCategory: ${data.categories}\nIssue: ${data.issue}`;
+          document.getElementById('whatsappLink').href = `https://api.whatsapp.com/send?phone=919482844677&text=${encodeURIComponent(waMsg)}`;
+          document.getElementById('emailLink').href = `mailto:makwellindia456@gmail.com?subject=Ticket ${res.callId}&body=${encodeURIComponent(waMsg)}`;
+          
+          e.target.reset();
+          document.getElementById('tvFields').style.display = 'none';
+          document.getElementById('wmFields').style.display = 'none';
+          document.getElementById('stabFields').style.display = 'none';
+          document.getElementById('warrantyInfo').style.display = 'none';
+        } else {
+          throw new Error(res.error || 'Unknown error');
         }
 
-        // provisional id while server replies
-        const pref = (data.type.indexOf('Registration')>-1)?'PR':(data.type.indexOf('Support')>-1?'PS':'RR');
-        const provisionalId = `${twoDigitYear()}/MK-${pref}-${pad3(Math.floor(Math.random()*900)+1)}`;
-        ticketHeadline.textContent = 'Creating ticket…';
-        ticketInfo.textContent = `Provisional ID: ${provisionalId}`;
-        ticketResult.style.display = 'block';
-
-        // POST to Google Apps Script
-        let serverCallId = null;
-        try {
-          const r = await fetch(GAS_ENDPOINT, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(data)
-          });
-          const j = await r.json().catch(()=>({ok:false}));
-          if(j && j.ok && j.callId) serverCallId = j.callId;
-          else console.warn('Server responded:', j);
-        } catch(err) {
-          console.warn('Save failed', err);
-        }
-
-        const finalId = serverCallId || provisionalId;
-        ticketHeadline.textContent = 'Ticket created';
-        ticketInfo.textContent = `ID: ${finalId} • ${data.type}`;
-        formNote.textContent = '';
-
-        const waTo = data.type && data.type.toLowerCase().includes('order') ? ORDERS_WHATSAPP : OPS_WHATSAPP;
-        openWhatsApp.href = buildWhatsAppLink(waTo, {...data, callId: finalId});
-        openEmail.href = buildMailTo({...data, callId: finalId});
-
-        copyCallId.onclick = () => {
-          navigator.clipboard?.writeText(finalId).then(()=> {
-            copyCallId.textContent = 'Copied ✓';
-            setTimeout(()=> copyCallId.textContent = 'Copy Call ID', 1800);
-          }).catch(()=> alert('Copy failed — ' + finalId));
-        };
-
-      });
-    })();
+      } catch(err) {
+        console.error('Error:', err);
+        msg.textContent = '';
+        ticketInfo.innerHTML = `<div class="error">❌ Error: ${err.message}</div>`;
+        result.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
