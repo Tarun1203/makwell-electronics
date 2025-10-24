@@ -1,448 +1,1143 @@
-// ========================================
-// CONFIGURATION
-// ========================================
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact • MakWell Support</title>
+  <meta name="description" content="MakWell — product registration, support, repair requests, WhatsApp and email support." />
+  <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="theme.js"></script>
 
-const SHEET_ID = '1hX15ATTRJTuMMccfrN-CJtNDViOb2lJ2odgCWD-kEqY';
-
-// Sheet names for different request types
-const SHEET_NAMES = {
-  'Product Registration': 'Registrations',
-  'Product Support': 'Support',
-  'Repair Request': 'Repairs',
-  'Default': 'All Tickets'
-};
-
-// Warranty periods in months (must match frontend)
-const WARRANTY_PERIODS = {
-  'Televisions': 12,
-  'Washing Machines': 24,
-  'Refrigerators': 12,
-  'Air Conditioners': 12,
-  'Stabilizers': 12,
-  'Microwave Ovens': 12,
-  'Water Purifiers': 12,
-  'Other': 12,
-  'Default': 12
-};
-
-// ========================================
-// MAIN HANDLER
-// ========================================
-
-function doPost(e) {
-  try {
-    const data = JSON.parse(e.postBody);
-    
-    // Verify secret key
-    const storedSecret = PropertiesService.getScriptProperties().getProperty('SECRET');
-    if(data.secret !== storedSecret) {
-      return jsonResponse({ok: false, error: 'Unauthorized', message: 'Invalid secret key'});
+  <style>
+    /* ========================================
+       PAGE-LOCAL CSS
+       ======================================== */
+    :root { 
+      --container: 1100px;
     }
     
-    // Route to appropriate handler
-    if(data.action === 'checkWarranty') {
-      return handleWarrantyCheck(data);
-    } else {
-      return handleTicketCreation(data);
-    }
-  } catch(err) {
-    Logger.log('Error in doPost: ' + err.toString());
-    return jsonResponse({ok: false, error: err.toString()});
-  }
-}
-
-// For testing
-function doGet(e) {
-  return ContentService.createTextOutput('MakWell Support API is running. Use POST requests.');
-}
-
-// ========================================
-// TICKET CREATION HANDLER
-// ========================================
-
-function handleTicketCreation(data) {
-  try {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-    
-    // Get or create appropriate sheet
-    const sheetName = SHEET_NAMES[data.type] || SHEET_NAMES['Default'];
-    let sheet = ss.getSheetByName(sheetName);
-    
-    if(!sheet) {
-      sheet = ss.insertSheet(sheetName);
-      // Add headers
-      sheet.appendRow([
-        'Timestamp', 'Call ID', 'Type', 'Customer', 'Phone', 'Email',
-        'Category', 'Model', 'Serial', 'Purchase Date', 'Warranty',
-        'Issue Type', 'Issue', 'City', 'State', 'Source', 'Status'
-      ]);
-      sheet.getRange(1, 1, 1, 17).setFontWeight('bold').setBackground('#4285f4').setFontColor('#ffffff');
-      sheet.setFrozenRows(1);
+    body { 
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0; 
+      color: var(--text); 
+      background: var(--bg);
+      line-height: 1.6;
     }
     
-    // Generate Call ID
-    const callId = generateCallId(data.type, sheet);
-    
-    // Prepare row data
-    const timestamp = new Date();
-    const rowData = [
-      timestamp,
-      callId,
-      data.type || '',
-      data.customer || '',
-      data.phone || '',
-      data.email || '',
-      data.category || '',
-      data.model || '',
-      data.serial || '',
-      data.purchaseDate || '',
-      data.warranty || '',
-      data.issueType || '',
-      data.issue || '',
-      data.city || '',
-      data.state || '',
-      data.source || 'Web Form',
-      'Open'
-    ];
-    
-    // Append to sheet
-    sheet.appendRow(rowData);
-    
-    // Format the new row
-    const lastRow = sheet.getLastRow();
-    sheet.getRange(lastRow, 1, 1, 17).setHorizontalAlignment('left');
-    
-    // Set column widths (only if newly created)
-    if(lastRow === 2) {
-      sheet.setColumnWidth(1, 150); // Timestamp
-      sheet.setColumnWidth(2, 130); // Call ID
-      sheet.setColumnWidth(3, 150); // Type
-      sheet.setColumnWidth(4, 150); // Customer
-      sheet.setColumnWidth(5, 110); // Phone
-      sheet.setColumnWidth(6, 200); // Email
-      sheet.setColumnWidth(7, 120); // Category
-      sheet.setColumnWidth(8, 150); // Model
+    .container { 
+      max-width: var(--container); 
+      margin: 0 auto; 
+      padding: 16px; 
     }
     
-    // Also log to "All Tickets" sheet for master record
-    logToAllTickets(ss, rowData);
-    
-    // Send notification email (optional)
-    sendNotificationEmail(data, callId);
-    
-    return jsonResponse({
-      ok: true,
-      callId: callId,
-      message: 'Ticket created successfully',
-      timestamp: timestamp.toISOString()
-    });
-    
-  } catch(err) {
-    Logger.log('Error in handleTicketCreation: ' + err.toString());
-    return jsonResponse({ok: false, error: err.toString()});
-  }
-}
-
-// ========================================
-// WARRANTY CHECK HANDLER
-// ========================================
-
-function handleWarrantyCheck(data) {
-  try {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-    const regSheet = ss.getSheetByName('Registrations');
-    
-    if(!regSheet) {
-      return jsonResponse({
-        found: false,
-        message: 'Registration sheet not found'
-      });
+    /* Header Navigation */
+    header.site { 
+      border-bottom: 1px solid var(--border); 
+      background: var(--panel);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     
-    const records = regSheet.getDataRange().getValues();
+    nav.container { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      justify-content: space-between; 
+      padding: 12px 16px; 
+    }
     
-    // Search for matching record (skip header row)
-    for(let i = 1; i < records.length; i++) {
-      const row = records[i];
-      // Columns: [Timestamp, CallID, Type, Customer, Phone, Email, Category, Model, Serial, PurchaseDate, ...]
-      const rowSerial = String(row[8] || '').trim();
-      const rowPhone = String(row[4] || '').trim();
+    .brand { 
+      display: flex; 
+      gap: 10px; 
+      align-items: center; 
+      text-decoration: none; 
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    
+    .brand:hover {
+      opacity: 0.8;
+    }
+    
+    .brand img { 
+      width: 40px; 
+      height: 40px; 
+      object-fit: contain; 
+      border-radius: 6px; 
+    }
+    
+    .navlinks { 
+      display: flex; 
+      gap: 10px; 
+      align-items: center; 
+    }
+    
+    .navlinks a { 
+      text-decoration: none; 
+      color: inherit; 
+      padding: 6px 12px; 
+      border-radius: 8px; 
+      transition: background 0.2s;
+      font-size: 15px;
+    }
+    
+    .navlinks a:hover { 
+      background: var(--hover); 
+    }
+    
+    .navlinks a.active { 
+      font-weight: 700;
+      background: var(--hover);
+    }
+
+    /* Main Content */
+    main { 
+      padding: 20px 0 40px; 
+    }
+    
+    .hero { 
+      text-align: center; 
+      padding: 24px 0; 
+    }
+    
+    .hero h1 { 
+      margin: 4px 0; 
+      font-size: 32px;
+      font-weight: 800;
+    }
+    
+    .hero p {
+      margin: 8px auto 0;
+      max-width: 760px;
+    }
+    
+    .two { 
+      display: grid; 
+      grid-template-columns: 1.2fr 0.8fr; 
+      gap: 20px; 
+      margin-top: 24px; 
+    }
+    
+    @media (max-width: 900px) { 
+      .two { 
+        grid-template-columns: 1fr;
+      }
       
-      if(rowSerial === data.serial && rowPhone === data.phone) {
-        return jsonResponse({
-          found: true,
-          customer: row[3],
-          phone: row[4],
-          email: row[5] || '',
-          category: row[6],
-          model: row[7],
-          serial: row[8],
-          purchaseDate: formatDateForJS(row[9]),
-          callId: row[1]
-        });
+      .hero h1 {
+        font-size: 26px;
+      }
+    }
+
+    /* Card Styling */
+    .card { 
+      background: var(--panel); 
+      border: 1px solid var(--border); 
+      border-radius: 12px; 
+      padding: 24px; 
+      box-shadow: var(--shadow);
+    }
+    
+    .card h2,
+    .card h3 {
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    /* Form Elements */
+    label { 
+      display: block; 
+      font-weight: 600; 
+      margin-top: 12px; 
+      margin-bottom: 6px; 
+      font-size: 14px;
+      color: var(--text);
+    }
+    
+    label:first-of-type {
+      margin-top: 0;
+    }
+    
+    input[type="text"], 
+    input[type="tel"], 
+    input[type="email"], 
+    select, 
+    textarea, 
+    input[type="date"] {
+      width: 100%; 
+      padding: 11px 13px; 
+      border-radius: 8px; 
+      border: 1px solid var(--border); 
+      background: var(--bg); 
+      color: inherit; 
+      font: inherit;
+      box-sizing: border-box;
+      transition: all 0.2s;
+      font-size: 15px;
+    }
+    
+    input:focus, 
+    select:focus, 
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+    }
+    
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--muted);
+    }
+    
+    textarea { 
+      resize: vertical; 
+      min-height: 100px;
+      font-family: inherit;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    /* Buttons */
+    .btn { 
+      display: inline-block; 
+      background: var(--accent); 
+      color: #fff; 
+      padding: 11px 18px; 
+      border-radius: 10px; 
+      border: 0; 
+      cursor: pointer; 
+      font-weight: 700; 
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 15px;
+      text-align: center;
+      font-family: inherit;
+    }
+    
+    .btn:hover { 
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .btn.secondary { 
+      background: transparent; 
+      color: inherit; 
+      border: 1px solid var(--border);
+    }
+    
+    .btn.secondary:hover {
+      background: var(--hover);
+      opacity: 1;
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Notes and Messages */
+    .note { 
+      font-size: 13px; 
+      color: var(--muted); 
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .result { 
+      margin-top: 16px; 
+      padding: 16px; 
+      border-radius: 10px; 
+      border: 1px solid var(--border); 
+      background: color-mix(in oklab, var(--accent) 6%, var(--bg));
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
       }
     }
     
-    return jsonResponse({
-      found: false,
-      message: 'No matching registration found'
+    .success { 
+      color: #28a745; 
+      font-weight: 700; 
+    }
+    
+    .error { 
+      color: #dc3545; 
+      font-weight: 700; 
+    }
+    
+    .warning { 
+      color: #ff6b00; 
+      font-weight: 600; 
+    }
+
+    /* Warranty Badge */
+    .warranty-badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 12px;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .warranty-badge.valid {
+      background: #28a745;
+      color: white;
+    }
+    
+    .warranty-badge.expired {
+      background: #dc3545;
+      color: white;
+    }
+
+    /* Grid Helpers */
+    .grid-2 { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 12px;
+      margin-top: 12px;
+    }
+    
+    .grid-2:first-of-type {
+      margin-top: 0;
+    }
+    
+    @media (max-width: 600px) { 
+      .grid-2 { 
+        grid-template-columns: 1fr; 
+      } 
+    }
+
+    /* Footer */
+    footer.site { 
+      text-align: center; 
+      padding: 30px 12px; 
+      border-top: 1px solid var(--border); 
+      margin-top: 50px;
+      background: var(--panel);
+    }
+
+    /* Warranty Checker */
+    #warrantyChecker {
+      animation: slideIn 0.3s ease;
+      margin-bottom: 24px;
+    }
+
+    /* Contact Links Styling */
+    .contact-item {
+      margin-bottom: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .contact-item:hover {
+      background: var(--hover);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .contact-item a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Required indicator */
+    .required-star {
+      color: #dc3545;
+      font-weight: 700;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px;
+      }
+      
+      nav.container {
+        flex-wrap: wrap;
+      }
+      
+      .navlinks {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========================================
+       HEADER NAVIGATION
+       ======================================== -->
+  <header class="site">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="MakWell home">
+        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell logo">
+        <div>
+          <div style="font-weight:800; font-size:18px">MakWell</div>
+          <div class="small">Make it Happen</div>
+        </div>
+      </a>
+
+      <div class="navlinks" role="navigation" aria-label="Top links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+        <button id="themeToggle" aria-label="Toggle theme" onclick="toggleTheme()" class="btn secondary" style="padding:8px 12px; font-size:18px">🌓</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========================================
+       MAIN CONTENT
+       ======================================== -->
+  <main class="container">
+    <section class="hero">
+      <h1 id="pageTitle">Need help? Submit a request</h1>
+      <p class="small muted" id="pageDesc">
+        Product registration, product support, and repair requests — use the form below.
+      </p>
+      <div id="warrantyBadgeContainer"></div>
+    </section>
+
+    <section id="mainContent">
+      <div class="two">
+        <!-- ========================================
+             MAIN SUPPORT FORM
+             ======================================== -->
+        <form id="supportForm" class="card" autocomplete="on" novalidate>
+          <h2>Create Ticket</h2>
+
+          <label for="type">Request Type <span class="required-star">*</span></label>
+          <select id="type" required>
+            <option value="">Select request type</option>
+            <option value="Product Registration">Product Registration</option>
+            <option value="Product Support">Product Support</option>
+            <option value="Repair Request">Repair Request</option>
+          </select>
+
+          <div class="grid-2">
+            <div>
+              <label for="customer">Customer Name <span class="required-star">*</span></label>
+              <input id="customer" type="text" placeholder="Full name" required autocomplete="name">
+            </div>
+            <div>
+              <label for="phone">Phone <span class="required-star">*</span></label>
+              <input id="phone" type="tel" placeholder="10-digit mobile" pattern="[0-9]{10}" required autocomplete="tel">
+            </div>
+          </div>
+
+          <label for="email">Email (optional)</label>
+          <input id="email" type="email" placeholder="name@example.com" autocomplete="email">
+
+          <div class="grid-2">
+            <div>
+              <label for="category">Product Category <span class="required-star">*</span></label>
+              <select id="category" required>
+                <option value="">Select category</option>
+                <option value="Televisions">Televisions</option>
+                <option value="Washing Machines">Washing Machines</option>
+                <option value="Refrigerators">Refrigerators</option>
+                <option value="Air Conditioners">Air Conditioners</option>
+                <option value="Stabilizers">Stabilizers</option>
+                <option value="Microwave Ovens">Microwave Ovens</option>
+                <option value="Water Purifiers">Water Purifiers</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="model">Model <span class="required-star">*</span></label>
+              <input id="model" type="text" placeholder='e.g., 43" Smart TV' required>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="serial">Serial Number (optional)</label>
+              <input id="serial" type="text" placeholder="Serial number">
+            </div>
+            <div>
+              <label for="purchaseDate">Purchase Date <span id="purchaseDateRequired"></span></label>
+              <input id="purchaseDate" type="date" max="">
+            </div>
+          </div>
+
+          <div class="grid-2" id="warrantySection">
+            <div>
+              <label for="warranty">Under Warranty <span class="required-star">*</span></label>
+              <select id="warranty" required>
+                <option value="">Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+              <div id="warrantyNote" class="note" aria-live="polite"></div>
+            </div>
+            <div id="issueTypeSection">
+              <label for="issueType">Issue Type (optional)</label>
+              <select id="issueType">
+                <option value="">—</option>
+                <option value="Installation">Installation</option>
+                <option value="Usage Help">Usage Help</option>
+                <option value="Connectivity">Connectivity</option>
+                <option value="No Power">No Power</option>
+                <option value="Physical Damage">Physical Damage</option>
+                <option value="Noise/Vibration">Noise/Vibration</option>
+                <option value="Performance Issue">Performance Issue</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="issue">Issue Description <span id="issueRequired"></span></label>
+          <textarea id="issue" placeholder="Brief description of the issue or request"></textarea>
+
+          <div class="grid-2">
+            <div>
+              <label for="city">City</label>
+              <input id="city" type="text" placeholder="City">
+            </div>
+            <div>
+              <label for="state">State</label>
+              <input id="state" type="text" placeholder="State">
+            </div>
+          </div>
+
+          <div id="formNote" class="note" style="margin-top:14px; min-height:20px; font-weight:600" aria-live="polite"></div>
+
+          <div style="margin-top:18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+            <button id="submitBtn" class="btn" type="submit">Create Ticket</button>
+            <button type="reset" class="btn secondary">Clear Form</button>
+          </div>
+
+          <!-- Ticket Result Display -->
+          <div id="ticketResult" class="result" style="display:none" aria-live="polite">
+            <div><strong id="ticketHeadline" style="font-size:16px"></strong></div>
+            <div id="ticketInfo" class="small" style="margin-top:8px"></div>
+            <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap">
+              <a id="openWhatsApp" class="btn" target="_blank" rel="noopener">📱 Open WhatsApp</a>
+              <a id="openEmail" class="btn secondary" target="_blank" rel="noopener">✉️ Email</a>
+              <button id="copyCallId" class="btn secondary">📋 Copy ID</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- ========================================
+             QUICK CONTACTS SIDEBAR
+             ======================================== -->
+        <aside>
+          <div class="card">
+            <h3>Quick Contacts</h3>
+            <p class="small muted" style="margin:0 0 14px">For immediate assistance:</p>
+            
+            <div class="contact-item">
+              <strong>📦 Orders / Live Chat</strong>
+              <a href="https://api.whatsapp.com/send?phone=919980000515" target="_blank" rel="noopener">
+                +91 99800 00515
+              </a>
+            </div>
+            
+            <div class="contact-item">
+              <strong>🔧 Service / Repair</strong>
+              <a href="https://api.whatsapp.com/send?phone=919482844677" target="_blank" rel="noopener">
+                +91 94828 44677
+              </a>
+            </div>
+            
+            <div class="contact-item">
+              <strong>✉️ Email Support</strong>
+              <a href="mailto:makwellindia456@gmail.com">
+                makwellindia456@gmail.com
+              </a>
+            </div>
+            
+            <hr style="margin:16px 0; border:none; border-top:1px solid var(--border)">
+            
+            <p class="small muted" style="margin:0 0 16px">
+              <strong>Support Hours:</strong><br>
+              Monday–Saturday<br>
+              9:30 AM – 6:30 PM IST
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:10px">
+              <a href="contact.html?action=register" class="btn secondary">
+                📝 Register Product
+              </a>
+              <a href="contact.html?action=warranty" class="btn secondary">
+                🛡️ Check Warranty
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer class="site">
+    <div class="container small muted">
+      © <span id="year"></span> MakWell — Make it Happen
+    </div>
+  </footer>
+
+  <!-- ========================================
+       JAVASCRIPT LOGIC
+       ======================================== -->
+  <script>
+    // ========================================
+    // CONFIGURATION
+    // ========================================
+    const GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyPsg7-re-YDPTyPUuxIHnwW1HBrssztbLOca3JvguyIBlCOK5EhwNohYdGsqkcK-Gy/exec";
+    const WEB_SECRET = "MakWell2024SecureKey"; // <<-- REPLACE WITH YOUR ACTUAL SECRET
+    const OPS_WHATSAPP = "919482844677";
+    const ORDERS_WHATSAPP = "919980000515";
+
+    // Warranty periods in months
+    const WARRANTY_PERIODS = {
+      'Televisions': 12,
+      'Washing Machines': 24,
+      'Refrigerators': 12,
+      'Air Conditioners': 12,
+      'Stabilizers': 12,
+      'Microwave Ovens': 12,
+      'Water Purifiers': 12,
+      'Other': 12,
+      'Default': 12
+    };
+
+    // ========================================
+    // UTILITY FUNCTIONS
+    // ========================================
+    
+    function getUrlParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function prefixFor(type){
+      if(!type) return "XX";
+      if(type.includes("Registration")) return "PR";
+      if(type.includes("Support")) return "PS";
+      if(type.includes("Repair")) return "RR";
+      return "XX";
+    }
+
+    function pad3(n){ 
+      return String(n).padStart(3,'0'); 
+    }
+    
+    function twoDigitYear(){ 
+      return new Date().getFullYear().toString().slice(-2); 
+    }
+
+    // ========================================
+    // WARRANTY CALCULATION FUNCTIONS
+    // ========================================
+    
+    function calculateWarrantyExpiry(purchaseDate, category) {
+      if(!purchaseDate) return null;
+      
+      const purchase = new Date(purchaseDate);
+      const warrantyMonths = WARRANTY_PERIODS[category] || WARRANTY_PERIODS['Default'];
+      
+      const expiry = new Date(purchase);
+      expiry.setMonth(expiry.getMonth() + warrantyMonths);
+      
+      return expiry;
+    }
+
+    function isUnderWarranty(purchaseDate, category) {
+      const expiryDate = calculateWarrantyExpiry(purchaseDate, category);
+      if(!expiryDate) return false;
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      return today <= expiryDate;
+    }
+
+    function getRemainingWarrantyDays(purchaseDate, category) {
+      const expiryDate = calculateWarrantyExpiry(purchaseDate, category);
+      if(!expiryDate) return 0;
+      
+      const today = new Date();
+      const diffTime = expiryDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      return Math.max(0, diffDays);
+    }
+
+    // ========================================
+    // AUTO-CHECK WARRANTY
+    // ========================================
+    
+    function autoCheckWarranty() {
+      const purchaseDate = document.getElementById('purchaseDate').value;
+      const category = document.getElementById('category').value;
+      const warrantyField = document.getElementById('warranty');
+      const warrantyNote = document.getElementById('warrantyNote');
+      const badgeContainer = document.getElementById('warrantyBadgeContainer');
+      
+      if(!purchaseDate || !category) {
+        warrantyNote.innerHTML = '';
+        badgeContainer.innerHTML = '';
+        return;
+      }
+      
+      const underWarranty = isUnderWarranty(purchaseDate, category);
+      const remainingDays = getRemainingWarrantyDays(purchaseDate, category);
+      const expiryDate = calculateWarrantyExpiry(purchaseDate, category);
+      
+      warrantyField.value = underWarranty ? 'Yes' : 'No';
+      
+      if(underWarranty) {
+        warrantyNote.innerHTML = `
+          <span class="success">✓ Under Warranty</span><br>
+          <span style="font-size:12px">${remainingDays} days remaining • Expires: ${expiryDate.toLocaleDateString('en-IN')}</span>
+        `;
+      } else {
+        warrantyNote.innerHTML = `
+          <span class="error">✗ Warranty Expired</span><br>
+          <span style="font-size:12px">Expired: ${expiryDate.toLocaleDateString('en-IN')}</span>
+        `;
+      }
+
+      if(underWarranty) {
+        badgeContainer.innerHTML = `
+          <div class="warranty-badge valid">
+            ✓ Valid Warranty • ${remainingDays} days remaining
+          </div>
+        `;
+      } else {
+        badgeContainer.innerHTML = `
+          <div class="warranty-badge expired">
+            ✗ Warranty Expired
+          </div>
+        `;
+      }
+      
+      maybeWarn();
+    }
+
+    // ========================================
+    // FORM VALIDATION & WARNINGS
+    // ========================================
+    
+    function maybeWarn(){
+      const type = document.getElementById('type').value;
+      const warranty = document.getElementById('warranty').value;
+      const purchaseDate = document.getElementById('purchaseDate').value;
+      const category = document.getElementById('category').value;
+      const formNote = document.getElementById('formNote');
+      
+      if(type === 'Product Support' && warranty && warranty !== 'Yes'){
+        formNote.innerHTML = `
+          <span class="warning">⚠ Product Support requires active warranty.</span><br>
+          <span style="font-size:12px">This will be logged as <strong>Repair Request</strong> (chargeable service).</span>
+        `;
+      } 
+      else if(warranty === 'Yes' && purchaseDate && category) {
+        const actuallyUnderWarranty = isUnderWarranty(purchaseDate, category);
+        if(!actuallyUnderWarranty) {
+          formNote.innerHTML = `
+            <span class="warning">⚠ Warning:</span> Based on purchase date, 
+            warranty appears expired. Please verify.
+          `;
+        } else {
+          formNote.textContent = "";
+        }
+      }
+      else {
+        formNote.textContent = "";
+      }
+    }
+
+    // ========================================
+    // WHATSAPP & EMAIL LINK BUILDERS
+    // ========================================
+    
+    function buildWhatsAppLink(phone, obj){
+      const p = String(phone||"").replace(/\D/g,'');
+      const lines = [
+        `📋 Call ID: ${obj.callId}`,
+        `📌 Type: ${obj.type}`,
+        `👤 Name: ${obj.customer}`,
+        `📱 Phone: +91 ${obj.phone}`,
+        `📧 Email: ${obj.email || '-'}`,
+        ``,
+        `🏷️ Category: ${obj.category || '-'}`,
+        `📦 Model: ${obj.model || '-'}`,
+        `🔢 Serial: ${obj.serial || '-'}`,
+        `📅 Purchase Date: ${obj.purchaseDate || '-'}`,
+        `🛡️ Under Warranty: ${obj.warranty || '-'}`,
+        ``,
+        `⚠️ Issue Type: ${obj.issueType || '-'}`,
+        `📝 Description: ${obj.issue || '-'}`,
+        ``,
+        `📍 Location: ${obj.city || '-'}, ${obj.state || '-'}`
+      ];
+      return `https://api.whatsapp.com/send?phone=${p}&text=${encodeURIComponent(lines.join("\n"))}`;
+    }
+
+    function buildMailTo(obj){
+      const sub = `New ${obj.type} Ticket - ${obj.callId}`;
+      const body = [
+        `Call ID: ${obj.callId}`,
+        `Type: ${obj.type}`,
+        ``,
+        `CUSTOMER DETAILS:`,
+        `Name: ${obj.customer}`,
+        `Phone: +91 ${obj.phone}`,
+        `Email: ${obj.email || '-'}`,
+        ``,
+        `PRODUCT DETAILS:`,
+        `Category: ${obj.category || '-'}`,
+        `Model: ${obj.model || '-'}`,
+        `Serial: ${obj.serial || '-'}`,
+        `Purchase Date: ${obj.purchaseDate || '-'}`,
+        `Under Warranty: ${obj.warranty || '-'}`,
+        ``,
+        `ISSUE DETAILS:`,
+        `Issue Type: ${obj.issueType || '-'}`,
+        `Description: ${obj.issue || '-'}`,
+        ``,
+        `LOCATION:`,
+        `City: ${obj.city || '-'}`,
+        `State: ${obj.state || '-'}`
+      ].join("\n");
+      return `mailto:makwellindia456@gmail.com?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // ========================================
+    // WARRANTY CHECKER
+    // ========================================
+    
+    function showWarrantyChecker() {
+      const warrantyCheckerHTML = `
+        <div class="card" id="warrantyChecker">
+          <h2>Check Warranty Status</h2>
+          <p class="small muted">Enter your product details to verify warranty status.</p>
+          
+          <div class="grid-2" style="margin-top:16px">
+            <div>
+              <label for="checkSerial">Serial Number <span class="required-star">*</span></label>
+              <input id="checkSerial" type="text" placeholder="Enter serial number" required>
+            </div>
+            <div>
+              <label for="checkPhone">Registered Phone <span class="required-star">*</span></label>
+              <input id="checkPhone" type="tel" placeholder="10-digit mobile" pattern="[0-9]{10}" required>
+            </div>
+          </div>
+          
+          <button id="checkWarrantyBtn" class="btn" style="margin-top:14px">🔍 Check Warranty Status</button>
+          
+          <div id="warrantyResult" class="result" style="display:none; margin-top:14px">
+            <div id="warrantyStatus"></div>
+          </div>
+        </div>
+      `;
+      
+      const mainContent = document.getElementById('mainContent');
+      mainContent.insertAdjacentHTML('afterbegin', warrantyCheckerHTML);
+      
+      document.getElementById('checkWarrantyBtn').addEventListener('click', checkWarrantyStatus);
+    }
+
+    async function checkWarrantyStatus() {
+      const serial = document.getElementById('checkSerial').value.trim();
+      const phone = document.getElementById('checkPhone').value.trim();
+      const resultDiv = document.getElementById('warrantyResult');
+      const statusDiv = document.getElementById('warrantyStatus');
+      const btn = document.getElementById('checkWarrantyBtn');
+      
+      if(!serial || !phone) {
+        statusDiv.innerHTML = '<span class="error">⚠ Please enter both serial number and phone.</span>';
+        resultDiv.style.display = 'block';
+        return;
+      }
+
+      if(!/^[0-9]{10}$/.test(phone)) {
+        statusDiv.innerHTML = '<span class="error">⚠ Phone number must be 10 digits.</span>';
+        resultDiv.style.display = 'block';
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.textContent = '🔍 Checking...';
+      statusDiv.innerHTML = '<span>🔍 Searching warranty records...</span>';
+      resultDiv.style.display = 'block';
+      
+      try {
+        const response = await fetch(GAS_ENDPOINT, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            action: 'checkWarranty',
+            serial: serial,
+            phone: phone,
+            secret: WEB_SECRET
+          })
+        });
+        
+        const result = await response.json();
+        
+        if(result.found) {
+          const underWarranty = isUnderWarranty(result.purchaseDate, result.category);
+          const remainingDays = getRemainingWarrantyDays(result.purchaseDate, result.category);
+          const expiryDate = calculateWarrantyExpiry(result.purchaseDate, result.category);
+          
+          const bgColor = underWarranty ? '#d4edda' : '#f8d7da';
+          const textColor = underWarranty ? '#155724' : '#721c24';
+          const warrantyMonths = WARRANTY_PERIODS[result.category] || 12;
+          
+          statusDiv.innerHTML = `
+            <div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border)">
+              <strong style="font-size:15px">Product Information</strong><br>
+              <div style="margin-top:8px; line-height:1.8">
+                <strong>Model:</strong> ${result.model || 'N/A'}<br>
+                <strong>Category:</strong> ${result.category || 'N/A'}<br>
+                <strong>Serial Number:</strong> ${result.serial || 'N/A'}<br>
+                <strong>Customer:</strong> ${result.customer || 'N/A'}
+              </div>
+            </div>
+            <div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border)">
+              <strong style="font-size:15px">Warranty Information</strong><br>
+              <div style="margin-top:8px; line-height:1.8">
+                <strong>Purchase Date:</strong> ${new Date(result.purchaseDate).toLocaleDateString('en-IN')}<br>
+                <strong>Warranty Period:</strong> ${warrantyMonths} months<br>
+                <strong>Warranty Expiry:</strong> ${expiryDate.toLocaleDateString('en-IN')}
+              </div>
+            </div>
+            <div style="padding:14px; border-radius:8px; background:${bgColor}; color:${textColor}; font-weight:700; text-align:center; font-size:16px">
+              ${underWarranty 
+                ? `✓ UNDER WARRANTY<br><span style="font-size:14px; font-weight:400; margin-top:4px; display:block">${remainingDays} days remaining</span>` 
+                : `✗ WARRANTY EXPIRED<br><span style="font-size:14px; font-weight:400; margin-top:4px; display:block">Expired ${Math.abs(remainingDays)} days ago</span>`
+              }
+            </div>
+            ${underWarranty 
+              ? '<div class="note" style="margin-top:12px; text-align:center">✅ You are eligible for free service and support.</div>'
+              : '<div class="note" style="margin-top:12px; text-align:center">Chargeable repair services available. <a href="contact.html?action=service" style="font-weight:600">Request Service</a></div>'
+            }
+          `;
+        } else {
+          statusDiv.innerHTML = `
+            <span class="error" style="font-size:15px">❌ No Product Registration Found</span><br>
+            <div class="note" style="margin-top:10px; text-align:center">
+              Product not registered or details don't match our records.<br>
+              <a href="contact.html?action=register" style="font-weight:600">Register Your Product</a>
+            </div>
+          `;
+        }
+      } catch(err) {
+        console.error('Warranty check error:', err);
+        statusDiv.innerHTML = '<span class="error">❌ Error checking warranty. Please try again.</span>';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔍 Check Warranty Status';
+      }
+    }
+
+    // ========================================
+    // PAGE INITIALIZATION
+    // ========================================
+    
+    window.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('purchaseDate').setAttribute('max', today);
+
+      const action = getUrlParam('action');
+      
+      const pageTitle = document.getElementById('pageTitle');
+      const pageDesc = document.getElementById('pageDesc');
+      const typeField = document.getElementById('type');
+      const warrantySection = document.getElementById('warrantySection');
+      const purchaseDateRequired = document.getElementById('purchaseDateRequired');
+      const issueRequired = document.getElementById('issueRequired');
+      
+      switch(action) {
+        case 'register':
+          pageTitle.textContent = '📝 Product Registration';
+          pageDesc.textContent = 'Register your MakWell product for warranty activation and exclusive benefits.';
+          typeField.value = 'Product Registration';
+          typeField.disabled = true;
+          warrantySection.style.display = 'none';
+          document.getElementById('purchaseDate').required = true;
+          purchaseDateRequired.innerHTML = '<span class="required-star">*</span>';
+          break;
+          
+        case 'service':
+          pageTitle.textContent = '🔧 Product Service Request';
+          pageDesc.textContent = 'Request technical support or repair service for your MakWell product.';
+          typeField.value = 'Product Support';
+          const regOption = Array.from(typeField.options).find(opt => opt.value === 'Product Registration');
+          if(regOption) regOption.remove();
+          document.getElementById('issue').required = true;
+          issueRequired.innerHTML = '<span class="required-star">*</span>';
+          break;
+          
+        case 'warranty':
+          pageTitle.textContent = '🛡️ Warranty Information & Status Check';
+          pageDesc.textContent = 'Check your product warranty status and submit warranty-related inquiries.';
+          showWarrantyChecker();
+          break;
+      }
+
+      document.getElementById('type').addEventListener('change', maybeWarn);
+      document.getElementById('warranty').addEventListener('change', maybeWarn);
+      document.getElementById('purchaseDate').addEventListener('change', () => {
+        autoCheckWarranty();
+        maybeWarn();
+      });
+      document.getElementById('category').addEventListener('change', () => {
+        autoCheckWarranty();
+        maybeWarn();
+      });
+
+      const form = document.getElementById('supportForm');
+      form.addEventListener('submit', handleFormSubmit);
+      
+      form.addEventListener('reset', () => {
+        document.getElementById('ticketResult').style.display = 'none';
+        document.getElementById('formNote').textContent = '';
+        document.getElementById('warrantyNote').innerHTML = '';
+        document.getElementById('warrantyBadgeContainer').innerHTML = '';
+      });
     });
+
+    // ========================================
+    // FORM SUBMISSION HANDLER
+    // ========================================
     
-  } catch(err) {
-    Logger.log('Error in handleWarrantyCheck: ' + err.toString());
-    return jsonResponse({found: false, error: err.toString()});
-  }
-}
-
-// ========================================
-// HELPER FUNCTIONS
-// ========================================
-
-function generateCallId(type, sheet) {
-  const year = new Date().getFullYear().toString().slice(-2);
-  
-  // Determine prefix
-  let prefix = 'XX';
-  if(type && type.includes('Registration')) prefix = 'PR';
-  else if(type && type.includes('Support')) prefix = 'PS';
-  else if(type && type.includes('Repair')) prefix = 'RR';
-  
-  // Count existing records for this type to get sequential number
-  const data = sheet.getDataRange().getValues();
-  let count = 0;
-  for(let i = 1; i < data.length; i++) {
-    if(data[i][1] && data[i][1].toString().includes(prefix)) {
-      count++;
-    }
-  }
-  
-  const seqNum = String(count + 1).padStart(3, '0');
-  return `${year}/MK-${prefix}-${seqNum}`;
-}
-
-function logToAllTickets(ss, rowData) {
-  try {
-    let allSheet = ss.getSheetByName('All Tickets');
-    
-    if(!allSheet) {
-      allSheet = ss.insertSheet('All Tickets');
-      allSheet.appendRow([
-        'Timestamp', 'Call ID', 'Type', 'Customer', 'Phone', 'Email',
-        'Category', 'Model', 'Serial', 'Purchase Date', 'Warranty',
-        'Issue Type', 'Issue', 'City', 'State', 'Source', 'Status'
-      ]);
-      allSheet.getRange(1, 1, 1, 17).setFontWeight('bold').setBackground('#34a853').setFontColor('#ffffff');
-      allSheet.setFrozenRows(1);
-    }
-    
-    allSheet.appendRow(rowData);
-  } catch(err) {
-    Logger.log('Error logging to All Tickets: ' + err.toString());
-  }
-}
-
-function sendNotificationEmail(data, callId) {
-  try {
-    const email = PropertiesService.getScriptProperties().getProperty('NOTIFICATION_EMAIL');
-    if(!email) return;
-    
-    const subject = `🔔 New ${data.type} - ${callId}`;
-    const body = `
-New Support Ticket Created
-═══════════════════════════════════════
-
-TICKET INFORMATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Call ID: ${callId}
-Type: ${data.type}
-Status: Open
-Timestamp: ${new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'})}
-
-CUSTOMER DETAILS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Name: ${data.customer}
-Phone: +91 ${data.phone}
-Email: ${data.email || 'Not provided'}
-
-PRODUCT INFORMATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Category: ${data.category}
-Model: ${data.model}
-Serial Number: ${data.serial || 'Not provided'}
-Purchase Date: ${data.purchaseDate || 'Not provided'}
-Under Warranty: ${data.warranty}
-
-ISSUE DETAILS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Issue Type: ${data.issueType || 'Not specified'}
-Description: ${data.issue || 'No description provided'}
-
-LOCATION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-City: ${data.city || 'Not provided'}
-State: ${data.state || 'Not provided'}
-
-SOURCE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${data.source}
-
-═══════════════════════════════════════
-View in Google Sheets:
-https://docs.google.com/spreadsheets/d/${SHEET_ID}
-
-WhatsApp Quick Response:
-https://api.whatsapp.com/send?phone=91${data.phone}
-
-═══════════════════════════════════════
-MakWell Support System
-    `;
-    
-    MailApp.sendEmail({
-      to: email,
-      subject: subject,
-      body: body
-    });
-  } catch(err) {
-    Logger.log('Error sending email: ' + err.toString());
-  }
-}
-
-function formatDateForJS(dateValue) {
-  if(!dateValue) return '';
-  
-  // If it's already a Date object
-  if(dateValue instanceof Date) {
-    return Utilities.formatDate(dateValue, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-  }
-  
-  // If it's a string
-  if(typeof dateValue === 'string') {
-    return dateValue;
-  }
-  
-  return '';
-}
-
-function jsonResponse(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-// ========================================
-// UTILITY FUNCTIONS FOR SHEET MANAGEMENT
-// ========================================
-
-function createAllRequiredSheets() {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  const sheetsToCreate = ['Registrations', 'Support', 'Repairs', 'All Tickets'];
-  
-  const headers = [
-    'Timestamp', 'Call ID', 'Type', 'Customer', 'Phone', 'Email',
-    'Category', 'Model', 'Serial', 'Purchase Date', 'Warranty',
-    'Issue Type', 'Issue', 'City', 'State', 'Source', 'Status'
-  ];
-  
-  const colors = {
-    'Registrations': '#4285f4',
-    'Support': '#34a853',
-    'Repairs': '#ea4335',
-    'All Tickets': '#fbbc04'
-  };
-  
-  sheetsToCreate.forEach(sheetName => {
-    let sheet = ss.getSheetByName(sheetName);
-    if(!sheet) {
-      sheet = ss.insertSheet(sheetName);
-      sheet.appendRow(headers);
-      sheet.getRange(1, 1, 1, headers.length)
-        .setFontWeight('bold')
-        .setBackground(colors[sheetName] || '#4285f4')
-        .setFontColor('#ffffff');
+    async function handleFormSubmit(e) {
+      e.preventDefault();
       
-      // Set column widths
-      sheet.setColumnWidth(1, 150); // Timestamp
-      sheet.setColumnWidth(2, 130); // Call ID
-      sheet.setColumnWidth(3, 150); // Type
-      sheet.setColumnWidth(4, 150); // Customer
-      sheet.setColumnWidth(5, 110); // Phone
-      sheet.setColumnWidth(6, 200); // Email
-      sheet.setColumnWidth(7, 120); // Category
-      sheet.setColumnWidth(8, 150); // Model
-      sheet.setColumnWidth(9, 120); // Serial
-      sheet.setColumnWidth(10, 120); // Purchase Date
+      const formNote = document.getElementById('formNote');
+      const ticketResult = document.getElementById('ticketResult');
+      const ticketHeadline = document.getElementById('ticketHeadline');
+      const ticketInfo = document.getElementById('ticketInfo');
+      const submitBtn = document.getElementById('submitBtn');
       
-      // Freeze header row
-      sheet.setFrozenRows(1);
+      ticketResult.style.display = 'none';
+      formNote.innerHTML = '<span style="color:var(--accent)">⏳ Submitting your request...</span>';
+      submitBtn.disabled = true;
+
+      const data = {
+        type: (document.getElementById('type').value || '').trim(),
+        customer: (document.getElementById('customer').value || '').trim(),
+        phone: (document.getElementById('phone').value || '').trim(),
+        email: (document.getElementById('email').value || '').trim(),
+        category: (document.getElementById('category').value || '').trim(),
+        model: (document.getElementById('model').value || '').trim(),
+        serial: (document.getElementById('serial').value || '').trim(),
+        purchaseDate: (document.getElementById('purchaseDate').value || '').trim(),
+        warranty: (document.getElementById('warranty').value || '').trim(),
+        issueType: (document.getElementById('issueType').value || '').trim(),
+        issue: (document.getElementById('issue').value || '').trim(),
+        city: (document.getElementById('city').value || '').trim(),
+        state: (document.getElementById('state').value || '').trim(),
+        source: 'Web Form',
+        secret: WEB_SECRET
+      };
+
+      if(data.type === 'Product Support' && data.warranty !== 'Yes') {
+        data.type = 'Repair Request';
+      }
+
+      const pref = prefixFor(data.type);
+      const localCount = Math.floor(Math.random()*900) + 1;
+      const provisionalId = `${twoDigitYear()}/MK-${pref}-${pad3(localCount)}`;
       
-      Logger.log('Created sheet: ' + sheetName);
+      ticketHeadline.innerHTML = '<span class="success">Creating your ticket...</span>';
+      ticketInfo.textContent = `Provisional ID: ${provisionalId}`;
+      ticketResult.style.display = 'block';
+
+      let serverCallId = null;
+      try {
+        const r = await fetch(GAS_ENDPOINT, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+        const j = await r.json().catch(()=>({ok:false}));
+        if(j && j.ok && j.callId){
+          serverCallId = j.callId;
+        }
+      } catch(err) {
+        console.warn('Backend error:', err);
+      }
+
+      const finalId = serverCallId || provisionalId;
+      ticketHeadline.innerHTML = '<span class="success">✅ Ticket Created Successfully!</span>';
+      ticketInfo.innerHTML = `
+        <strong style="font-size:15px">Ticket ID: ${finalId}</strong><br>
+        <span style="font-size:13px">Type: ${data.type}</span><br>
+        <span style="font-size:12px; margin-top:6px; display:block">
+          Our team will contact you within 24 hours.
+        </span>
+      `;
+      formNote.textContent = '';
+      submitBtn.disabled = false;
+
+      const waTo = (data.type && data.type.toLowerCase().includes('order')) ? ORDERS_WHATSAPP : OPS_WHATSAPP;
+      const openWhatsApp = document.getElementById('openWhatsApp');
+      const openEmail = document.getElementById('openEmail');
+      const copyCallId = document.getElementById('copyCallId');
+      
+      openWhatsApp.href = buildWhatsAppLink(waTo, {...data, callId: finalId});
+      openEmail.href = buildMailTo({...data, callId: finalId});
+
+      copyCallId.onclick = () => {
+        navigator.clipboard?.writeText(finalId).then(()=> {
+          const originalText = copyCallId.textContent;
+          copyCallId.textContent = '✅ Copied!';
+          setTimeout(()=> {
+            copyCallId.textContent = originalText;
+          }, 2000);
+        }).catch(()=> alert('Copy failed. Call ID: ' + finalId));
+      };
+
+      ticketResult.scrollIntoView({behavior: 'smooth', block: 'center'});
     }
-  });
-  
-  Logger.log('✅ All required sheets created/verified');
-}
-
-// Run this once to set up your sheets
-function setupSheets() {
-  createAllRequiredSheets();
-}
-
-// ========================================
-// TESTING FUNCTIONS
-// ========================================
-
-function testTicketCreation() {
-  const testData = {
-    secret: PropertiesService.getScriptProperties().getProperty('SECRET'),
-    type: 'Product Support',
-    customer: 'Test Customer',
-    phone: '9876543210',
-    email: 'test@example.com',
-    category: 'Televisions',
-    model: '43" Smart TV',
-    serial: 'TEST12345',
-    purchaseDate: '2024-10-01',
-    warranty: 'Yes',
-    issueType: 'No Power',
-    issue: 'TV not turning on',
-    city: 'Bangalore',
-    state: 'Karnataka',
-    source: 'Test Script'
-  };
-  
-  const result = handleTicketCreation(testData);
-  Logger.log(result.getContent());
-}
-
-function testWarrantyCheck() {
-  const testData = {
-    secret: PropertiesService.getScriptProperties().getProperty('SECRET'),
-    action: 'checkWarranty',
-    serial: 'TEST12345',
-    phone: '9876543210'
-  };
-  
-  const result = handleWarrantyCheck(testData);
-  Logger.log(result.getContent());
-}
-
-function testEmailNotification() {
-  const testData = {
-    type: 'Product Support',
-    customer: 'Test Customer',
-    phone: '9876543210',
-    email: 'test@example.com',
-    category: 'Televisions',
-    model: '43" Smart TV',
-    serial: 'TEST12345',
-    purchaseDate: '2024-10-01',
-    warranty: 'Yes',
-    issueType: 'No Power',
-    issue: 'TV not turning on',
-    city: 'Bangalore',
-    state: 'Karnataka',
-    source: 'Test'
-  };
-  
-  sendNotificationEmail(testData, '25/MK-PS-001');
-  Logger.log('✅ Test email sent');
-}
+  </script>
+</body>
+</html>
