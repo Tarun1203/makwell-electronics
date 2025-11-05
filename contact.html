@@ -1,33 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact | MakWell — Make it Happen</title>
-  <meta name="description" content="Contact MakWell Electronics for support, sales, and enquiries." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact • MakWell Support</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="theme.js"></script>
-  <style>
-    /* Small page-specific tweaks to align with About page look */
-    .contact-page .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    @media (max-width:980px){.contact-page .contact-grid{grid-template-columns:1fr}}
-    .form .form-actions{display:flex;gap:12px;align-items:center}
-    .honeypot{position:absolute;left:-9999px;opacity:0;height:1px;width:1px}
-    .status{font-size:14px}
-  </style>
 </head>
 <body>
-<header class="site">
+  <header class="site">
   <nav>
     <a class="brand" href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:10px">
-      <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" width="32" height="32" style="border-radius:6px;object-fit:contain" />
+      <img class="logo" src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" width="32" height="32" style="border-radius:6px;object-fit:contain" />
       <b>MakWell</b> <small class="muted">— Make it Happen</small>
     </a>
-    <div class="navlinks" style="margin-left:auto;display:flex;gap:8px;align-items:center">
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+    <div class="navlinks" id="navLinks">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
       <a href="about.html">About</a>
@@ -37,133 +25,300 @@
   </nav>
 </header>
 
-<section class="hero">
-  <div class="logo"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" /></div>
-  <h1 style="margin:8px 0 6px">Contact & Support. <span style="color:var(--accent)">We’ll make it right.</span></h1>
-  <p class="muted" style="max-width:820px;margin:0 auto">Need help with a purchase, warranty claim, or service request? Fill the form below or reach us via phone or email — we usually respond within 24 hours.</p>
-  <div class="badges" style="margin-top:14px">
-    <span class="badge">🇮🇳 Indian Brand</span>
-    <span class="badge">🛡️ Warranty Support</span>
-    <span class="badge">🔧 Service Network</span>
-  </div>
-</section>
-
-<main class="container contact-page" style="margin-top:20px">
-  <div class="contact-grid">
-    <div>
-      <article class="card">
-        <h3 style="margin:0 0 8px">Support Request</h3>
-        <form id="supportForm" class="form" autocomplete="off">
-          <input type="text" name="hp_field" id="hp_field" class="honeypot" tabindex="-1" autocomplete="off" />
-
-          <label for="name">Full name</label>
-          <input id="name" name="name" type="text" required />
-
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required />
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" />
-            </div>
-            <div>
-              <label for="purchaseDate">Purchase date</label>
-              <input id="purchaseDate" name="purchaseDate" type="date" />
-            </div>
-          </div>
-
-          <label for="product">Product / Model</label>
-          <input id="product" name="product" type="text" />
-
-          <label for="serial">Serial / IMEI</label>
-          <input id="serial" name="serial" type="text" />
-
-          <label for="issue">Issue</label>
-          <textarea id="issue" name="issue" rows="5" required></textarea>
-
-          <div class="form-actions" style="margin-top:12px">
-            <button id="submitBtn" type="submit" class="btn">Send request</button>
-            <div id="formStatus" role="status" aria-live="polite" class="status muted"></div>
-          </div>
-        </form>
-      </article>
-
-      <article class="card" style="margin-top:14px">
-        <h4 style="margin:0 0 8px">Other ways to reach us</h4>
-        <p class="muted" style="margin:0 0 6px"><strong>Phone:</strong> +91 12345 67890</p>
-        <p class="muted" style="margin:0 0 6px"><strong>Email:</strong> support@makwell.example</p>
-        <p class="muted" style="margin:0">Working hours: Mon–Fri, 9:30–18:30</p>
-      </article>
+  <div class="container">
+    <div class="hero small">
+    <h1>Customer Support Portal</h1>
+    <p class="muted">Product registration, service requests, and repair support</p>
     </div>
 
-    <aside>
-      <article class="card">
-        <h3 style="margin:0 0 8px">Support Guide</h3>
-        <p class="muted">To speed up service, please include purchase proof and serial number for warranty claims. Typical turnaround for diagnostics: 48–72 hours.</p>
-        <h4 style="margin-top:12px">Service Centers</h4>
-        <p class="muted" style="margin:0">We have authorised service partners across major cities. For part availability and booking, use the form above.</p>
+    <div class="grid" style="grid-template-columns:1.3fr 0.7fr;gap:24px;margin:32px 0">
+      <form id="form" class="card" style="padding:24px">
+        <h3>Create Support Ticket</h3>
 
-        <div style="margin-top:12px">
-          <a class="btn" href="products.html">Browse Products</a>
-          <a class="btn secondary" href="index.html" style="margin-left:8px">Home</a>
+        <label>Request Type <span class="required">*</span></label>
+        <select id="type" required class="input">
+          <option value="">Select type</option>
+          <option value="Product Registration">Product Registration</option>
+          <option value="Product Support">Product Support</option>
+          <option value="Repair Request">Repair Request</option>
+        </select>
+
+        <div class="divider"></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label>Name <span class="required">*</span></label>
+            <input id="customer" required class="input">
+          </div>
+          <div>
+            <label>Phone <span class="required">*</span></label>
+            <input id="phone" type="tel" pattern="[0-9]{10}" required class="input">
+          </div>
         </div>
-      </article>
+        <label>Email</label>
+        <input id="email" type="email" class="input">
 
-      <article class="card" style="margin-top:14px;text-align:center">
-        <h4 style="margin:0 0 6px">Need urgent help?</h4>
-        <p class="muted" style="margin:0 0 8px">Call our support line during working hours for priority assistance.</p>
-        <a class="btn" href="tel:+911234567890">Call Support</a>
-      </article>
-    </aside>
+        <div class="divider"></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div>
+            <label>Issue Type <span class="required">*</span></label>
+            <select id="issueType" required class="input">
+              <option value="">Select</option>
+              <option>Installation</option>
+              <option>Usage Help</option>
+              <option>Connectivity</option>
+              <option>No Power</option>
+              <option>Physical Damage</option>
+              <option>Noise/Vibration</option>
+              <option>Display Issue</option>
+              <option>Motor</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <div>
+            <label>Priority</label>
+            <select id="priority" class="input">
+              <option>Normal</option>
+              <option>Low</option>
+              <option>High</option>
+              <option>Urgent</option>
+            </select>
+          </div>
+          <div>
+            <label>Installation Required?</label>
+            <select id="installRequired" class="input">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <label>Category <span class="required">*</span></label>
+        <select id="category" required class="input">
+          <option value="">Select category</option>
+          <option>Televisions</option>
+          <option>Washing Machines</option>
+          <option>Stabilizers</option>
+          <option>Refrigerators</option>
+          <option>Air Conditioners</option>
+        </select>
+
+        <div id="tvFields" style="display:none">
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label>TV Model</label>
+              <select id="tvModel" class="input">
+                <option value="">Select</option>
+                <option>Makwell - 24 Normal</option>
+                <option>Makwell - 32 Smart</option>
+                <option>Makwell - 43 Smart</option>
+                <option>Makwell - 50 Google</option>
+              </select>
+            </div>
+            <div>
+              <label>Warranty (Years)</label>
+              <input id="warrantyTV" type="number" value="1" readonly class="input">
+            </div>
+          </div>
+        </div>
+
+        <div id="wmFields" style="display:none">
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label>Washing Machine Model</label>
+              <select id="wmModel" class="input">
+                <option value="">Select</option>
+                <option>SAWM7KG</option>
+                <option>SAWM9KG</option>
+                <option>SAWM11KGSCD</option>
+              </select>
+            </div>
+            <div>
+              <label>Warranty</label>
+              <input id="warrantyWM" value="1+2+5" readonly class="input">
+            </div>
+          </div>
+        </div>
+
+        <div id="stabFields" style="display:none">
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label>Stabilizer Model</label>
+              <select id="stabModel" class="input">
+                <option value="">Select</option>
+                <option>Makwell Mini</option>
+                <option>Makwell Ref</option>
+                <option>Makwell Smart</option>
+              </select>
+            </div>
+            <div>
+              <label>Warranty (Years)</label>
+              <input id="warrantyStab" value="5" readonly class="input">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div>
+            <label>Serial Number</label>
+            <input id="serial" class="input">
+          </div>
+          <div>
+            <label>Purchase Date</label>
+            <input id="purchaseDate" type="date" class="input">
+          </div>
+          <div>
+            <label>Service Type <span class="required">*</span></label>
+            <select id="serviceType" required class="input">
+              <option value="">Select</option>
+              <option>Under Warranty</option>
+              <option>Out Of Warranty</option>
+              <option>Technician Confirm</option>
+              <option>Charged</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div>
+            <label>Dealer Name</label>
+            <input id="dealerName" class="input">
+          </div>
+          <div>
+            <label>Dealer Place</label>
+            <input id="dealerPlace" class="input">
+          </div>
+          <div>
+            <label>Invoice Number</label>
+            <input id="invoice" class="input">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <label>Issue Description</label>
+        <textarea id="issue" class="input" style="min-height:100px"></textarea>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label>City</label>
+            <input id="city" class="input">
+          </div>
+          <div>
+            <label>State</label>
+            <input id="state" class="input">
+          </div>
+        </div>
+
+        <div id="msg" style="margin-top:16px;min-height:20px;font-weight:600"></div>
+
+        <div style="margin-top:20px;display:flex;gap:12px">
+          <button type="submit" class="btn">Create Ticket</button>
+          <button type="reset" class="btn secondary">Clear</button>
+        </div>
+
+        <div id="result" class="result" style="display:none;margin-top:16px;padding:16px;border-radius:8px;background:#e7f3ff;border:1px solid #4285f4;"></div>
+      </form>
+
+      <aside class="card" style="padding:24px">
+        <h3>Quick Contacts</h3>
+        <div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:8px;">
+          <strong>📦 Orders</strong>
+          <a href="https://api.whatsapp.com/send?phone=919980000515" style="color:var(--accent)">+91 99800 00515</a>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:8px;">
+          <strong>🔧 Service</strong>
+          <a href="https://api.whatsapp.com/send?phone=919482844677" style="color:var(--accent)">+91 94828 44677</a>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:8px;">
+          <strong>✉️ Email</strong>
+          <a href="mailto:makwellindia456@gmail.com" style="color:var(--accent)">makwellindia456@gmail.com</a>
+        </div>
+      </aside>
+    </div>
   </div>
-</main>
 
-<footer class="site" style="text-align:center;padding:40px 10px">
-  © <span id="year"></span> MakWell — Make it Happen.
-</footer>
+  <script>
+    const API = 'https://script.google.com/macros/s/AKfycbzfIbaBTZ4rEJW5nHCeVwME0WiykN66FQZmwVUEpTt9Q1ss9tuLREv-LTjM-vBSHAFi/exec';
+    const SECRET = 'MakWell2024SecureKey';
 
-<script>
-  document.getElementById('year').textContent=new Date().getFullYear();
-  (function(){
-    const endpoint = 'https://script.google.com/macros/s/AKfycbzfIbaBTZ4rEJW5nHCeVwME0WiykN66FQZmwVUEpTt9Q1ss9tuLREv-LTjM-vBSHAFi/exec';
-    const form = document.getElementById('supportForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const statusEl = document.getElementById('formStatus');
+    document.getElementById('purchaseDate').max = new Date().toISOString().split('T')[0];
 
-    function setStatus(msg, isError){
-      statusEl.textContent = msg;
-      statusEl.className = isError ? 'status error' : 'status muted';
-    }
+    document.getElementById('category').addEventListener('change', function() {
+      document.getElementById('tvFields').style.display = this.value === 'Televisions' ? 'block' : 'none';
+      document.getElementById('wmFields').style.display = this.value === 'Washing Machines' ? 'block' : 'none';
+      document.getElementById('stabFields').style.display = this.value === 'Stabilizers' ? 'block' : 'none';
+    });
 
-    form.addEventListener('submit', async function(e){
+    document.getElementById('form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      if(document.getElementById('hp_field').value) return;
-      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
-      setStatus('Sending request...', false);
+      const btn = e.target.querySelector('button[type="submit"]');
+      const msg = document.getElementById('msg');
+      const result = document.getElementById('result');
+      
+      try {
+        msg.innerHTML = '<span style="color:#ff6b00">⏳ Creating...</span>';
+        btn.disabled = true;
+        result.style.display = 'none';
 
-      const data = Object.fromEntries(new FormData(form));
-      const body = new URLSearchParams();
-      for(const key in data) body.append(key, data[key]);
+        const data = {
+          secret: SECRET,
+          type: document.getElementById('type').value,
+          customer: document.getElementById('customer').value,
+          phone: document.getElementById('phone').value,
+          email: document.getElementById('email').value,
+          category: document.getElementById('category').value,
+          issueType: document.getElementById('issueType').value,
+          priority: document.getElementById('priority').value,
+          channel: 'Web Form',
+          installRequired: document.getElementById('installRequired').value,
+          tvModel: document.getElementById('tvModel').value,
+          warrantyTV: document.getElementById('warrantyTV').value,
+          wmModel: document.getElementById('wmModel').value,
+          warrantyWM: document.getElementById('warrantyWM').value,
+          stabModel: document.getElementById('stabModel').value,
+          warrantyStab: document.getElementById('warrantyStab').value,
+          serviceType: document.getElementById('serviceType').value,
+          serial: document.getElementById('serial').value,
+          purchaseDate: document.getElementById('purchaseDate').value,
+          issue: document.getElementById('issue').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          dealerName: document.getElementById('dealerName').value,
+          dealerPlace: document.getElementById('dealerPlace').value,
+          invoice: document.getElementById('invoice').value
+        };
 
-      try{
-        const resp = await fetch(endpoint, {
-          method: 'POST', mode: 'cors',
-          headers: {'Content-Type':'application/x-www-form-urlencoded'},
-          body: body.toString()
+        const r = await fetch(API, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
         });
-        const text = await resp.text();
-        if(!resp.ok) throw new Error(text||'Request failed');
-        setStatus('Request submitted — we will contact you soon.', false);
-        form.reset();
-      }catch(err){
-        console.error(err);
-        setStatus('Failed to submit. Please try again or email support directly.', true);
-      }finally{
-        submitBtn.disabled = false; submitBtn.textContent = 'Send request';
+
+        const res = await r.json();
+        
+        if(res.ok) {
+          msg.textContent = '';
+          result.innerHTML = `
+            <div class="success" style="color:#28a745;font-weight:600">✅ Ticket Created!</div>
+            <div style="margin-top:8px">
+              <strong>ID:</strong> ${res.callId}<br>
+              <strong>Type:</strong> ${data.type}
+            </div>
+          `;
+          result.style.display = 'block';
+          e.target.reset();
+        } else {
+          throw new Error(res.error);
+        }
+      } catch(err) {
+        msg.textContent = '';
+        result.innerHTML = `<div class="error" style="color:#dc3545;font-weight:600">❌ ${err.message}</div>`;
+        result.style.display = 'block';
+      } finally {
+        btn.disabled = false;
       }
     });
-  })();
-</script>
+  </script>
 </body>
 </html>
