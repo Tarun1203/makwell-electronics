@@ -41,7 +41,7 @@
   },
   {
     "id": "tv-55web",
-    "title": "55\" WebOS TV",
+    "title": "55\" Google TV",
     "category": "Televisions",
     "series": "webOS",
     "tags": ["4K UHD", "AI Processor", "Voice Keypad"],
@@ -51,7 +51,7 @@
   },
   {
     "id": "tv-65web",
-    "title": "65\" WebOS TV",
+    "title": "65\" Google TV",
     "category": "Televisions",
     "series": "webOS",
     "tags": ["Ultra HD 4K", "ThinQ AI", "HDR10+"],
