@@ -16,7 +16,7 @@
     "series": "Android",
     "tags": ["HD Ready", "Smart TV", "Voice Remote"],
     "specs": ["1GB RAM", "8GB ROM", "WiFi", "Bluetooth"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK32",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK32.png",
     "badges": ["Hot Deal", "Popular"]
   },
   {
@@ -26,7 +26,7 @@
     "series": "webOS",
     "tags": ["Full HD", "Voice Control", "Smart"],
     "specs": ["1GB RAM", "8GB ROM", "Magic Remote"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK43",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK43.png",
     "badges": ["New Arrival"]
   },
   {
@@ -36,7 +36,7 @@
     "series": "Google",
     "tags": ["4K UHD", "Chromecast Built-in"],
     "specs": ["2GB RAM", "16GB ROM", "HDR10", "Dolby Audio"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK50",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK50.png",
     "badges": ["Smart Pick"]
   },
   {
@@ -46,7 +46,7 @@
     "series": "webOS",
     "tags": ["4K UHD", "AI Processor", "Voice Keypad"],
     "specs": ["1GB RAM", "8GB ROM", "Wide Viewing Angle"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK55",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK55.png",
     "badges": ["Premium"]
   },
   {
@@ -56,7 +56,7 @@
     "series": "webOS",
     "tags": ["Ultra HD 4K", "ThinQ AI", "HDR10+"],
     "specs": ["2GB RAM", "16GB ROM", "Dolby Vision"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK65",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MK65.png",
     "badges": ["Flagship", "5 Year Warranty"]
   },
   {
@@ -66,7 +66,7 @@
     "series": "SAWM",
     "tags": ["Toughened Glass", "ABS Body"],
     "specs": ["135W Motor", "2 Programs", "Heavy Pulsator", "Buzzer"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM7",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM7.jpg",
     "badges": ["Compact", "Reliable"]
   },
   {
@@ -76,7 +76,7 @@
     "series": "SAWM",
     "tags": ["Toughened Glass", "ABS Body", "Rust Proof"],
     "specs": ["185W Motor", "Diamond Drum", "Lint Filter", "Buzzer"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM9",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM9.jpg",
     "badges": ["Top Rated"]
   },
   {
@@ -86,7 +86,7 @@
     "series": "SAWM",
     "tags": ["Heavy Duty", "Large Capacity", "ABS Body"],
     "specs": ["200W Motor", "2 Programs", "Heavy Pulsator", "Buzzer"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM11",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSSAWM11.jpg",
     "badges": ["Heavy Load"]
   },
   {
@@ -96,7 +96,7 @@
     "series": "Stabilizer",
     "tags": ["500 VA", "Automatic Cut-off", "Surge Protection"],
     "specs": ["Wall Mount", "LED Indicator"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZREF",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZREF.jpg",
     "badges": ["Energy Saver"]
   },
   {
@@ -106,7 +106,7 @@
     "series": "Stabilizer",
     "tags": ["LED TV", "Smart", "5 Year Warranty"],
     "specs": ["High Voltage Cut-off", "Copper Winding"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZSMT",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZSMT.jpg",
     "badges": ["Smart Protection"]
   },
   {
@@ -116,7 +116,7 @@
     "series": "Stabilizer",
     "tags": ["Compact", "Automatic Restart"],
     "specs": ["LED Display", "Smart Protection Circuit"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZMINI",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZMINI.jpg",
     "badges": ["Mini Power"]
   }
 ]
