@@ -1,393 +1,287 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact | MakWell — Make it Happen</title>
-  <meta name="description" content="Contact MakWell Electronics for support, sales, and enquiries." />
+  <meta name="description" content="Contact MakWell for product queries, support, warranty, and business enquiries." />
 
-  <!-- Fonts / favicon -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png">
 
-  <!-- CRITICAL: Inline theme + page styles (so fixes are visible immediately) -->
+  <!-- Favicon -->
+  <link rel="icon" href="images/Makwell-logo.png">
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Theme -->
+  <script defer src="theme.js"></script>
+
+  <!-- PAGE-SPECIFIC UPGRADE (ONLY LAYOUT, NO COLORS) -->
   <style>
-    /* Theme variables for light and dark */
-    :root{
-      color-scheme: light;
-      --bg: #fbfcfd;
-      --panel: #ffffff;
-      --muted: #6b7280;
-      --text: #0f1724;
-      --accent: #0ea5a4;
-      --accent-2: #06b6d4;
-      --border: #e6e9ee;
-      --shadow: 0 10px 30px rgba(8,12,20,0.06);
-      --radius: 14px;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #0b1220;
-      --panel: #071022;
-      --muted: #9aa6b2;
-      --text: #e6eef6;
-      --accent: #2dd4bf;
-      --accent-2: #0ea5a4;
-      --border: rgba(255,255,255,0.06);
-      --shadow: 0 10px 30px rgba(0,0,0,0.6);
-      --radius: 14px;
+    /* ---------- HERO GRID (ALIGNMENT FIX) ---------- */
+    .hero {
+      border-bottom: 1px solid var(--border);
+      padding: clamp(48px, 8vw, 96px) 0;
+      background: var(--bg);
     }
 
-    /* Base layout */
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
-    a{color:inherit}
-    .container{max-width:1100px;margin:0 auto;padding:0 18px}
-
-    /* header */
-    header.site nav{display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid var(--border)}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
-    .brand img{width:36px;height:36px;border-radius:8px;object-fit:contain}
-    .navlinks{margin-left:auto;display:flex;gap:8px;align-items:center}
-    .navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600}
-    .navlinks a.active{background:color-mix(in srgb,var(--accent) 10%, transparent);color:var(--accent)}
-    .theme-toggle{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer}
-
-    /* HERO: fix alignment & clipping */
-    .hero{
-      position:relative;
-      overflow:visible;           /* allow gentle overflow where needed */
-      text-align:center;
-      padding:56px 16px 28px;
-      border-bottom:1px solid var(--border);
-      background:var(--bg);
-      /* If you want the faint abstract artwork, load it as an absolutely positioned image instead of background-image.
-         That gives more control over alignment across viewports. We'll include a decorative img positioned to the right. */
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 32px;
     }
 
-    /* Decorative artwork: positioned element that scales and stays anchored to the right */
-    .hero .artwork{
-      position:absolute;
-      right:0;
-      top:0;
-      bottom:0;
-      width:48%;
-      max-width:760px;
-      pointer-events:none;
-      display:block;
-      opacity:0.18;
-      transform:translateX(18px); /* slight nudge so it isn't flush to the edge */
-      object-fit:cover;
-      filter: blur(0px);
-    }
-    @media (max-width:1100px){
-      .hero .artwork{ width:40%; opacity:0.14; transform:translateX(8px); }
-    }
-    @media (max-width:720px){
-      .hero .artwork{ display:none; } /* hide on small screens to avoid clipping */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
     }
 
-    .hero .logo{width:86px;height:86px;border-radius:18px;border:1px solid var(--border);display:grid;place-items:center;margin:0 auto 12px;background:var(--panel);box-shadow:var(--shadow)}
-    .hero h1{margin:8px 0 6px;font-size:clamp(22px,3.4vw,34px);line-height:1.05}
-    .hero p{margin:0 auto;color:var(--muted);max-width:820px}
-    .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-    .badge{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:transparent;font-weight:700;font-size:13px;color:var(--muted)}
-
-    /* form & layout */
-    main.container{margin-top:22px;margin-bottom:40px}
-    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
-    @media (max-width:980px){.contact-grid{grid-template-columns:1fr;padding:0 12px}}
-    .card{background:var(--panel);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow)}
-    .card h3{margin:0 0 10px}
-    .muted{color:var(--muted)}
-    label{display:block;margin-top:10px;font-weight:600;color:var(--muted);font-size:13px}
-
-    input, textarea, select{
-      width:100%;
-      padding:12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      margin-top:6px;
-      background:linear-gradient(180deg, color-mix(in srgb,var(--panel) 98%, transparent), var(--panel));
-      color:var(--text);
-      font-size:14px;
+    .hero-content .logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
     }
-    .row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:480px){.row-2{grid-template-columns:1fr}}
-    .form .form-actions{display:flex;gap:12px;align-items:center;margin-top:14px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid var(--border);color:var(--muted);font-weight:700}
-    .status{font-size:14px;color:var(--muted)}
-    .status.success{color:#4ade80}
-    .status.error{color:#fb7185}
-    .honeypot{position:absolute;left:-9999px;opacity:0;height:1px;width:1px}
 
-    footer.site{margin-top:18px;padding:28px 10px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:14px}
+    .hero-content h1 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 36px);
+    }
 
-    input:focus,textarea:focus,select:focus,button:focus{outline:3px solid color-mix(in srgb,var(--accent) 16%, transparent);outline-offset:3px}
+    .hero-content p {
+      max-width: 520px;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      max-width: 520px;
+      margin-left: auto;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .hero-banner img {
+        margin: 24px auto 0;
+      }
+    }
+
+    /* ---------- PAGE LAYOUT ---------- */
+    .contact-section {
+      padding: 48px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- FORM UPGRADE ---------- */
+    .card.primary {
+      box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .status.success { color: #16a34a; }
+    .status.error { color: #dc2626; }
+
+    .honeypot {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
   </style>
 </head>
+
 <body>
-  <header class="site container" aria-label="Top">
-    <nav style="display:flex;align-items:center">
-      <a class="brand" href="index.html" aria-label="MakWell Home">
-        <img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell" />
-        <span style="display:inline-block;margin-left:8px"><strong>MAKWELL</strong><div style="font-size:12px;color:var(--muted)">MAKE IT HAPPEN</div></span>
-      </a>
 
-      <div class="navlinks" role="navigation" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a class="active" href="contact.html">Contact</a>
-        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌓</button>
-      </div>
-    </nav>
-  </header>
-
-  <section class="hero" role="region" aria-labelledby="contact-hero">
-    <!-- decorative artwork image. Using <img> rather than background-image for precise alignment/cover control -->
-    <img class="artwork" src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/hero-artwork.png" alt="" aria-hidden="true" />
-
-    <div class="logo"><img src="https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/Makwell-logo.png" alt="MakWell logo" /></div>
-    <h1 id="contact-hero">Contact Us</h1>
-    <p class="muted">Get in touch with us for queries, support, or business inquiries. We'll respond within 24 hours.</p>
-  </section>
-
-  <main class="container" role="main" aria-label="Contact">
-    <div class="contact-grid">
+<!-- ================= HEADER ================= -->
+<header class="site container">
+  <nav>
+    <a class="brand" href="index.html">
+      <img src="images/Makwell-logo.png" alt="MakWell">
       <div>
-        <article class="card" aria-labelledby="form-title">
-          <h3 id="form-title">Send us a Message</h3>
-
-          <form id="supportForm" class="form" autocomplete="off" novalidate>
-            <input type="text" name="hp_field" id="hp_field" class="honeypot" tabindex="-1" autocomplete="off" />
-
-            <div class="row-2">
-              <div>
-                <label for="firstName">First Name *</label>
-                <input id="firstName" name="firstName" type="text" required />
-              </div>
-              <div>
-                <label for="lastName">Last Name *</label>
-                <input id="lastName" name="lastName" type="text" required />
-              </div>
-            </div>
-
-            <label for="email">Email Address *</label>
-            <input id="email" name="email" type="email" required />
-
-            <label for="phone">Phone Number *</label>
-            <input id="phone" name="phone" type="tel" required />
-
-            <label for="subject">Subject *</label>
-            <select id="subject" name="subject" required>
-              <option value="" disabled selected>Loading subjects…</option>
-            </select>
-
-            <label for="product">Product of Interest (Optional)</label>
-            <select id="product" name="product">
-              <option value="" disabled selected>Loading products…</option>
-            </select>
-
-            <label for="message">Message *</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-
-            <label style="margin-top:10px;display:flex;gap:8px;align-items:center;font-weight:600">
-              <input id="newsletter" name="newsletter" type="checkbox" style="width:16px;height:16px" />
-              I would like to receive updates about new products and offers
-            </label>
-
-            <div class="form-actions">
-              <button id="submitBtn" type="submit" class="btn">Send Message</button>
-              <button id="clearBtn" type="button" class="btn secondary">Clear Form</button>
-              <div id="formStatus" role="status" aria-live="polite" class="status"></div>
-            </div>
-          </form>
-        </article>
-
-        <article class="card" style="margin-top:14px">
-          <h4 style="margin:0 0 8px">Business Hours</h4>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div class="muted"><strong>Mon-Fri:</strong> 9:00 AM - 6:00 PM</div>
-            <div class="muted"><strong>Sat:</strong> 9:00 AM - 4:00 PM</div>
-            <div class="muted"><strong>Sun:</strong> Closed</div>
-          </div>
-        </article>
+        <strong>MAKWELL</strong>
+        <div class="muted">MAKE IT HAPPEN</div>
       </div>
+    </a>
 
-      <aside class="aside" aria-label="Support info">
-        <article class="card">
-          <h3 style="margin:0 0 8px">Email Us</h3>
-          <p class="muted">makwellindia456@gmail.com</p>
-
-          <h3 style="margin-top:12px;margin-bottom:6px">WhatsApp Support</h3>
-          <div style="margin-bottom:6px"><a href="https://wa.me/919980000515" target="_blank" rel="noopener noreferrer">+91 99800 00515</a> — Customer Care</div>
-
-          <h3 style="margin-top:12px;margin-bottom:6px">Call Us</h3>
-          <div style="margin-bottom:6px">+91 99800 00515</div>
-
-          <h3 style="margin-top:12px;margin-bottom:6px">Visit Us</h3>
-          <div>PUSHPAK ENTERPRISES<br/>Hubli - 580031, Karnataka, India</div>
-
-          <div style="margin-top:12px">
-            <a class="btn" href="tel:+919980000515">Call Support</a>
-          </div>
-        </article>
-
-        <article class="card" style="margin-top:14px;text-align:center">
-          <h4 style="margin:0 0 6px">Customer Support</h4>
-          <p class="muted" style="margin:0 0 8px">Product info, troubleshooting, warranty claims, installation, and feedback.</p>
-        </article>
-      </aside>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a class="active" href="contact.html">Contact</a>
+      <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌓</button>
     </div>
-  </main>
+  </nav>
+</header>
 
-  <footer class="site container">
-    © <span id="year"></span> MAKWELL - PUSHPAK ENTERPRISES. All rights reserved.
-  </footer>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-inner">
 
-  <!-- Theme + form JS -->
-  <script>
-    // Theme bootstrapper: read preference, set data-theme, and hook toggle button.
-    (function(){
-      const html = document.documentElement;
-      const stored = localStorage.getItem('makwell_theme'); // 'light'|'dark'
-      function applyTheme(t){
-        if(t==='dark'){ html.setAttribute('data-theme','dark'); }
-        else { html.removeAttribute('data-theme'); }
-      }
-      // If user has a stored pref use it; else prefer OS setting
-      if(stored){
-        applyTheme(stored);
-      } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-        applyTheme('dark');
-      } else {
-        applyTheme('light');
-      }
+    <div class="hero-content">
+      <div class="logo">
+        <img src="images/Makwell-logo.png" alt="MakWell" width="56">
+      </div>
+      <h1>Contact Us</h1>
+      <p class="muted">
+        Tell us how we can help. Product enquiries, service requests,
+        warranty claims, or business discussions — we’re here.
+      </p>
+    </div>
 
-      // toggle button
-      const btn = document.getElementById('themeToggle');
-      btn.addEventListener('click', function(){
-        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        const next = current === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('makwell_theme', next);
-        // update button icon text for quick feedback
-        btn.textContent = next === 'dark' ? '☀️' : '🌓';
-      });
+    <div class="hero-banner">
+      <img src="images/makwell-banner.png" alt="MakWell Banner">
+    </div>
 
-      // init button symbol
-      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌓';
-    })();
+  </div>
+</section>
 
-    // Form logic (populate dropdowns + submit) — simplified and robust fallback
-    (function(){
-      const endpoint = 'https://script.google.com/macros/s/AKfycbzfIbaBTZ4rEJW5nHCeVwME0WiykN66FQZmwVUEpTt9Q1ss9tuLREv-LTjM-vBSHAFi/exec';
-      const form = document.getElementById('supportForm');
-      const submitBtn = document.getElementById('submitBtn');
-      const clearBtn = document.getElementById('clearBtn');
-      const statusEl = document.getElementById('formStatus');
-      const subjectSelect = document.getElementById('subject');
-      const productSelect = document.getElementById('product');
+<!-- ================= CONTACT ================= -->
+<section class="contact-section container">
+  <div class="contact-grid">
 
-      const FALLBACK = {
-        subjects: ["Product Inquiry","Technical Support","Warranty Claim","Business Inquiry","Feedback","Other"],
-        products: ["MW-TV-32X","MW-TV-43UHD","SAWM-7KG","SAWM-9KG","LED-Stabilizer-500VA"]
-      };
+    <!-- FORM -->
+    <div class="card primary">
+      <h3>Tell us how we can help</h3>
 
-      function setStatus(msg, type=''){
-        statusEl.textContent = msg;
-        statusEl.className = 'status' + (type ? ' ' + type : '');
-      }
+      <form id="contactForm" autocomplete="off">
+        <input type="text" class="honeypot" name="company">
 
-      function populateSelect(selectEl, items, placeholder='Select'){
-        selectEl.innerHTML = '';
-        const ph = document.createElement('option');
-        ph.value = '';
-        ph.disabled = true;
-        ph.selected = true;
-        ph.textContent = placeholder;
-        selectEl.appendChild(ph);
-        items.forEach(i => {
-          if(!i) return;
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = i;
-          selectEl.appendChild(opt);
-        });
-      }
+        <div class="row-2">
+          <div>
+            <label>First Name *</label>
+            <input name="firstName" required>
+          </div>
+          <div>
+            <label>Last Name *</label>
+            <input name="lastName" required>
+          </div>
+        </div>
 
-      async function loadLists(){
-        try{
-          const r = await fetch(endpoint + '?action=getLists', { method:'GET', mode:'cors' });
-          if(!r.ok) throw new Error('lists fetch failed');
-          const lists = await r.json();
-          const subjects = lists.Subjects || lists.subjects || lists.Subject || lists.subject || FALLBACK.subjects;
-          const products = lists.Product_Model || lists.Products || lists.products || lists.product_models || FALLBACK.products;
-          populateSelect(subjectSelect, subjects, 'Select a subject');
-          populateSelect(productSelect, products, 'Select a product (optional)');
-        }catch(e){
-          populateSelect(subjectSelect, FALLBACK.subjects, 'Select a subject');
-          populateSelect(productSelect, FALLBACK.products, 'Select a product (optional)');
-        }
-      }
+        <label>Email *</label>
+        <input type="email" name="email" required>
 
-      function validate(){
-        if(!form.firstName.value.trim()){ setStatus('Please enter first name','error'); form.firstName.focus(); return false; }
-        if(!form.lastName.value.trim()){ setStatus('Please enter last name','error'); form.lastName.focus(); return false; }
-        const email = form.email.value.trim();
-        if(!email || !email.includes('@')){ setStatus('Please enter a valid email','error'); form.email.focus(); return false; }
-        if(!form.phone.value.trim()){ setStatus('Please enter phone','error'); form.phone.focus(); return false; }
-        if(!form.subject.value){ setStatus('Please select a subject','error'); form.subject.focus(); return false; }
-        if(!form.message.value.trim()){ setStatus('Please write a message','error'); form.message.focus(); return false; }
-        return true;
-      }
+        <label>Phone *</label>
+        <input type="tel" name="phone" required>
 
-      form.addEventListener('submit', async function(e){
-        e.preventDefault();
-        if(document.getElementById('hp_field').value) return;
-        setStatus('');
-        if(!validate()) return;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-        setStatus('Sending request...');
-        const data = Object.fromEntries(new FormData(form));
-        const payload = new URLSearchParams();
-        payload.append('Timestamp', new Date().toISOString());
-        payload.append('FirstName', data.firstName || '');
-        payload.append('LastName', data.lastName || '');
-        payload.append('Email', data.email || '');
-        payload.append('Phone', data.phone || '');
-        payload.append('Subject', data.subject || '');
-        payload.append('Product', data.product || '');
-        payload.append('Message', data.message || '');
-        payload.append('Newsletter', data.newsletter ? 'Yes' : 'No');
+        <label>Subject *</label>
+        <select name="subject" required>
+          <option value="">Select subject</option>
+          <option>Product Inquiry</option>
+          <option>Technical Support</option>
+          <option>Warranty Claim</option>
+          <option>Business Inquiry</option>
+          <option>Feedback</option>
+        </select>
 
-        try{
-          const resp = await fetch(endpoint, { method:'POST', mode:'cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:payload.toString() });
-          const text = await resp.text();
-          if(!resp.ok) throw new Error(text||'Submission failed');
-          setStatus('Message Sent — we will get back within 24 hours.','success');
-          form.reset();
-        }catch(err){
-          console.error(err);
-          setStatus('Submission failed. Please try again or email makwellindia456@gmail.com','error');
-        }finally{
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Message';
-        }
-      });
+        <label>Message *</label>
+        <textarea name="message" required></textarea>
 
-      clearBtn.addEventListener('click', function(){ form.reset(); setStatus(''); });
+        <div class="form-actions">
+          <button class="btn" type="submit">Send Message</button>
+          <span class="status" id="formStatus"></span>
+        </div>
+      </form>
+    </div>
 
-      // Initialize
-      loadLists();
-    })();
+    <!-- INFO -->
+    <div class="card">
+      <h3>Reach us directly</h3>
 
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+      <p class="muted"><strong>Email:</strong><br>makwellindia456@gmail.com</p>
+      <p class="muted"><strong>Phone / WhatsApp:</strong><br>+91 99800 00515</p>
+
+      <p class="muted">
+        <strong>Address:</strong><br>
+        PUSHPAK ENTERPRISES<br>
+        Hubli – 580031<br>
+        Karnataka, India
+      </p>
+
+      <a class="btn" href="tel:+919980000515">Call Support</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site container">
+  © <span id="year"></span> MakWell — Pushpak Enterprises
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
