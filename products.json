@@ -106,7 +106,7 @@
     "series": "Stabilizer",
     "tags": ["LED TV", "Smart", "5 Year Warranty"],
     "specs": ["High Voltage Cut-off", "Copper Winding"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZSMT.png",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZSMT.jpg",
     "badges": ["Smart Protection"]
   },
   {
@@ -116,7 +116,7 @@
     "series": "Stabilizer",
     "tags": ["Compact", "Automatic Restart"],
     "specs": ["LED Display", "Smart Protection Circuit"],
-    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZMINI.jpg",
+    "image": "https://raw.githubusercontent.com/Tarun1203/makwell-electronics/main/images/MKSTBZSMT.png",
     "badges": ["Mini Power"]
   }
 ]
