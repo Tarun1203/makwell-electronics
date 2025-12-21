@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="theme.js"></script>
 
-  <!-- PAGE CSS -->
   <style>
     /* ---------- CONTAINER ---------- */
     .container {
@@ -36,29 +35,26 @@
         var(--bg);
     }
 
-    /* ---------- SLIDER (FIXED SIZE) ---------- */
+    /* ---------- SLIDER ---------- */
     .slider {
       position: relative;
       overflow: hidden;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
-      max-height: 420px;              /* DESKTOP */
+      max-height: 420px;
     }
-
     .slides {
       display: flex;
       transition: transform .6s ease;
     }
-
     .slide {
       min-width: 100%;
       display: grid;
       place-items: center;
     }
-
     .slide img {
       width: 100%;
-      height: 420px;                  /* LOCKED HEIGHT */
+      height: 420px;
       object-fit: contain;
     }
 
@@ -67,8 +63,8 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--bg);
@@ -95,31 +91,33 @@
       background: var(--panel);
       cursor: pointer;
     }
-    .dot.active {
-      background: var(--primary);
-    }
+    .dot.active { background: var(--primary); }
 
     /* ---------- HERO CONTENT ---------- */
     .hero-inner {
-      padding: 16px 16px 32px;
+      padding: 18px 16px 34px;
       text-align: center;
     }
 
+    /* 🔥 LOGO FIX HERE */
     .hero-logo {
-      width: clamp(200px, 34vw, 320px);
-      height: clamp(200px, 34vw, 320px);
-      margin: 10px auto 12px;
-      border-radius: 22px;
+      width: clamp(280px, 48vw, 460px);   /* BIGGER */
+      height: clamp(280px, 48vw, 460px);
+      margin: 14px auto 16px;
+      border-radius: 28px;
       border: 1px solid var(--border);
-      background: linear-gradient(145deg, var(--bg), var(--primary-soft));
+      background: linear-gradient(
+        145deg,
+        var(--bg),
+        var(--primary-soft)
+      );
       display: grid;
       place-items: center;
       box-shadow: var(--shadow);
     }
-
     .hero-logo img {
-      width: 78%;
-      height: 78%;
+      width: 88%;                         /* MORE FILL */
+      height: 88%;
       object-fit: contain;
     }
 
@@ -128,9 +126,8 @@
       gap: 8px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 12px;
     }
-
     .badge {
       padding: 6px 10px;
       border-radius: 999px;
@@ -142,10 +139,10 @@
 
     .cta {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
     /* ---------- FOOTER ---------- */
@@ -166,7 +163,11 @@
         height: 280px;
       }
       h1 {
-        font-size: 1.9rem;
+        font-size: 1.95rem;
+      }
+      .hero-logo {
+        width: clamp(220px, 70vw, 320px);
+        height: clamp(220px, 70vw, 320px);
       }
     }
   </style>
