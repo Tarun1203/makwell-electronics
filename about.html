@@ -6,12 +6,10 @@
   <title>Contact MakWell • Support & Service</title>
   <meta name="description" content="Contact MakWell for installation, warranty service, after-sales support, and dealership enquiries." />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Global CSS -->
   <link rel="stylesheet" href="styles.css">
   <script defer src="theme.js"></script>
 
@@ -29,7 +27,7 @@
 
     h1, h2 {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     p {
@@ -39,16 +37,15 @@
       margin: 0 auto 18px;
     }
 
-    /* ---------- FORM CARD ---------- */
+    /* ---------- FORM ---------- */
     .form-card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 24px;
+      padding: 22px;
       box-shadow: var(--shadow);
       max-width: 640px;
       margin: auto;
-      overflow: visible; /* IMPORTANT */
     }
 
     label {
@@ -56,12 +53,11 @@
       font-weight: 600;
       margin-bottom: 6px;
       font-size: 14px;
-      color: var(--text);
     }
 
     input, textarea, select {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-bottom: 14px;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -75,23 +71,15 @@
       min-height: 120px;
     }
 
-    /* ---------- SUBMIT BUTTON (FIXED) ---------- */
     .btn-submit {
       width: 100%;
-      padding: 14px 18px;
+      padding: 12px;
       border-radius: 999px;
       border: none;
       background: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 12px;
-      display: inline-block;
-    }
-
-    .btn-submit:hover {
-      opacity: 0.95;
     }
 
     /* ---------- INFO GRID ---------- */
@@ -119,13 +107,6 @@
     .cta {
       text-align: center;
       margin-top: 24px;
-    }
-
-    @media (max-width: 640px) {
-      .btn-submit {
-        position: relative;
-        z-index: 2;
-      }
     }
   </style>
 </head>
@@ -180,9 +161,7 @@
         <label>Message *</label>
         <textarea required></textarea>
 
-        <button type="submit" class="btn-submit">
-          Submit Enquiry
-        </button>
+        <button class="btn-submit" type="submit">Submit Enquiry</button>
       </form>
     </div>
   </div>
@@ -235,7 +214,7 @@
         <label>Issue / Installation Details *</label>
         <textarea placeholder="Describe the issue or installation request" required></textarea>
 
-        <button type="submit" class="btn-submit">
+        <button class="btn-submit" type="submit">
           Submit Service Request
         </button>
 
@@ -276,7 +255,7 @@
     <h2>Dealer & Business Enquiries</h2>
     <p>
       Interested in partnering with MakWell? We support dealers and distributors
-      with stable supply and service backing.
+      with stable supply, service backing, and transparent policies.
     </p>
 
     <div class="cta">
