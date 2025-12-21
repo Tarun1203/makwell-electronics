@@ -10,17 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Global CSS (can be broken, we override below) -->
+  <!-- Global styles -->
   <link rel="stylesheet" href="styles.css">
   <script defer src="theme.js"></script>
 
-  <!-- ================= HARD OVERRIDES ================= -->
+  <!-- Page-safe overrides -->
   <style>
-    /* ---------- Layout ---------- */
-    body {
-      font-family: Inter, system-ui, sans-serif;
-    }
-
     .container {
       max-width: 1100px;
       margin: 0 auto;
@@ -51,7 +46,6 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       box-shadow: var(--shadow);
-      overflow: visible;
     }
 
     .tab-buttons {
@@ -61,17 +55,15 @@
       background: var(--bg);
     }
 
-    .tab-buttons button {
-      all: revert;
+    .tab-buttons div {
       padding: 14px;
       font-weight: 700;
-      background: transparent;
-      border: none;
+      text-align: center;
       cursor: pointer;
       color: var(--muted);
     }
 
-    .tab-buttons button.active {
+    .tab-buttons .active {
       color: var(--primary);
       background: var(--panel);
     }
@@ -109,24 +101,22 @@
       resize: vertical;
     }
 
-    /* ---------- 🔥 FORCE SUBMIT BUTTON ---------- */
-    button.btn-submit {
-      all: revert !important;
-      display: block !important;
-      width: 100% !important;
-      padding: 14px !important;
-      margin-top: 16px !important;
-      border-radius: 999px !important;
-      background: var(--primary) !important;
-      color: #ffffff !important;
-      font-weight: 700 !important;
-      font-size: 0.95rem !important;
-      border: none !important;
-      cursor: pointer !important;
-      text-align: center !important;
+    /* ---------- SUBMIT (NO BUTTON TAG) ---------- */
+    input[type="submit"].btn-submit {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
     }
 
-    /* ---------- Info Cards ---------- */
+    /* ---------- Info ---------- */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -179,8 +169,8 @@
 
     <div class="tabs">
       <div class="tab-buttons">
-        <button class="active" onclick="openTab(event,'enquiry')">General Enquiry</button>
-        <button onclick="openTab(event,'service')">Service Request</button>
+        <div class="active" onclick="openTab(this,'enquiry')">General Enquiry</div>
+        <div onclick="openTab(this,'service')">Service Request</div>
       </div>
 
       <!-- Enquiry -->
@@ -198,7 +188,7 @@
           <label>Message *</label>
           <textarea required></textarea>
 
-          <button type="submit" class="btn-submit">Submit Enquiry</button>
+          <input type="submit" value="Submit Enquiry" class="btn-submit">
         </form>
       </div>
 
@@ -234,7 +224,7 @@
           <label>Issue / Installation Details *</label>
           <textarea required></textarea>
 
-          <button type="submit" class="btn-submit">Submit Service Request</button>
+          <input type="submit" value="Submit Service Request" class="btn-submit">
         </form>
       </div>
     </div>
@@ -263,11 +253,11 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  function openTab(evt, tab) {
+  function openTab(el, tab) {
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-buttons div').forEach(b => b.classList.remove('active'));
     document.getElementById(tab).classList.add('active');
-    evt.currentTarget.classList.add('active');
+    el.classList.add('active');
   }
 </script>
 
