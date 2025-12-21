@@ -28,29 +28,29 @@
       margin-bottom: 8px;
     }
 
-    p.lead {
+    .lead {
       text-align: center;
       color: var(--muted);
       max-width: 720px;
-      margin: 0 auto 28px;
+      margin: 0 auto 32px;
     }
 
-    /* ---------- TABS ---------- */
+    /* ================= TABS ================= */
     .tabs {
-      max-width: 680px;
-      margin: auto;
+      max-width: 720px;
+      margin: 0 auto;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
       box-shadow: var(--shadow);
-      overflow: visible;
+      overflow: visible; /* IMPORTANT FIX */
     }
 
     .tab-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: var(--bg);
       border-bottom: 1px solid var(--border);
+      background: var(--bg);
     }
 
     .tab-buttons button {
@@ -76,7 +76,7 @@
       display: block;
     }
 
-    /* ---------- FORM ---------- */
+    /* ================= FORM ================= */
     label {
       display: block;
       font-weight: 600;
@@ -92,10 +92,11 @@
       border-radius: 8px;
       background: var(--bg);
       color: var(--text);
+      font-size: 0.95rem;
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 120px;
       resize: vertical;
     }
 
@@ -105,18 +106,18 @@
       border-radius: 999px;
       border: none;
       background: var(--primary);
-      color: white;
+      color: #fff;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 16px;
     }
 
-    /* ---------- INFO GRID ---------- */
+    /* ================= INFO ================= */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
-      margin-top: 40px;
+      margin-top: 48px;
     }
 
     .info-card {
@@ -159,17 +160,19 @@
   <div class="container">
     <h1>Contact & Support</h1>
     <p class="lead">
-      Reach MakWell for enquiries, installation requests, and after-sales support.
+      Reach MakWell for general enquiries, installation requests,
+      and after-sales service support.
     </p>
 
-    <!-- ===== TABS ===== -->
+    <!-- ================= TABS ================= -->
     <div class="tabs">
+
       <div class="tab-buttons">
-        <button class="active" onclick="openTab('enquiry')">General Enquiry</button>
-        <button onclick="openTab('service')">Service Request</button>
+        <button class="active" onclick="openTab(event,'enquiry')">General Enquiry</button>
+        <button onclick="openTab(event,'service')">Service Request</button>
       </div>
 
-      <!-- ENQUIRY -->
+      <!-- ===== ENQUIRY TAB ===== -->
       <div id="enquiry" class="tab-content active">
         <form>
           <label>Name *</label>
@@ -188,76 +191,4 @@
         </form>
       </div>
 
-      <!-- SERVICE -->
-      <div id="service" class="tab-content">
-        <form>
-          <label>Service Type *</label>
-          <select required>
-            <option value="">Select</option>
-            <option>Installation</option>
-            <option>In-Warranty Service</option>
-            <option>Out-of-Warranty (Paid)</option>
-          </select>
-
-          <label>Product *</label>
-          <select required>
-            <option value="">Select product</option>
-            <option>Television</option>
-            <option>Washing Machine</option>
-            <option>Stabilizer</option>
-            <option>Dry Iron</option>
-          </select>
-
-          <label>Model Number *</label>
-          <input type="text" required>
-
-          <label>Phone / WhatsApp *</label>
-          <input type="tel" required>
-
-          <label>Address *</label>
-          <textarea required></textarea>
-
-          <label>Issue / Installation Details *</label>
-          <textarea required></textarea>
-
-          <button class="btn-submit">Submit Service Request</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- INFO -->
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>Email</h3>
-        <p>makwellindia456@gmail.com</p>
-      </div>
-      <div class="info-card">
-        <h3>Phone / WhatsApp</h3>
-        <p>+91 99800 00515</p>
-      </div>
-      <div class="info-card">
-        <h3>Address</h3>
-        <p>Pushpak Enterprises<br>Hubli, Karnataka</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<footer class="site" style="text-align:center;padding:28px 10px">
-  © <span id="year"></span> MakWell — Make it Happen
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  function openTab(tab) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
-    document.getElementById(tab).classList.add('active');
-    event.target.classList.add('active');
-  }
-</script>
-
-</body>
-</html>
+      <!-- ===== SERVICE
