@@ -1,60 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MakWell – Contact & Service Request</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact | MakWell — Make it Happen</title>
 
-<link rel="stylesheet" href="styles.css">
+  <!-- Fonts & Global Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-.container{max-width:900px;margin:auto;padding:40px 16px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
-h1{text-align:center;margin-bottom:8px}
-p{text-align:center;color:var(--muted);margin-bottom:24px}
+  <link rel="icon" href="images/Makwell-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="theme.js"></script>
 
-label{font-weight:600;margin-bottom:6px;display:block}
-input,select,textarea{
-  width:100%;padding:12px;margin-bottom:14px;
-  border:1px solid var(--border);border-radius:8px;
-  background:var(--bg);color:var(--text)
-}
-textarea{min-height:110px}
-small{color:var(--muted)}
+  <!-- Page-only styles (SAFE) -->
+  <style>
+    .form-card{
+      max-width:720px;
+      margin:0 auto;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
 
-input[type=submit]{
-  width:100%;padding:16px;margin-top:10px;
-  border-radius:999px;background:var(--primary);
-  color:#fff;font-weight:800;border:none;cursor:pointer
-}
+    .form-card h2{
+      margin:0 0 6px;
+      text-align:center;
+    }
 
-.section-title{
-  margin:28px 0 12px;
-  font-weight:800;color:var(--primary)
-}
+    .form-card p{
+      text-align:center;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
 
-.note{
-  background:color-mix(in oklab,var(--primary) 6%,var(--bg));
-  padding:14px;border-radius:10px;font-size:14px;margin-bottom:18px
-}
-</style>
+    label{
+      font-weight:600;
+      font-size:14px;
+      margin-bottom:6px;
+      display:block;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    textarea{min-height:110px}
+
+    input[type="submit"]{
+      width:100%;
+      padding:16px;
+      border-radius:999px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:800;
+      border:none;
+      cursor:pointer;
+      margin-top:6px;
+    }
+
+    .section-note{
+      background:color-mix(in oklab,var(--primary) 6%,var(--bg));
+      border-radius:12px;
+      padding:14px;
+      font-size:14px;
+      margin-bottom:20px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>Contact & Service Request</h1>
-  <p>Enquiries • Installation • In-Warranty • Out-of-Warranty</p>
+<!-- ===== HEADER (EXISTING SITE) ===== -->
+<header class="site">
+  <nav>
+    <a class="brand" href="index.html">
+      <img src="images/Makwell-logo.png" width="32" height="32" alt="MakWell">
+      <b>MakWell</b> <small class="muted">— Make it Happen</small>
+    </a>
 
-  <div class="card">
-    <div class="note">
-      ⚠️ For faster service, please keep your invoice ready.
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a class="active" href="contact.html">Contact</a>
+      <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()"></button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+<section class="container" style="margin-top:28px;margin-bottom:40px">
+
+  <div class="form-card">
+    <h2>Contact & Service Request</h2>
+    <p>Enquiries • Installation • In-Warranty • Out-of-Warranty</p>
+
+    <div class="section-note">
+      For faster service, please upload your invoice if available.
     </div>
 
-    <form id="contactForm">
-
-      <!-- BASIC INFO -->
-      <div class="section-title">Customer Details</div>
+    <form id="serviceForm">
 
       <label>Name *</label>
       <input type="text" name="name" required>
@@ -65,10 +120,7 @@ input[type=submit]{
       <label>Email</label>
       <input type="email" name="email">
 
-      <!-- SERVICE TYPE -->
-      <div class="section-title">Request Type</div>
-
-      <label>Request *</label>
+      <label>Request Type *</label>
       <select name="requestType" required>
         <option value="">Select</option>
         <option>General Enquiry</option>
@@ -79,86 +131,70 @@ input[type=submit]{
 
       <label>Product *</label>
       <select name="product" required>
-        <option value="">Select product</option>
+        <option value="">Select</option>
         <option>Television</option>
         <option>Washing Machine</option>
         <option>Stabilizer</option>
         <option>Dry Iron</option>
       </select>
 
-      <label>Model Number</label>
-      <input type="text" name="model">
-
-      <!-- CITY ROUTING -->
-      <div class="section-title">Service Location</div>
-
       <label>City *</label>
       <select name="city" required>
-        <option value="">Select city</option>
-        <option value="Hubli">Hubli</option>
-        <option value="Dharwad">Dharwad</option>
-        <option value="Belagavi">Belagavi</option>
-        <option value="Bengaluru">Bengaluru</option>
-        <option value="Other">Other</option>
+        <option value="">Select</option>
+        <option>Hubli</option>
+        <option>Dharwad</option>
+        <option>Belagavi</option>
+        <option>Bengaluru</option>
+        <option>Other</option>
       </select>
 
-      <label>Full Address *</label>
+      <label>Address *</label>
       <textarea name="address" required></textarea>
 
-      <!-- MESSAGE -->
       <label>Issue / Message *</label>
       <textarea name="message" required></textarea>
 
-      <!-- INVOICE UPLOAD -->
-      <div class="section-title">Invoice Upload</div>
-
-      <label>Upload Invoice (JPG / PDF)</label>
+      <label>Invoice (optional)</label>
       <input type="file" name="invoice" accept=".jpg,.jpeg,.png,.pdf">
-      <small>Optional but recommended for warranty service</small>
 
-      <!-- SUBMIT -->
       <input type="submit" value="Submit Request">
     </form>
   </div>
-</div>
+
+</section>
+
+<!-- ===== FOOTER (EXISTING SITE) ===== -->
+<footer class="site" style="text-align:center;padding:32px 10px">
+  © <span id="year"></span> MakWell — Make it Happen
+</footer>
 
 <script>
-const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+document.getElementById('year').textContent = new Date().getFullYear();
 
-document.getElementById("contactForm").addEventListener("submit", async function(e){
+/* WhatsApp + Google Sheet */
+const SCRIPT_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL";
+
+document.getElementById("serviceForm").addEventListener("submit", async e => {
   e.preventDefault();
+  const data = new FormData(e.target);
 
-  const form = e.target;
-  const data = new FormData(form);
+  await fetch(SCRIPT_URL,{method:"POST",body:data});
 
-  /* -------- SEND TO GOOGLE SHEET -------- */
-  await fetch(SCRIPT_URL, {
-    method: "POST",
-    body: data
-  });
-
-  /* -------- CITY-WISE WHATSAPP ROUTING -------- */
   const city = data.get("city");
-  let whatsappNumber = "919980000515"; // default
+  let phone = "919980000515";
+  if(city==="Bengaluru") phone="91XXXXXXXXXX";
 
-  if(city === "Bengaluru") whatsappNumber = "91XXXXXXXXXX";
-  if(city === "Belagavi")  whatsappNumber = "91XXXXXXXXXX";
-
-  const text =
-`New MakWell Request
+  const msg =
+`MakWell Service Request
 Name: ${data.get("name")}
 Phone: ${data.get("phone")}
 Request: ${data.get("requestType")}
 Product: ${data.get("product")}
 City: ${city}`;
 
-  window.open(
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
-    "_blank"
-  );
-
-  alert("Request submitted successfully!");
-  form.reset();
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,"_blank");
+  alert("Request submitted successfully");
+  e.target.reset();
 });
 </script>
 
