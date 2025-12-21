@@ -75,6 +75,22 @@
       font-size:14px;
       margin-bottom:20px;
     }
+
+    /* ===== SUBMIT BUTTON DARK MODE FIX ===== */
+
+/* Default (Light Mode) */
+input[type="submit"]{
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* Dark Mode Override */
+html[data-theme="dark"] input[type="submit"]{
+  background: #2563eb;      /* solid blue */
+  color: #ffffff;
+  border: none;
+}
+
   </style>
 </head>
 
