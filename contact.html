@@ -1,264 +1,165 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact MakWell • Support & Service</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MakWell – Contact & Service Request</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 
-  <!-- Global styles -->
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="theme.js"></script>
+<style>
+.container{max-width:900px;margin:auto;padding:40px 16px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
+h1{text-align:center;margin-bottom:8px}
+p{text-align:center;color:var(--muted);margin-bottom:24px}
 
-  <!-- Page-safe overrides -->
-  <style>
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
+label{font-weight:600;margin-bottom:6px;display:block}
+input,select,textarea{
+  width:100%;padding:12px;margin-bottom:14px;
+  border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--text)
+}
+textarea{min-height:110px}
+small{color:var(--muted)}
 
-    section {
-      padding: 48px 0;
-    }
+input[type=submit]{
+  width:100%;padding:16px;margin-top:10px;
+  border-radius:999px;background:var(--primary);
+  color:#fff;font-weight:800;border:none;cursor:pointer
+}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 8px;
-    }
+.section-title{
+  margin:28px 0 12px;
+  font-weight:800;color:var(--primary)
+}
 
-    .lead {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 32px;
-      color: var(--muted);
-    }
-
-    /* ---------- Tabs ---------- */
-    .tabs {
-      max-width: 720px;
-      margin: 0 auto;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .tab-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
-    }
-
-    .tab-buttons div {
-      padding: 14px;
-      font-weight: 700;
-      text-align: center;
-      cursor: pointer;
-      color: var(--muted);
-    }
-
-    .tab-buttons .active {
-      color: var(--primary);
-      background: var(--panel);
-    }
-
-    .tab-content {
-      padding: 24px;
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* ---------- Form ---------- */
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    /* ---------- SUBMIT (NO BUTTON TAG) ---------- */
-    input[type="submit"].btn-submit {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      margin-top: 16px;
-      border-radius: 999px;
-      background: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* ---------- Info ---------- */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      margin-top: 48px;
-    }
-
-    .info-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .info-card h3 {
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-  </style>
+.note{
+  background:color-mix(in oklab,var(--primary) 6%,var(--bg));
+  padding:14px;border-radius:10px;font-size:14px;margin-bottom:18px
+}
+</style>
 </head>
 
 <body>
 
-<header class="site">
-  <nav class="container">
-    <a class="brand" href="index.html">
-      <img src="images/Makwell-logo.png" width="32" height="32" alt="MakWell">
-      <strong>MakWell</strong>
-      <small class="muted">— Make it Happen</small>
-    </a>
+<div class="container">
+  <h1>Contact & Service Request</h1>
+  <p>Enquiries • Installation • In-Warranty • Out-of-Warranty</p>
 
-    <div class="navlinks">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="about.html">About</a>
-      <a class="active" href="contact.html">Contact</a>
-      <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌓</button>
-    </div>
-  </nav>
-</header>
-
-<section>
-  <div class="container">
-    <h1>Contact & Support</h1>
-    <p class="lead">
-      Reach MakWell for enquiries, installation, and after-sales service.
-    </p>
-
-    <div class="tabs">
-      <div class="tab-buttons">
-        <div class="active" onclick="openTab(this,'enquiry')">General Enquiry</div>
-        <div onclick="openTab(this,'service')">Service Request</div>
-      </div>
-
-      <!-- Enquiry -->
-      <div id="enquiry" class="tab-content active">
-        <form>
-          <label>Name *</label>
-          <input type="text" required>
-
-          <label>Email *</label>
-          <input type="email" required>
-
-          <label>Phone / WhatsApp *</label>
-          <input type="tel" required>
-
-          <label>Message *</label>
-          <textarea required></textarea>
-
-          <input type="submit" value="Submit Enquiry" class="btn-submit">
-        </form>
-      </div>
-
-      <!-- Service -->
-      <div id="service" class="tab-content">
-        <form>
-          <label>Service Type *</label>
-          <select required>
-            <option value="">Select</option>
-            <option>Installation</option>
-            <option>In-Warranty Service</option>
-            <option>Out-of-Warranty (Paid)</option>
-          </select>
-
-          <label>Product *</label>
-          <select required>
-            <option value="">Select product</option>
-            <option>Television</option>
-            <option>Washing Machine</option>
-            <option>Stabilizer</option>
-            <option>Dry Iron</option>
-          </select>
-
-          <label>Model Number *</label>
-          <input type="text" required>
-
-          <label>Phone / WhatsApp *</label>
-          <input type="tel" required>
-
-          <label>Service Address *</label>
-          <textarea required></textarea>
-
-          <label>Issue / Installation Details *</label>
-          <textarea required></textarea>
-
-          <input type="submit" value="Submit Service Request" class="btn-submit">
-        </form>
-      </div>
+  <div class="card">
+    <div class="note">
+      ⚠️ For faster service, please keep your invoice ready.
     </div>
 
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>Email</h3>
-        <p>makwellindia456@gmail.com</p>
-      </div>
-      <div class="info-card">
-        <h3>Phone / WhatsApp</h3>
-        <p>+91 99800 00515</p>
-      </div>
-      <div class="info-card">
-        <h3>Address</h3>
-        <p>Pushpak Enterprises<br>Hubli – 580031<br>Karnataka</p>
-      </div>
-    </div>
+    <form id="contactForm">
+
+      <!-- BASIC INFO -->
+      <div class="section-title">Customer Details</div>
+
+      <label>Name *</label>
+      <input type="text" name="name" required>
+
+      <label>Phone / WhatsApp *</label>
+      <input type="tel" name="phone" required>
+
+      <label>Email</label>
+      <input type="email" name="email">
+
+      <!-- SERVICE TYPE -->
+      <div class="section-title">Request Type</div>
+
+      <label>Request *</label>
+      <select name="requestType" required>
+        <option value="">Select</option>
+        <option>General Enquiry</option>
+        <option>Installation</option>
+        <option>In-Warranty Service</option>
+        <option>Out-of-Warranty (Paid)</option>
+      </select>
+
+      <label>Product *</label>
+      <select name="product" required>
+        <option value="">Select product</option>
+        <option>Television</option>
+        <option>Washing Machine</option>
+        <option>Stabilizer</option>
+        <option>Dry Iron</option>
+      </select>
+
+      <label>Model Number</label>
+      <input type="text" name="model">
+
+      <!-- CITY ROUTING -->
+      <div class="section-title">Service Location</div>
+
+      <label>City *</label>
+      <select name="city" required>
+        <option value="">Select city</option>
+        <option value="Hubli">Hubli</option>
+        <option value="Dharwad">Dharwad</option>
+        <option value="Belagavi">Belagavi</option>
+        <option value="Bengaluru">Bengaluru</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label>Full Address *</label>
+      <textarea name="address" required></textarea>
+
+      <!-- MESSAGE -->
+      <label>Issue / Message *</label>
+      <textarea name="message" required></textarea>
+
+      <!-- INVOICE UPLOAD -->
+      <div class="section-title">Invoice Upload</div>
+
+      <label>Upload Invoice (JPG / PDF)</label>
+      <input type="file" name="invoice" accept=".jpg,.jpeg,.png,.pdf">
+      <small>Optional but recommended for warranty service</small>
+
+      <!-- SUBMIT -->
+      <input type="submit" value="Submit Request">
+    </form>
   </div>
-</section>
-
-<footer class="site" style="text-align:center;padding:28px 10px">
-  © <span id="year"></span> MakWell — Make it Happen
-</footer>
+</div>
 
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
 
-  function openTab(el, tab) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.tab-buttons div').forEach(b => b.classList.remove('active'));
-    document.getElementById(tab).classList.add('active');
-    el.classList.add('active');
-  }
+document.getElementById("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  /* -------- SEND TO GOOGLE SHEET -------- */
+  await fetch(SCRIPT_URL, {
+    method: "POST",
+    body: data
+  });
+
+  /* -------- CITY-WISE WHATSAPP ROUTING -------- */
+  const city = data.get("city");
+  let whatsappNumber = "919980000515"; // default
+
+  if(city === "Bengaluru") whatsappNumber = "91XXXXXXXXXX";
+  if(city === "Belagavi")  whatsappNumber = "91XXXXXXXXXX";
+
+  const text =
+`New MakWell Request
+Name: ${data.get("name")}
+Phone: ${data.get("phone")}
+Request: ${data.get("requestType")}
+Product: ${data.get("product")}
+City: ${city}`;
+
+  window.open(
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
+    "_blank"
+  );
+
+  alert("Request submitted successfully!");
+  form.reset();
+});
 </script>
 
 </body>
